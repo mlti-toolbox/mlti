@@ -5,6 +5,9 @@ classdef InverseWishart
         df    % degrees of freedom (real, scalar > N - 1)
         log_norm_const % stores the log normalizing constant
         DI    % the transpose of the inverse of the Cholesky factor of 'scale', so that DI'*DI = inv(scale)
+        mean
+        mode
+        covar
     end
 
     methods
@@ -29,18 +32,41 @@ classdef InverseWishart
 
             N = obj.N;
             log_multi_gamma = N * (N - 1) * log(pi) / 4 + ...
-                sum(arrayfun(@(j) log(gamma((df + 1 - j)/2)), 1:N));
+                sum(arrayfun(@(j) gammaln((df + 1 - j)/2), 1:N));
 
             obj.log_norm_const = df * log(det(scale)) / 2 ...
                                - df * N * log(2) / 2 ...
                                - log_multi_gamma;
 
-            [~, obj.DI] = iwishrnd(obj.scale,obj.df);
+            obj.mode = scale/(df + obj.N + 1);
+
+            if df >= obj.N
+                [~, obj.DI] = iwishrnd(scale,df);
+            else
+                obj.DI = NaN;
+            end
+
+            if df > obj.N + 1
+                obj.mean = scale / (df - obj.N - 1);
+            else
+                obj.mean = NaN;
+            end
+
+            % Wikipedia and ChatGPT disagree here.  Check the library for Anderson, T. W. (2003).
+            % An Introduction to Multivariate Statistical Analysis (3rd ed.). Wiley.
+            if df > obj.N + 3
+                const = (df - obj.N + 1) / ((df - obj.N) * (df - obj.N - 1)^2 * (df - obj.N - 3));
+                obj.covar = @(i,j,k,l) const * (scale(i,k) * scale(j,l) + scale(i,l) * scale(j,k));
+            else
+                obj.covar = NaN;
+            end
+
+
         end
 
         function log_prob = log_pdf(obj, X)
             if ~(isreal(X) && isequal(X, X') && isequal(size(X,1), obj.N))
-                error("'X' must be a %dx%d real, symmetric matrix.", obj.N, obj.N)
+                error("'X' must be a %dx%d real, symmetric matrix. Got %s", obj.N, obj.N, mat2str(X))
             end
 
             [~, p] = chol(X);

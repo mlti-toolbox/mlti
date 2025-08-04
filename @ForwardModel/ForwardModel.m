@@ -175,6 +175,7 @@ classdef ForwardModel
             plot_type = 'imagesc';
             x_units = 'micron';
             phi_units = 'rad';
+            plot_probe = true;
 
             for k = 1:2:length(varargin)
                 switch lower(varargin{k})
@@ -186,19 +187,24 @@ classdef ForwardModel
                         phi_units = varargin{k+1};
                     case 'phase_units'
                         phi_units = varargin{k+1};
+                    case 'plot_probe'
+                        plot_probe = varargin{k+1};
                     otherwise
                         error('Unsupported name-value pair: %s - %s', varargin{k}, varargin{k+1})
                 end
             end
 
             x_plt = obj.x;
+            x_probe_plt = obj.x_probe;
             
             if ismember(x_units, {'micron', 'um', 'micrometer'})
                 x_plt = x_plt * 1e6;
+                x_probe_plt = x_probe_plt * 1e6;
                 x_label = "$x$ [micron]";
                 y_label = "$y$ [micron]";
             elseif ismember(x_units, {'mm', 'millimeter'})
                 x_plt = x_plt * 1e3;
+                x_probe_plt = x_probe_plt * 1e3;
                 x_label = "$x$ [mm]";
                 y_label = "$y$ [mm]";
             elseif ismember(x_units, {'m', 'meter'})
@@ -241,6 +247,11 @@ classdef ForwardModel
                 shading interp
             else
                 error("Unsupported 'plot_type': %s", plot_type)
+            end
+
+            if plot_probe
+                hold on
+                scatter(x_probe_plt(:,1), x_probe_plt(:,2), 3, 'k', 'filled')
             end
 
             xlim([min(x_plt),max(x_plt)])
