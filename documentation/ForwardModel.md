@@ -18,6 +18,14 @@ fm = ForwardModel(Name, Value)
 
 ## Examples
 
+```fm = ForwardModel(ift_method="ifft2", x_max=25, x_step=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
+
+```fm = ForwardModel(ift_method='ifft2', x_max=50, x_step=0.1, scale=1e-6, ___)```
+
+```fm = ForwardModel(ift_method='integral2', ___)```
+
+
+
 ## Input Arguments
 
 ### Name-Value Arguments
@@ -89,6 +97,35 @@ fm = ForwardModel(Name, Value)
   If both `x_N` and `x_step` are provided as inputs, `x_step` takes priority.
 
   **Value Options:** positive scalar value
+    
+  **Data Types:** `double`
+
+  <br>
+  
+</details>
+
+<details>
+  <summary><b>
+    <code>scale</code> - input scale factor
+  </b></summary>
+
+  <br>
+
+  The input scale factor defines the units of certain forward model inputs by scaling their base SI units as follows:
+  * $$\left[ h_f \right] = \left[ h_s \right] = \left[ s_x \right] = \left[ s_y \right] = \left[ x_\mathrm{probe} \right] = \mathrm{scale} \cdot \mathrm{m}$$
+  * $$\left[ \alpha_f \right] = \left[ \alpha_s \right] = \left[ u \right] = \left[ v \right] = \left[\frac{1}{ x_\mathrm{probe}} \right] = \frac{1}{\mathrm{scale} \cdot \mathrm{m}}$$
+  * $$\left[C_f\right] = \left[C_s\right] = \frac{\mathrm{W}}{\mathrm{scale} \cdot \mathrm{m}^3 \cdot \mathrm{K}}$$
+  * $$\left[ P \right] = \left[ \mathrm{scale} \cdot \mathrm{W} \right]$$
+  * $$\left[ f_0 \right] = \left[\frac{\mathrm{Hz}}{\mathrm{scale}} \right]$$
+
+  **Example:** If ```scale = 1e-6``` forward model inputs are considered to be in the following units:
+  * $$\left[ h_f \right] = \left[ h_s \right] = \left[ s_x \right] = \left[ s_y \right] = \left[ x_\mathrm{probe} \right] = \mathrm{scale} \cdot \mathrm{m} = 10^{-6} \cdot \mathrm{m} = \mathrm{\upmu m}$$
+  * $$\left[ \alpha_f \right] = \left[ \alpha_s \right] = \left[ u \right] = \left[ v \right] = \left[\frac{1}{ x_\mathrm{probe}} \right] = \frac{1}{\mathrm{scale} \cdot \mathrm{m}} = \frac{1}{10^{-6} \cdot \mathrm{m}} = \frac{1}{\mathrm{\upmu m}}$$
+  * $$\left[C_f\right] = \left[C_s\right] = \frac{\mathrm{W}}{\mathrm{scale} \cdot \mathrm{m}^3 \cdot \mathrm{K}} = \frac{\mathrm{W}}{10^{-6} \cdot \mathrm{m}^3 \cdot \mathrm{K}} = \frac{\mathrm{W}}{\mathrm{cm}^3 \cdot \mathrm{K}}$$
+  * $$\left[ P \right] = \left[ \mathrm{scale} \cdot \mathrm{W} \right] = \left[ 10^{-6} \cdot \mathrm{W} \right] = \left[ \mathrm{\upmu W} \right]$$
+  * $$\left[ f_0 \right] = \left[\frac{\mathrm{Hz}}{\mathrm{scale}} \right] = \left[\frac{\mathrm{Hz}}{10^{-6}} \right] = \left[ 10^6 \cdot \mathrm{Hz} \right] = \left[ \mathrm{MHz} \right]$$
+
+  **Value Options:** 1 (default) | positive scalar value
     
   **Data Types:** `double`
 
