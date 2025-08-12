@@ -3,7 +3,7 @@ Solves the forward model
 
 ## Syntax
 
-[`[phi, A, DC] = fm.solve(M, chi, f0, Theta, x_probe)`](#description)
+[`[phi, A, DC] = fm.solve(M, chi, f0, Theta, x_probe)`](#d1)
 
 
 <a id="d1"></a>
