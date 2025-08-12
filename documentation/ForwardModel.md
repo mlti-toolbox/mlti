@@ -318,6 +318,55 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e
 
 ## Properties
 
+<details>
+  <summary><b>
+    <code>cargs</code> - constructor arguments
+  </b></summary>
+
+  <br>
+
+  Struct of input arguments passed into the constructor.
+    
+  **Data Types:** `struct`
+
+  <br>
+  
+</details>
+
+<details>
+  <summary><b>
+    <code>in_structure</code> - input structure
+  </b></summary>
+
+  <br>
+
+  Specifies the expected input structure for `M`, `Theta`, and `chi` (inputs to `ForwardModel` functions).
+
+  **Data Type:** 1-by-3 cell array, where each element is a string array
+
+  **Example:** 
+
+  <br>
+  
+</details>
+
+<details>
+  <summary><b>
+    <code>in_sizes</code> - input sizes
+  </b></summary>
+
+  <br>
+
+  Specifies the expected input sizes for `M`, `Theta`, and `chi` (inputs to `ForwardModel` functions).
+
+  **Data Type:** 1-by-3 array of positive scalar values
+
+  **Example:** 
+
+  <br>
+  
+</details>
+
 ## Object Functions
 | Function Name | Summary |
 |---------------|---------|
