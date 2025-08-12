@@ -1,34 +1,37 @@
 # ForwardModel
 
-Construct a ```ForwardModel``` object.
-
-## Syntax
-
-```
-fm = ForwardModel(Name, Value)
-```
+Models the surface thermal response due to a harmonic laser heat source
 
 ## Description
 
-```fm = ForwardModel(Name, Value)```
+## Creation
 
----
+### Syntax
 
-```fm = ForwardModel(Name, Value)```
+```matlab
+fm = ForwardModel(Name, Value)
+```
 
-## Examples
+### Description
 
-```fm = ForwardModel(ift_method="ifft2", x_max=25, x_step=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
+`fm = ForwardModel(Name, Value)` creates a forward model object according to specifications provided as name-value arguments.
 
-```fm = ForwardModel(ift_method='ifft2', x_max=50, x_step=0.1, scale=1e-6, ___)```
+### Input (Name-Value) Arguments
 
-```fm = ForwardModel(ift_method='integral2', ___)```
+Specify name–value pairs as `Name1=Value1, ..., NameN=ValueN`, where each `Name` is an argument name and each `Value` is the corresponding value. The order of the pairs does not matter.  
 
+Argument names are validated using [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html), making them **case-insensitive**. You can also use any unique leading substring of the name. For example, the name `'ift'` matches the option `'ift_method'`.
 
+*Before R2021a, separate each name and value with commas and enclose* `Name` *in quotes.*  
 
-## Input Arguments
+**Example:**  
+```matlab
+fm = ForwardModel(ift_method="ifft2", x_max=25, x_step=0.5, scale=1e-6, ...)
+% Equivalent pre-R2021a syntax:
+fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e-6, ...)
+```
 
-### Name-Value Arguments
+#### Options
 
 <details>
   <summary><b>
@@ -42,6 +45,8 @@ fm = ForwardModel(Name, Value)
   However, if greater accuracy is needed, the [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) method may be used instead.
   
   **Value Options:** `'ifft2'` (default) | `'integral2'`
+  
+  Vaue options are validated using [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html).
     
   **Data Types:** `string` | `char`
   
@@ -58,7 +63,7 @@ fm = ForwardModel(Name, Value)
 
   Maximum spatial distance from the pump in the x- and y-directions used in the 2-D inverse fast Fourier transform ([`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html)).
   I.e., the spatial domain for both `x_probe` and `y_probe` will be `[-x_max, x_max]`.
-  Specifying a value for `x_max` is required when `ift_method = 'ifft2'`.
+  Specifying a value for `x_max` is required when `ift_method = "ifft2"`.
 
   **Value Options:** positive scalar value
     
@@ -75,10 +80,14 @@ fm = ForwardModel(Name, Value)
 
   <br>
 
-  Number of descrete spatial steps between `x_pump` and $\pm$`x_max`.
-  I.e., size of the data array will be `2 * x_N + 1`-by-`2 * x_N + 1`.
+  Number of descrete spatial steps between (and including) `-x_max` and `+x_max`.
+  I.e., the signal length.
+  
+  When possible, the value of `x_N` should only have small prime factors as this results in significantly faster execution of the `ifft2` transform.
 
-  **Value Options:** 100 (default) | positive scalar value
+  The value of `x_N` is ignored when `ift_method = "integral2"`.
+
+  **Value Options:** 256 (default) | positive scalar value
     
   **Data Types:** `double`
 
@@ -93,8 +102,11 @@ fm = ForwardModel(Name, Value)
 
   <br>
 
-  Descrete spatial step size between `x_pump` and $\pm$`x_max`.
+  Descrete spatial step size between `-x_max` and `+x_max`.
+  
   If both `x_N` and `x_step` are provided as inputs, `x_step` takes priority.
+
+  The value of `x_step` is ignored when `ift_method = "integral2"`.
 
   **Value Options:** positive scalar value
     
@@ -243,7 +255,7 @@ fm = ForwardModel(Name, Value)
             sin(θ)   cos(θ)     0
               0        0        1    ]
   ```
-  Required when either `film_orient` or `sub_orient` is set to `'euler'`.
+  Only referenced when either `film_orient` or `sub_orient` is set to `'euler'`.
   
   **Value Options:** `'ZYZ'` (default) | `'ZXZ'` | `'ZYX'` | `'ZXY'` | `'YXY'` | `'YZY'` | `'YXZ'` | `'YZX'` | `'XYX'` | `'XZX'` | `'XYZ'` | `'XZY'` |
     
@@ -260,8 +272,7 @@ fm = ForwardModel(Name, Value)
 
   <br>
 
-  When set to `true`, approximates the thickness of the substrate as infinite in the z-direction.
-  Approximating the substrate thickness as infinite is more numerically stable.
+  When set to `true`, approximates the thickness of the substrate as infinite in the z-direction, which is more numerically stable than using a finite substrate thickness.
   
   **Value Options:** 1 (default) | 0
     
@@ -305,6 +316,18 @@ fm = ForwardModel(Name, Value)
   
 </details>
 
-## Output Arguments
+## Properties
+
+## Object Functions
+| Function Name | Summary |
+|---------------|---------|
+| `solve`       | Solves the forward model |
+| `plot`        | Plots the surface thermal response |
+
+
+
+## Examples
+
+```fm = ForwardModel(ift_method="ifft2", x_max=25, x_step=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
