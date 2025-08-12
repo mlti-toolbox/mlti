@@ -316,11 +316,28 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e
   
 </details>
 
+<details>
+  <summary><b>
+    <code>log_args</code> - log arguments
+  </b></summary>
+
+  <br>
+
+  When set to `true`, the solver expects the natural log of thermal conductivity, volumetric heat capacity, optical absorption coefficient, z-direction thickness, pump laser deviation, and power as inputs.
+
+  **Value Options:** 0 (default) | 1
+    
+  **Data Types:** `logical`
+
+  <br>
+  
+</details>
+
 ## Properties
 
 <details>
   <summary><b>
-    <code>cargs</code> - constructor arguments
+    <code>c_args</code> - constructor arguments
   </b></summary>
 
   <br>
