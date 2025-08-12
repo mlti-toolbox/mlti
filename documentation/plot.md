@@ -1,2 +1,14 @@
 # ForwardModel.plot
-Plots the 
+Plots the surface thermal response.
+
+## Syntax
+
+## Description
+
+## Examples
+
+## Input Arguments
+
+## Output Arguments
+
+## See Also
