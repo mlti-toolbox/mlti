@@ -1,4 +1,5 @@
 function phi = plot(fm, M, Theta, chi, f0, varargin)
+% PLOT summary TODO
 
     if mod(length(varargin), 2) == 0 % length(varargin) is even
         x_probe = []; % user called plot(fm, M, Theta, chi, f0, varargin)

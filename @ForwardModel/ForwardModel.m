@@ -1,17 +1,29 @@
 classdef ForwardModel
+    % ForwardModel class description TODO
     properties (SetAccess = private)
+        % c_args - Struct of constructor arguments.
         c_args struct = struct();
+
+        % in_structure - Input structure for ForwardModel functions.
         in_structure cell = cell(1,3);
+
+        % in_sizes - Input sizes for ForwardModel functions.
         in_sizes uint8 = [0,0,0];
+
+        % xu_vects - Nx-by-2 array of spatial and spatial frequency vectors.
         xu_vects (:,2) double
     end
 
     methods
         % CONSTRUCTOR
         function this = ForwardModel(varargin)
-            [this.c_args, this.in_structure, this.in_sizes] = this.validate_constructor_arguments(varargin{:});
+            % ForwardModel constructor description TODO
+            % See also ForwardModel.private.validate_c_args, ForwardModel
+            this.c_args = this.validate_c_args(varargin{:});
             fprintf("ForwardModel object created with the following constructor arguments:\n\n");
             disp(this.c_args);
+
+            [this.in_structure, this.in_sizes, MOchi2input] = this.get_input_structure();
             if isempty(this.in_structure{2})
                 orient_structure = "";
             else
@@ -59,17 +71,6 @@ classdef ForwardModel
         %     Nx = floor(x_max ./ dx) + 1;    % Number of points
         %     xi = x_freq ./ Nx .* (-Nx : Nx-1);  % Frequency vector
         %     [obj.U,obj.V] = meshgrid(xi,xi);  % Frequency matrix
-        % 
-        % 
-        %     if ~(exist("@ForwardModel/T0_hat_finite.m", "file") ...
-        %         && exist("@ForwardModel/T0_hat_infinite.m", "file"))
-        %         sym_solve = true;
-        %     end
-        % 
-        %     if sym_solve
-        %         obj.solve_system_symbolically();
-        %         disp("creating methods")
-        %     end
         end
     end
 
@@ -213,7 +214,7 @@ classdef ForwardModel
                 if isfield(props, 'dx') || isfield(props, 'x_max')
                     x = [];
                 else
-                    error("Must provide either values for 'x_max' or 'dx' when ift_method = 'ifft2'.")
+                    error("Must provide values for either 'x_max' or 'dx' when ift_method = 'ifft2'.")
                 end
             else
                 x = [];
