@@ -26,9 +26,9 @@ Argument names are validated using [`validatestring`](https://www.mathworks.com/
 
 **Example:**  
 ```matlab
-fm = ForwardModel(ift_method="ifft2", x_max=25, x_step=0.5, scale=1e-6, ...)
+fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ...)
 % Equivalent pre-R2021a syntax:
-fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e-6, ...)
+fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, ...)
 ```
 
 #### Options
@@ -43,6 +43,8 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e
   2-D inverse Fourier transform method.
   When possible, the [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method should be used for its computational efficiency.
   However, if greater accuracy is needed, the [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) method may be used instead.
+
+  When `ift_method = "ifft2"`, either `x_max` or `dx` must be provided. `Nx` has a default value, but `x_max` and `dx` do not. At least two of the three (`x_max`, `Nx`, `dx`) must be known to compute the third.
   
   **Value Options:** `'ifft2'` (default) | `'integral2'`
   
@@ -63,7 +65,8 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e
 
   Maximum spatial distance from the pump in the x- and y-directions used in the 2-D inverse fast Fourier transform ([`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html)).
   I.e., the spatial domain for both `x_probe` and `y_probe` will be `[-x_max, x_max]`.
-  Specifying a value for `x_max` is required when `ift_method = "ifft2"`.
+
+  The value of `x_max` is ignored when `ift_method = "integral2"`.
 
   **Value Options:** positive scalar value
     
@@ -75,17 +78,19 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e
 
 <details>
   <summary><b>
-    <code>x_N</code> - number of spatial steps
+    <code>Nx</code> - number of spatial steps
   </b></summary>
 
   <br>
 
-  Number of descrete spatial steps between (and including) `-x_max` and `+x_max`.
-  I.e., the signal length.
+  Number of descrete spatial points to use in the `ifft2` transform.
+  I.e., signal length.
   
-  When possible, the value of `x_N` should only have small prime factors as this results in significantly faster execution of the `ifft2` transform.
+  When possible, the value of `Nx` should only have small prime factors as this results in significantly faster execution of the `ifft2` transform.
 
-  The value of `x_N` is ignored when `ift_method = "integral2"`.
+  The value of `Nx` is ignored when `ift_method = "integral2"`.
+  Furthermore, If all three `x_max`, `Nx`, and `dx` are provided as inputs, `Nx` will be ignored.
+
 
   **Value Options:** 256 (default) | positive scalar value
     
@@ -97,16 +102,14 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e
 
 <details>
   <summary><b>
-    <code>x_step</code> - step size
+    <code>dx</code> - step size
   </b></summary>
 
   <br>
 
-  Descrete spatial step size between `-x_max` and `+x_max`.
+  Descrete spatial step size.
   
-  If both `x_N` and `x_step` are provided as inputs, `x_step` takes priority.
-
-  The value of `x_step` is ignored when `ift_method = "integral2"`.
+  The value of `dx` is ignored when `ift_method = "integral2"`.
 
   **Value Options:** positive scalar value
     
@@ -267,6 +270,36 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e
 
 <details>
   <summary><b>
+    <code>sweep_method</code> - Method for iterating over parameter combinations
+  </b></summary>
+
+  <br>
+
+  Specifies how the forward model iterates over all combinations of
+input parameter sets `M_train`, `O`, `f0`, `x_probe` when computing the
+4-D output array `G(i,j,k,l) = fm.solve(M_train(i,:), O(j,:), chi, f0(k,:), x_probe(l,:))`. This choice affects both memory usage
+and performance.
+
+  **Value Options:**
+  * "broadcast" (default) – Uses singleton expansion to apply
+  `fm.solve(...)` over multi-dimensional parameter arrays without
+  explicitly forming full grids in memory. Saves memory, but may be
+  slower in some cases.
+  * "ndgrid" – Expands all parameter arrays to full $N_\mathrm{train} \times N_\mathrm{pump} \times N_f \times N_\mathrm{prope}$ grids
+  using [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html). Fast for vectorized operations but uses the most
+  memory.
+  * "loop" – Iterates explicitly over all parameter combinations in
+  nested `for` loops. Uses minimal memory but is typically the slowest
+  method.
+    
+  **Data Types:** `string` | `char`
+
+  <br>
+  
+</details>
+
+<details>
+  <summary><b>
     <code>inf_sub_thick</code> - use infinite substrate thickness approximation
   </b></summary>
 
@@ -394,6 +427,6 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'x_step', 0.5, 'scale', 1e
 
 ## Examples
 
-```fm = ForwardModel(ift_method="ifft2", x_max=25, x_step=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
+```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
