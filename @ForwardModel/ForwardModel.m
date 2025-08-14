@@ -8,7 +8,7 @@ classdef ForwardModel
     methods
         % CONSTRUCTOR
         function this = ForwardModel(varargin)
-            [this.c_args, this.in_structure, this.in_sizes] = this.validate_constructor_params(varargin{:});
+            [this.c_args, this.in_structure, this.in_sizes] = this.validate_constructor_arguments(varargin{:});
             fprintf("ForwardModel object created with the following constructor arguments:\n\n");
             disp(this.c_args);
             if isempty(this.in_structure{2})
@@ -82,53 +82,52 @@ classdef ForwardModel
         seq_options = ["ZYZ", "ZXZ", "ZYX", "ZXY", ...
                        "YXY", "YZY", "YXZ", "YZX", ...
                        "XZX", "XYX", "XZY", "XYZ"];
-        
-% VLD - Struct of validation and default specifications for constructor 
-% name-value arguments
-%
-%   VLD defines the validation rules, default values, and cross-validation 
-%   logic for all name-value input arguments of the FORWARDMODEL constructor.
-%
-%   VLD field names are valid constructor argument names.
-%
-%   VLD field values are structs with the following fields:
-%       selfValidate  - Function handle that validates the
-%                       argument value independent of other inputs.
-%                       Throws an error if the input is invalid.
-%       getDefault    - Function handle that takes in a self 
-%                       validated struct of user-input name-value 
-%                       arguments and returns the default value for
-%                       the named constructor argument.
-%                       Throws an error if the user is required to
-%                       provide the argument.       
-%       crossValidate - (Optional) Function handle that takes in
-%                       self-validated and default-populated struct 
-%                       of arguments and validates against the 
-%                       named argument.
-%                       Throws an error if the named argument is inconsisent with
-%                       existing related arguments.
-%                       Throws a warning if the input argument is unneccesary given 
-%                       other related arguments.
-%
-%   Usage Flow (See validate_constructor_params):
-%       1. Validate all user-input argument names using
-%       validatestring(name, fieldnames(VLD))
-%       2. Validate all user-input argument values independent of
-%       other inputs using VLD.name.selfValidate(value)
-%
-%   Behavior:
-%     - Automatically checks that required arguments are provided.
-%     - Throws errors for invalid inputs, missing required inputs, or 
-%       inconsistent pairs of inputs.
-%     - Supports logical, numeric, and string inputs, including string 
-%       arrays for enumerated options.
-%
-%   Example usage (internal to the class):
-%       props = struct(); 
-%       props.ift_method = vld.ift_method.getDefault([]);
-%       vld.x_max.selfValidate(5);        % validates a value
-%       vld.x_max.crossValidate(props);   % cross-validates with other properties
-%   See also FORWARDMODEL validate_constructor_params
+
+        % VLD - Validation and default specifications for ForwardModel constructor
+        %
+        %   VLD is a struct containing function handles that define:
+        %     - Validation rules for each constructor name-value argument.
+        %     - Default value logic for arguments not explicitly provided.
+        %     - Cross-validation rules to ensure argument consistency.
+        %
+        %   Field names of VLD correspond to valid constructor argument names.
+        %
+        %   Each field value of VLD is a struct with the following subfields:
+        %     selfValidate  - Function handle that validates an argument value
+        %                     independent of other inputs. Returns the validated
+        %                     value or throws an error if invalid.
+        %
+        %     getDefault    - Function handle that returns the default value when
+        %                     the argument is not provided. Takes as input a struct
+        %                     of already self-validated user inputs. Throws an 
+        %                     error if the argument is required but missing.
+        %
+        %     crossValidate - (Optional) Function handle that validates an argument
+        %                     in the context of all other arguments (validated and
+        %                     default-populated). Takes as input a struct of 
+        %                     already self-validated and default-populated
+        %                     constructor arguments and either
+        %                       - Returns the cross-validated struct, ignoring and 
+        %                         issuing a warning regarding redundant arguments.
+        %                       - Throws an error if arguments are inconsistent.
+        %
+        %   Example validation flow:
+        %     1. Validate each user-input argument name. E.g., name =
+        %        validatestring(name, fieldnames(VLD)), or 
+        %        mustBeMember(name, fieldnames(VLD))
+        %     2. Validate each user-input argument name. E.g.,
+        %        c_args.name = VLD.name.selfValidate(value)
+        %     3. Populate missing arguments with defaults. E.g.,
+        %        c_args.name = VLD.name.getDefault(c_args)
+        %     4. Perform cross-validation for each name in c_args. E.g.,
+        %        c_args = VLD.name.crossValidate(c_args)
+        %
+        %   Function handle behavior:
+        %     - Enforces presence of required arguments.
+        %     - Rejects invalid or inconsistent inputs.
+        %     - Ignores and warns about redundant inputs.
+        %
+%   See also: ForwardModel.ForwardModel, validate_constructor_params, ForwardModel.c_args, validatestring, mustBeMember  
         vld = struct( ...
             "ift_method", struct( ...
                 "selfValidate", @(x) validatestring(x, ["ifft2", "integral2"]), ...

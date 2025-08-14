@@ -1,4 +1,4 @@
-function [sortedProps, in_structure, in_sizes] = validate_constructor_params(obj, varargin)
+function [sortedProps, in_structure, in_sizes] = validate_c_args(obj, varargin)
     name_options = fieldnames(obj.vld);
     props = struct();
 
