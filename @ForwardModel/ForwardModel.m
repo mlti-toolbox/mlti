@@ -1,75 +1,5 @@
 classdef ForwardModel
-    methods (Static, Access = private)
-        function x = enforcePositive(x)
-            assert(isnumeric(x) && x > 0, "Input value, '" + x + "', is not a positive numeric value.")
-        end
-        function x = enforceLogical(x)
-            assert(islogical(x), "Input value, '" + x + "', is not a logical data type.")
-        end
-        function x = default_x_max(props)
-            if isequal(props.ift_method, "ifft2")
-                error("Argument 'x_max' is required when ift_method = 'ifft2'.")
-            else
-                x = [];
-            end
-        end
-        function x = default_x_N(props)
-            if isequal(props.ift_method, "ifft2") && ~isfield(props, 'x_step')
-                x = 100;
-            else
-                x = [];
-            end
-        end
-        function x = default_orient(props, layer)
-            name = layer + "_isotropy";
-            isotropy = props.(name);
-            if ismember(isotropy, ["simple", "complex"])
-                error("Argument '%s_orient' is required when %s = '%s'", layer, name, isotropy)
-            else
-                x = [];
-            end
-        end
-        function x = default_seq(props)
-            if (isfield(props, 'film_orient') && isequal(props.film_orient, 'euler')) ...
-                || (isfield(props, 'sub_orient') && isequal(props.sub_orient, 'euler'))
-                    x = 'ZYZ';
-            else
-                x = [];
-            end
-        end
-        function props = cross_validate_x(props, name)
-            if isequal(props.ift_method, "integral2")
-                warning("Input, %s = %d, ignored because ift_method = 'integral2'.", name, props.(name))
-                props = rmfield(props, name);
-            end
-            if isequal(name, "x_step") && isfield(props, "x_N")
-                warning("Input, x_N = %d, ignored because 'x_step' was also provided and takes priority.", props.x_N)
-                props = rmfield(props, "x_N");
-            end
-        end
-        function props = cross_validate_orient(props, layer)
-            iso_name = layer + "_isotropy";
-            orient_name = layer + "_orient";
-            isotropy = props.(iso_name);
-            orientation = props.(orient_name);
-            if ismember(isotropy, ["iso", "tensor"])
-                warning("Input, %s = '%s', ignored because %s = '%s'", orient_name, orientation, iso_name, isotropy)
-                props = rmfield(props, orient_name);
-            elseif isequal(isotropy, "complex") && ismember(orientation, ["azpol", "uvect"])
-                error("%s = '%s' may not be used when %s = '%s'.", orient_name, orientation, iso_name, isotropy)
-            end
-        end
-        function props = cross_validate_seq(props)
-            % euler_seq is unnecessary when neither film_orient nor
-            % sub_orient is equal to 'euler'.
-            if ~((isfield(props, 'film_orient') && isequal(props.film_orient, 'euler')) ...
-                || (isfield(props, 'sub_orient') && isequal(props.sub_orient, 'euler')))
-                warning("Input, euler_seq = '%s', ignored because neither film_orient nor sub_orient was set to 'euler'.", props.euler_seq)
-                props = rmfield(props, "euler_seq");
-            end
-        end
-    end
-    properties (Constant)
+    properties (Constant, Access = private)
         iso_options = ["iso", "simple", "complex", "tensor"];
         orient_options = ["azpol", "uvect", "euler", "uquat", "rotmat"];
         seq_options = {'ZYZ', 'ZXZ', 'ZYX', 'ZXY', 'YXY', 'YZY', 'YXZ', 'YZX', 'XYX', 'XZX', 'XYZ', 'XZY'}
@@ -131,40 +61,169 @@ classdef ForwardModel
             "force_sym_solve", struct( ...
                 "selfValidate", @(x) ForwardModel.enforceLogical(x), ...
                 "getDefault", @(~) false ...
+            ), ...
+            "log_args", struct( ...
+                "selfValidate", @(x) ForwardModel.enforceLogical(x), ...
+                "getDefault", @(~) false ...
             ) ...
         );
     end
+    methods (Static, Access = private)
+        function x = enforcePositive(x)
+            assert(isnumeric(x) && x > 0, "Input value, '" + x + "', is not a positive numeric value.")
+        end
+        function x = enforceLogical(x)
+            assert(islogical(x), "Input value, '" + x + "', is not a logical data type.")
+        end
+        function x = default_x_max(props)
+            if isequal(props.ift_method, "ifft2")
+                error("Argument 'x_max' is required when ift_method = 'ifft2'.")
+            else
+                x = [];
+            end
+        end
+        function x = default_x_N(props)
+            if isequal(props.ift_method, "ifft2") && ~isfield(props, 'x_step')
+                x = 256;
+            else
+                x = [];
+            end
+        end
+        function x = default_orient(props, layer)
+            name = layer + "_isotropy";
+            isotropy = props.(name);
+            if ismember(isotropy, ["simple", "complex"])
+                error("Argument '%s_orient' is required when %s = '%s'", layer, name, isotropy)
+            else
+                x = [];
+            end
+        end
+        function x = default_seq(props)
+            if (isfield(props, 'film_orient') && isequal(props.film_orient, 'euler')) ...
+                || (isfield(props, 'sub_orient') && isequal(props.sub_orient, 'euler'))
+                    x = 'ZYZ';
+            else
+                x = [];
+            end
+        end
+        function props = cross_validate_x(props, name)
+            if isequal(props.ift_method, "integral2")
+                warning("Input, %s = %d, ignored because ift_method = 'integral2'.", name, props.(name))
+                props = rmfield(props, name);
+            end
+            if isequal(name, "x_step") && isfield(props, "x_N")
+                warning("Input, x_N = %d, ignored because 'x_step' was also provided and takes priority.", props.x_N)
+                props = rmfield(props, "x_N");
+            end
+        end
+        function props = cross_validate_orient(props, layer)
+            iso_name = layer + "_isotropy";
+            orient_name = layer + "_orient";
+            isotropy = props.(iso_name);
+            orientation = props.(orient_name);
+            if ismember(isotropy, ["iso", "tensor"])
+                warning("Input, %s = '%s', ignored because %s = '%s'", orient_name, orientation, iso_name, isotropy)
+                props = rmfield(props, orient_name);
+            elseif isequal(isotropy, "complex") && ismember(orientation, ["azpol", "uvect"])
+                error("%s = '%s' may not be used when %s = '%s'.", orient_name, orientation, iso_name, isotropy)
+            end
+        end
+        function props = cross_validate_seq(props)
+            % euler_seq is unnecessary when neither film_orient nor
+            % sub_orient is equal to 'euler'.
+            if ~((isfield(props, 'film_orient') && isequal(props.film_orient, 'euler')) ...
+                || (isfield(props, 'sub_orient') && isequal(props.sub_orient, 'euler')))
+                warning("Input, euler_seq = '%s', ignored because neither film_orient nor sub_orient was set to 'euler'.", props.euler_seq)
+                props = rmfield(props, "euler_seq");
+            end
+        end
+        function orient_structure = format_orient(orient_type, subscript, ndims, seq)
+            switch orient_type
+                case "azpol"
+                    orient_structure = ["θ" + subscript + "_az", "θ" + subscript + "_pol"];
+                case "uvect"
+                    orient_structure = strings(1,3);
+                    for i = 1:3, orient_structure(i) = "v" + subscript + i; end
+                case "euler"
+                    orient_structure = strings(1, ndims);
+                    for i = 1:ndims, orient_structure(i) = "θ" + subscript + seq(i) + i; end
+                case "uquat"
+                    orient_structure = strings(1, 4);
+                    for i = 1:4, orient_structure(i) = "q" + subscript + i; end
+                case "rotmat"
+                    orient_structure = strings(3,3);
+                    for j = 1:3
+                        for i = 1:3
+                            orient_structure(i,j) = "R" + subscript + i + j;
+                        end
+                    end
+                    orient_structure = orient_structure(:)';
+            end
+        end
+        function [k, o] = format_ko(isotropy, orient, subscript, seq)
+            switch isotropy
+                case "iso"
+                    k = "k" + subscript;
+                    o = [];
+                case "simple"
+                    k = ["k" + subscript + "⊥", "k" + subscript + "∥"];
+                    o = ForwardModel.format_orient(orient, subscript, 2, seq);
+                case "complex"
+                    k = strings(1,3);
+                    for i = 1:3
+                        k(i) = "k" + subscript + "p" + i;
+                    end
+                    o = ForwardModel.format_orient(orient, subscript, 3, seq);
+                case "tensor"
+                    k = strings(1,6);
+                    count = 1;
+                    for i = 1:3
+                        for j = i:3
+                            k(count) = "k" + subscript + i + j;
+                            count = count + 1;
+                        end
+                    end
+                    o = [];
+            end
+        end
+    end
 
     properties (SetAccess = private)
-        % Input Name-Value Arguments
-        ift_method (1,1) string {mustBeMember(ift_method, ["ifft2", "integral2"])} = "ifft2"
-        x_max (1,1) double
-        x_N (1,1) double {mustBePositive} = 100
-        x_step (1,1) double
-        film_isotropy (1,1) string {mustBeMember(film_isotropy, ["iso", "simple", "complex", "tensor"])} = "tensor"
-        sub_isotropy (1,1) string {mustBeMember(sub_isotropy, ["iso", "simple", "complex", "tensor"])} = "tensor"
-        film_orient (1,1) string
-        sub_orient (1,1) string
-        euler_seq (1,3) char {mustBeMember(euler_seq, {'ZYZ', 'ZXZ', 'ZYX', 'ZXY', 'YXY', 'YZY', 'YXZ', 'YZX', 'XYX', 'XZX', 'XYZ', 'XZY'})} = 'ZYZ'
-        inf_sub_thick (1,1) logical = 1
-        phase_only (1,1) logical = 0
-        force_sym_solve (1,1) logical = 0
-
-
-        input_props struct = struct()
-        eval_input_names
-        eval_input_sizes
+        c_args struct = struct();
+        in_structure cell = cell(1,3);
+        in_sizes uint8 = [0,0,0];
     end
 
     methods
         % CONSTRUCTOR
         function obj = ForwardModel(varargin)
-            for k = 1:2:length(varargin)
-                name = lower(varargin{k});
-                assert(ismember(name, obj.NameOptions));
-                value = varargin{k+1};
-                obj.input_props.(name) = value;
+            [obj.c_args, obj.in_structure, obj.in_sizes] = obj.validate_constructor_params(varargin{:});
+            fprintf("ForwardModel object created with the following constructor arguments:\n\n");
+            disp(obj.c_args);
+            if isempty(obj.in_structure{2})
+                orient_structure = "";
+            else
+                orient_structure = strjoin(obj.in_structure{2}, ", ");
             end
+            fprintf("\nFunction inputs 'M', 'O', and 'chi' expected to be formatted as follows:\n" + ...
+                "\tM = [%s]; i.e., an N_train-by-%d matrix of doubles\n" + ...
+                "\tO = [%s]; i.e., an N_pump-by-%d matrix of doubles\n" + ...
+                "\tchi = [%s]; i.e., a 1-by-%d vector of doubles\n", ...
+                strjoin(obj.in_structure{1}, ", "), obj.in_sizes(1), ...
+                orient_structure, obj.in_sizes(2), ...
+                strjoin(obj.in_structure{3}, ", "), obj.in_sizes(3));
+
+            if obj.c_args.force_sym_solve
+                solve_system_symbolically();
+                rehash;
+            end
+
+            % for k = 1:2:length(varargin)
+            %     name = lower(varargin{k});
+            %     assert(ismember(name, obj.NameOptions));
+            %     value = varargin{k+1};
+            %     obj.input_props.(name) = value;
+            % end
         %     if ~(isequal(size(x_probe, 2), 2) || isequal(size(x_probe, 1), 2))
         %         error("'x_probe' must be an nx2 or 2xn matrix. %s matrix provided.", mat2str(size(x_probe)))
         %     end
