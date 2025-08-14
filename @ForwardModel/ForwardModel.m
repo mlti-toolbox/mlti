@@ -5,6 +5,7 @@ classdef ForwardModel
         in_sizes uint8 = [0,0,0];
         xu_vects (:,2) double
     end
+
     methods
         % CONSTRUCTOR
         function this = ForwardModel(varargin)
@@ -71,6 +72,7 @@ classdef ForwardModel
         %     end
         end
     end
+
     properties (Constant)
         % ISO_OPTIONS - String array of valid isotropy types
         iso_options = ["iso", "simple", "complex", "tensor"];
@@ -115,7 +117,7 @@ classdef ForwardModel
         %     1. Validate each user-input argument name. E.g., name =
         %        validatestring(name, fieldnames(VLD)), or 
         %        mustBeMember(name, fieldnames(VLD))
-        %     2. Validate each user-input argument name. E.g.,
+        %     2. Validate each user-input argument value. E.g.,
         %        c_args.name = VLD.name.selfValidate(value)
         %     3. Populate missing arguments with defaults. E.g.,
         %        c_args.name = VLD.name.getDefault(c_args)
@@ -127,7 +129,8 @@ classdef ForwardModel
         %     - Rejects invalid or inconsistent inputs.
         %     - Ignores and warns about redundant inputs.
         %
-%   See also: ForwardModel.ForwardModel, validate_constructor_params, ForwardModel.c_args, validatestring, mustBeMember  
+        %   See also: ForwardModel.ForwardModel, ForwardModel.c_args,
+        %   ForwardModel/private/validate_c_args, validatestring, mustBeMember  
         vld = struct( ...
             "ift_method", struct( ...
                 "selfValidate", @(x) validatestring(x, ["ifft2", "integral2"]), ...
@@ -193,6 +196,7 @@ classdef ForwardModel
             ) ...
         );
     end
+    
     methods (Static, Access = private)
         function x = enforcePositive(x)
             assert(isnumeric(x) && x > 0, "Input value, '" + x + "', is not a positive numeric value.")
