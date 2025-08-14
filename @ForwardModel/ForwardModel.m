@@ -1,8 +1,134 @@
 classdef ForwardModel
-    properties (Constant, Access = private)
+    properties (SetAccess = private)
+        c_args struct = struct();
+        in_structure cell = cell(1,3);
+        in_sizes uint8 = [0,0,0];
+        xu_vects (:,2) double
+    end
+    methods
+        % CONSTRUCTOR
+        function this = ForwardModel(varargin)
+            [this.c_args, this.in_structure, this.in_sizes] = this.validate_constructor_params(varargin{:});
+            fprintf("ForwardModel object created with the following constructor arguments:\n\n");
+            disp(this.c_args);
+            if isempty(this.in_structure{2})
+                orient_structure = "";
+            else
+                orient_structure = strjoin(this.in_structure{2}, ", ");
+            end
+            fprintf("\nFunction inputs 'M', 'O', and 'chi' expected to be formatted as follows:\n" + ...
+                "\tM = [%s]; i.e., an N_train-by-%d matrix of doubles\n" + ...
+                "\tO = [%s]; i.e., an N_pump-by-%d matrix of doubles\n" + ...
+                "\tchi = [%s]; i.e., a 1-by-%d vector of doubles\n", ...
+                strjoin(this.in_structure{1}, ", "), this.in_sizes(1), ...
+                orient_structure, this.in_sizes(2), ...
+                strjoin(this.in_structure{3}, ", "), this.in_sizes(3));
+
+            if this.c_args.force_sym_solve ...
+                    || ~exist("@ForwardModel/private/T0_hat_finite.m", "file") ...
+                    || ~exist("@ForwardModel/private/T0_hat_infinite.m", "file")
+                solve_system_symbolically();
+                rehash;
+            end
+
+            if isequal(this.c_args.ift_method, "ifft2")
+                if isfield(this.c_args, "dx") && isfield(this.c_args, "Nx")
+                    dx = this.c_args.dx;
+                    Nx = this.c_args.Nx;
+                elseif isfield(this.c_args, "dx")
+                    dx = this.c_args.dx;
+                    Nx = floor(this.c_args.x_max/dx) * 2 + 1;
+                elseif isfield(this.c_args, "Nx")
+                    Nx = this.c_args.Nx;
+                    dx = this.c_args.x_max / floor(Nx/2);
+                end
+                steps = -floor(Nx/2) : ceil(Nx/2) - 1;
+                x = steps * dx;
+                u = steps / (Nx * dx);
+                this.xu_vects = [x(:), u(:)];
+            end
+
+        % 
+        %     % Spatial Domain
+        %     x = 0:dx:x_max;
+        %     obj.x = [-flip(x), x(2:end)];
+        % 
+        %     % Frequency Domain
+        %     x_freq = 1 ./ (2 .* dx);  % Spatial frequency
+        %     Nx = floor(x_max ./ dx) + 1;    % Number of points
+        %     xi = x_freq ./ Nx .* (-Nx : Nx-1);  % Frequency vector
+        %     [obj.U,obj.V] = meshgrid(xi,xi);  % Frequency matrix
+        % 
+        % 
+        %     if ~(exist("@ForwardModel/T0_hat_finite.m", "file") ...
+        %         && exist("@ForwardModel/T0_hat_infinite.m", "file"))
+        %         sym_solve = true;
+        %     end
+        % 
+        %     if sym_solve
+        %         obj.solve_system_symbolically();
+        %         disp("creating methods")
+        %     end
+        end
+    end
+    properties (Constant)
+        % ISO_OPTIONS - String array of valid isotropy types
         iso_options = ["iso", "simple", "complex", "tensor"];
+        
+        % ORIENT_OPTIONS - String array of valid orientation types
         orient_options = ["azpol", "uvect", "euler", "uquat", "rotmat"];
-        seq_options = {'ZYZ', 'ZXZ', 'ZYX', 'ZXY', 'YXY', 'YZY', 'YXZ', 'YZX', 'XYX', 'XZX', 'XYZ', 'XZY'}
+        
+        % SEQ_OPTIONS - String array of valid Euler-angle rotation sequences
+        seq_options = ["ZYZ", "ZXZ", "ZYX", "ZXY", ...
+                       "YXY", "YZY", "YXZ", "YZX", ...
+                       "XZX", "XYX", "XZY", "XYZ"];
+        
+% VLD - Struct of validation and default specifications for constructor 
+% name-value arguments
+%
+%   VLD defines the validation rules, default values, and cross-validation 
+%   logic for all name-value input arguments of the FORWARDMODEL constructor.
+%
+%   VLD field names are valid constructor argument names.
+%
+%   VLD field values are structs with the following fields:
+%       selfValidate  - Function handle that validates the
+%                       argument value independent of other inputs.
+%                       Throws an error if the input is invalid.
+%       getDefault    - Function handle that takes in a self 
+%                       validated struct of user-input name-value 
+%                       arguments and returns the default value for
+%                       the named constructor argument.
+%                       Throws an error if the user is required to
+%                       provide the argument.       
+%       crossValidate - (Optional) Function handle that takes in
+%                       self-validated and default-populated struct 
+%                       of arguments and validates against the 
+%                       named argument.
+%                       Throws an error if the named argument is inconsisent with
+%                       existing related arguments.
+%                       Throws a warning if the input argument is unneccesary given 
+%                       other related arguments.
+%
+%   Usage Flow (See validate_constructor_params):
+%       1. Validate all user-input argument names using
+%       validatestring(name, fieldnames(VLD))
+%       2. Validate all user-input argument values independent of
+%       other inputs using VLD.name.selfValidate(value)
+%
+%   Behavior:
+%     - Automatically checks that required arguments are provided.
+%     - Throws errors for invalid inputs, missing required inputs, or 
+%       inconsistent pairs of inputs.
+%     - Supports logical, numeric, and string inputs, including string 
+%       arrays for enumerated options.
+%
+%   Example usage (internal to the class):
+%       props = struct(); 
+%       props.ift_method = vld.ift_method.getDefault([]);
+%       vld.x_max.selfValidate(5);        % validates a value
+%       vld.x_max.crossValidate(props);   % cross-validates with other properties
+%   See also FORWARDMODEL validate_constructor_params
         vld = struct( ...
             "ift_method", struct( ...
                 "selfValidate", @(x) validatestring(x, ["ifft2", "integral2"]), ...
@@ -13,15 +139,15 @@ classdef ForwardModel
                 "getDefault", @(props) ForwardModel.default_x_max(props), ...
                 "crossValidate", @(props) ForwardModel.cross_validate_x(props, "x_max") ...
             ), ...
-            "x_N", struct( ...
+            "Nx", struct( ...
                 "selfValidate", @(x) ForwardModel.enforcePositive(x), ...
-                "getDefault", @(props) ForwardModel.default_x_N(props), ...
-                "crossValidate", @(props) ForwardModel.cross_validate_x(props, "x_N") ...
+                "getDefault", @(props) ForwardModel.default_Nx(props), ...
+                "crossValidate", @(props) ForwardModel.cross_validate_x(props, "Nx") ...
             ), ...
-            "x_step", struct( ...
+            "dx", struct( ...
                 "selfValidate", @(x) ForwardModel.enforcePositive(x), ...
                 "getDefault", @(~) [], ...
-                "crossValidate", @(props) ForwardModel.cross_validate_x(props, "x_step") ...
+                "crossValidate", @(props) ForwardModel.cross_validate_x(props, "dx") ...
             ), ...
             "scale", struct( ...
                 "selfValidate", @(x) ForwardModel.enforcePositive(x), ...
@@ -77,13 +203,17 @@ classdef ForwardModel
         end
         function x = default_x_max(props)
             if isequal(props.ift_method, "ifft2")
-                error("Argument 'x_max' is required when ift_method = 'ifft2'.")
+                if isfield(props, 'dx') || isfield(props, 'x_max')
+                    x = [];
+                else
+                    error("Must provide either values for 'x_max' or 'dx' when ift_method = 'ifft2'.")
+                end
             else
                 x = [];
             end
         end
-        function x = default_x_N(props)
-            if isequal(props.ift_method, "ifft2") && ~isfield(props, 'x_step')
+        function x = default_Nx(props)
+            if isequal(props.ift_method, "ifft2") && ~(isfield(props, 'dx') && isfield(props, 'x_max'))
                 x = 256;
             else
                 x = [];
@@ -111,9 +241,9 @@ classdef ForwardModel
                 warning("Input, %s = %d, ignored because ift_method = 'integral2'.", name, props.(name))
                 props = rmfield(props, name);
             end
-            if isequal(name, "x_step") && isfield(props, "x_N")
-                warning("Input, x_N = %d, ignored because 'x_step' was also provided and takes priority.", props.x_N)
-                props = rmfield(props, "x_N");
+            if isequal(name, "dx") && isfield(props, "Nx") && isfield(props, 'x_max')
+                warning("Input, Nx = %d, ignored because 'dx' and 'x_max' were also provided and take priority.", props.Nx)
+                props = rmfield(props, "Nx");
             end
         end
         function props = cross_validate_orient(props, layer)
@@ -185,130 +315,6 @@ classdef ForwardModel
                     end
                     o = [];
             end
-        end
-    end
-
-    properties (SetAccess = private)
-        c_args struct = struct();
-        in_structure cell = cell(1,3);
-        in_sizes uint8 = [0,0,0];
-    end
-
-    methods
-        % CONSTRUCTOR
-        function obj = ForwardModel(varargin)
-            [obj.c_args, obj.in_structure, obj.in_sizes] = obj.validate_constructor_params(varargin{:});
-            fprintf("ForwardModel object created with the following constructor arguments:\n\n");
-            disp(obj.c_args);
-            if isempty(obj.in_structure{2})
-                orient_structure = "";
-            else
-                orient_structure = strjoin(obj.in_structure{2}, ", ");
-            end
-            fprintf("\nFunction inputs 'M', 'O', and 'chi' expected to be formatted as follows:\n" + ...
-                "\tM = [%s]; i.e., an N_train-by-%d matrix of doubles\n" + ...
-                "\tO = [%s]; i.e., an N_pump-by-%d matrix of doubles\n" + ...
-                "\tchi = [%s]; i.e., a 1-by-%d vector of doubles\n", ...
-                strjoin(obj.in_structure{1}, ", "), obj.in_sizes(1), ...
-                orient_structure, obj.in_sizes(2), ...
-                strjoin(obj.in_structure{3}, ", "), obj.in_sizes(3));
-
-            if obj.c_args.force_sym_solve
-                solve_system_symbolically();
-                rehash;
-            end
-
-            % for k = 1:2:length(varargin)
-            %     name = lower(varargin{k});
-            %     assert(ismember(name, obj.NameOptions));
-            %     value = varargin{k+1};
-            %     obj.input_props.(name) = value;
-            % end
-        %     if ~(isequal(size(x_probe, 2), 2) || isequal(size(x_probe, 1), 2))
-        %         error("'x_probe' must be an nx2 or 2xn matrix. %s matrix provided.", mat2str(size(x_probe)))
-        %     end
-        %     if isequal(size(x_probe), [2,2])
-        %         warning("Interpreting provided 'x_probe' as [x(1), y(1); x(2), y(2)].");
-        %     end
-        %     if ~isvector(f)
-        %         warning("'f' will be cast into an %dx1 vector.", numel(f));
-        %     end
-        % 
-        %     obj.f = f(:);
-        % 
-        %     if isequal(size(x_probe, 2), 2)
-        %         obj.x_probe = x_probe;
-        %     else
-        %         obj.x_probe = x_probe';
-        %     end
-        % 
-        %     % default values
-        %     sym_solve = false;
-        %     x_max = 15 * max(x_probe(:));
-        %     x_N = 100;
-        % 
-        %     % First, store all inputs
-        %     params = struct();
-        %     for k = 1:2:length(varargin)
-        %         name = varargin{k};
-        %         value = varargin{k+1};
-        %         params.(name) = value;
-        %     end
-        % 
-        %     % Now process in desired order
-        %     if isfield(params, 'sym_solve')
-        %         sym_solve = logical(params.sym_solve);
-        %     end
-        % 
-        %     if isfield(params, 'force_sym_solve')
-        %         sym_solve = logical(params.force_sym_solve);
-        %     end
-        % 
-        %     if isfield(params, 'x_max')
-        %         if ~isscalar(params.x_max)
-        %             error("'x_max' must be a scalar. %s matrix provided.", mat2str(size(params.x_max)))
-        %         end
-        %         x_max = params.x_max;
-        %     end
-        % 
-        %     if isfield(params, 'x_N')
-        %         if ~isscalar(params.x_N)
-        %             error("'x_N' must be a scalar. %s matrix provided.", mat2str(size(params.x_N)))
-        %         end
-        %         x_N = params.x_N;
-        %     end
-        % 
-        %     x_step = x_max / x_N;
-        % 
-        %     if isfield(params, 'x_step')
-        %         if ~isscalar(params.x_step)
-        %             error("'x_step' must be a scalar. %s matrix provided.", mat2str(size(params.x_step)))
-        %         end
-        %         x_step = params.x_step;  % Overrides the computed one, if any
-        %     end
-        % 
-        %     obj.x_step = x_step;
-        % 
-        %     % Spatial Domain
-        %     x = 0:x_step:x_max;
-        %     obj.x = [-flip(x), x(2:end)];
-        % 
-        %     % Frequency Domain
-        %     x_freq = 1 ./ (2 .* x_step);  % Spatial frequency
-        %     x_N = floor(x_max ./ x_step) + 1;    % Number of points
-        %     xi = x_freq ./ x_N .* (-x_N : x_N-1);  % Frequency vector
-        %     [obj.U,obj.V] = meshgrid(xi,xi);  % Frequency matrix
-        % 
-        % 
-        %     if ~(exist("@ForwardModel/T0_hat_finite.m", "file") ...
-        %         && exist("@ForwardModel/T0_hat_infinite.m", "file"))
-        %         sym_solve = true;
-        %     end
-        % 
-        %     if sym_solve
-        %         obj.solve_system_symbolically();
-        %         disp("creating methods")
-        %     end
         end
     end
 end
