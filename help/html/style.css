@@ -1,0 +1,90 @@
+details {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin: 0.75em 0;
+  width: 100%;               /* span full window width */
+  background: #fff;          /* content background white */
+  box-sizing: border-box;    /* ✱ include border in width calc */
+}
+
+details summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;       /* centers the arrow between the two lines */
+  padding: 0.75em 1em;
+  background: #E8E8E8;       /* grey title bar */
+  border-radius: 6px 6px 0 0;
+  width: 100%;               /* ✱ make the clickable bar full width */
+  box-sizing: border-box;    /* ✱ */
+}
+
+/* Hide default marker in all major engines */
+details summary::-webkit-details-marker { display: none; }
+details summary::marker { content: ""; } /* ✱ Firefox */
+
+details summary::before {
+  content: "▸";              /* custom arrow */
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+  margin-right: 0.5em;
+  transition: transform 0.2s ease;
+  color: #333;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* Two-line title block */
+.summary-text {
+  display: grid;             /* keeps lines stacked */
+  line-height: 1.25;         /* optional: tighter lines */
+}
+
+.subline {
+  font-size: 0.9em;
+}
+
+details > div {
+  padding: 1em;
+  background: #fff;          /* white content */
+  border-top: 1px solid #ccc;
+  border-radius: 0 0 6px 6px;
+}
+
+pre code {
+  display: block;
+  background: #f7f7f7;          /* light gray background */
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.95em;
+  padding: 0.75em 1em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  line-height: 1.4em;
+  white-space: pre;             /* preserve spacing/indentation */
+  overflow-x: auto;             /* horizontal scroll if needed */
+}
+
+/* MATLAB-style comment color */
+.comment {
+  color: #228B22;               /* green */
+  font-style: italic;
+}
+
+/* Strings in purple */
+.string {
+  color: #A020F0;
+}
+
+/* Function names / MATLAB keywords in blue */
+.keyword {
+  color: #0000FF;
+  font-weight: bold;
+}
+
+/* Numbers in dark red */
+.number {
+  color: #B22222;
+}
