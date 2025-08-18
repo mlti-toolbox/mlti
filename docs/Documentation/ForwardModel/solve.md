@@ -1,3 +1,9 @@
+---
+layout: docs
+title: ForwardModel.solve
+hyperlink: Documentation/ForwardModel/solve
+---
+
 # ForwardModel.solve
 Solves the forward model
 
@@ -37,3 +43,4 @@ These outputs correspond to the given inputs.
 ## Output Arguments
 
 ## See Also
+
