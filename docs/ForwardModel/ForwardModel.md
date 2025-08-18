@@ -228,49 +228,65 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>film_orient</code> - film orientation type
-  </b></summary>
-
-  <br>
-
-  Film orientation type specifies how the principal axes orientations of the film are represented.
-  Required when `film_isotropy` equals either `'simple'` or `'complex'`.
-  
-  **Value Options:**
-  * `'azpol'`: For representing the `kf∥` axis as azimuthal `θf1` and polar `θf2` angles. Use only when `film_isotropy = 'simple'`.
-  * `'uvect'`: For representing the `kf∥` axis as a unit vector `vf1`, `vf2`, `vf3`. Use only when `film_isotropy = 'simple'`.
-  * `'euler'`: For representing the orientation of the principal axes as Euler angles `θf1`, `θf2`, `θf3`.
-  * `'uquat'`: For representing the orientation of the principal axes as a unit quaternion `qf1`, `qf2`, `qf3`, `qf4`.
-  * `'rotmat'`: For representing the orientation of the principal axes as a rotation matrix `Rf11`,`Rf21`,`Rf31`,`Rf12`,`Rf22`,`Rf32`,`Rf13`,`Rf23`,`Rf33`.
-    
-  **Data Types:** `string` | `char`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>film_orient</code> - Film orientation type</b>
+            <span class="subline">
+                <code>"azpol"</code> | <code>"uvect"</code> | <code>"euler"</code> | <code>"uquat"</code> | <code>"rotmat"</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Film orientation type specifies how the principal axes orientations of the film are represented.
+            Required when <code>film_isotropy</code> equals either <code>"simple"</code> or <code>"complex"</code>.
+        </p>
+        <ul>
+            <li><code>"azpol"</code>: For representing the <code>kf∥</code> axis as azimuthal <code>θf1</code> and polar <code>θf2</code> angles. Use only when <code>film_isotropy = 'simple'</code>.</li>
+            <li><code>"uvect"</code>: For representing the <code>kf∥</code> axis as a unit vector <code>vf1</code>, <code>vf2</code>, <code>vf3</code>. Use only when <code>film_isotropy = 'simple'</code>.</li>
+            <li><code>"euler"</code>: For representing the orientation of the principal axes as Euler angles <code>θf1</code>, <code>θf2</code>, <code>θf3</code>.</li>
+            <li><code>"uquat"</code>: For representing the orientation of the principal axes as a unit quaternion <code>qf1</code>, <code>qf2</code>, <code>qf3</code>, <code>qf4</code>.</li>
+            <li><code>"rotmat"</code>: For representing the orientation of the principal axes as a rotation matrix <code>Rf11</code>, <code>Rf21</code>, <code>Rf31</code>, <code>Rf12</code>, <code>Rf22</code>, <code>Rf32</code>, <code>Rf13</code>, <code>Rf23</code>, <code>Rf33</code>.</li>
+        </ul>
+        <p>
+            Input value is validated using
+            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>char</code> | <code>string</code>
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>sub_orient</code> - substrate orientation type
-  </b></summary>
-
-  <br>
-
-  Substrate orientation type specifies how the principal axes orientations of the substrate are represented.
-  Required when `sub_isotropy` equals either `'simple'` or `'complex'`.
-  
-  **Value Options:**
-  * `'azpol'`: For representing the `ks∥` axis as azimuthal `θs1` and polar `θs2` angles. Use only when `sub_isotropy = 'simple'`.
-  * `'uvect'`: For representing the `ks∥` axis as a unit vector `vs1`, `vs2`, `vs3`. Use only when `sub_isotropy = 'simple'`.
-  * `'euler'`: For representing the orientation of the principal axes as Euler angles `θs1`, `θs2`, `θs3`.
-  * `'uquat'`: For representing the orientation of the principal axes as unit quaternions `qs1`, `qs2`, `qs3`, `qs4`.
-  * `'rotmat'`: For representing the orientation of the principal axes as a rotation matrix `Rs11`,`Rs21`,`Rs31`,`Rs12`,`Rs22`,`Rs32`,`Rs13`,`Rs23`,`Rs33`.
-    
-  **Data Types:** `string` | `char`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>sub_orient</code> - Substrate orientation type</b>
+            <span class="subline">
+                <code>"azpol"</code> | <code>"uvect"</code> | <code>"euler"</code> | <code>"uquat"</code> | <code>"rotmat"</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Substrate orientation type specifies how the principal axes orientations of the film are represented.
+            Required when <code>sub_isotropy</code> equals either <code>"simple"</code> or <code>"complex"</code>.
+        </p>
+        <ul>
+            <li><code>"azpol"</code>: For representing the <code>ks∥</code> axis as azimuthal <code>θs1</code> and polar <code>θs2</code> angles. Use only when <code>sub_isotropy = 'simple'</code>.</li>
+            <li><code>"uvect"</code>: For representing the <code>ks∥</code> axis as a unit vector <code>vs1</code>, <code>vs2</code>, <code>vs3</code>. Use only when <code>sub_isotropy = 'simple'</code>.</li>
+            <li><code>"euler"</code>: For representing the orientation of the principal axes as Euler angles <code>θs1</code>, <code>θs2</code>, <code>θs3</code>.</li>
+            <li><code>"uquat"</code>: For representing the orientation of the principal axes as a unit quaternion <code>qs1</code>, <code>qs2</code>, <code>qs3</code>, <code>qs4</code>.</li>
+            <li><code>"rotmat"</code>: For representing the orientation of the principal axes as a rotation matrix <code>Rs11</code>, <code>Rs21</code>, <code>Rs31</code>, <code>Rs12</code>, <code>Rs22</code>, <code>Rs32</code>, <code>Rs13</code>, <code>Rs23</code>, <code>Rs33</code>.</li>
+        </ul>
+        <p>
+            Input value is validated using
+            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>char</code> | <code>string</code>
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
@@ -282,6 +298,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 
   Euler angle sequence specified as three axes.  
   I.e., computes the rotation matrix as `R = Ri(θ1) * Rj(θ2) * Rk(θ3)`, where `i`, `j`, `k` are the 1st, 2nd, and 3rd characters of the input character array, and:
+  \(\begin{bmatrix}a & b & c \\ d & e & f\end{bmatrix}\)
   ```
   Rx(θ) = [   1        0        0
               0      cos(θ)  -sin(θ)
