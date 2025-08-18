@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ForwardModel</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            window.MathJax = {
+              loader: {load: ['[tex]/upgreek']},
+              tex: {packages: {'[+]': ['upgreek']}}
+            };
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    </head>
+
+    <body>
+        <h1>ForwardModel</h1>
+        <p>
+            Models the surface thermal response due to a harmonic laser
+            heat source.
+        </p>
+
+        <h2>Description</h2>
+
+        <h2>Creation</h2>
+
+        <h3>Syntax</h3>
+        <code>
+            fm = ForwardModel(Name, Value)
+        </code>
+
+        <h3>Description</h3>
+        <p>
+            <code>fm = ForwardModel(Name, Value)</code>
+            creates a forward model object according to specifications
+            provided as name-value arguments.
+        </p>
+
+        <h3>Input (Name-Value) Arguments</h3>
+        <p>
+            Specify name–value pairs as
+            <code>Name1=Value1, ..., NameN=ValueN</code>, where each
+            <code>Name</code> is an argument name and each
+            <code>Value</code> is the corresponding value. The order of
+            the pairs does not matter.
+        </p>
+        <p>
+            Argument names are validated using
+            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>,
+            making them case-insensitive. You can also use any
+            unique leading substring of valid argument name options. For example, the name
+            <code>'ift'</code> matches the option <code>'ift_method'</code>.
+        </p>
+        <p>
+            <i>
+                Before R2021a, separate each name and value with commas and enclose
+                <code>Name</code> in quotes.
+            </i>
+        </p>
+        <p>
+            <b>Example:</b>
+        </p>
+<pre><code>fm = <span class="keyword">ForwardModel</span>(ift_method=<span class="string">"ifft2"</span>, x_max=<span class="number">25</span>, dx=<span class="number">0.5</span>, scale=<span class="number">1e-6</span>, ...)
+<span class="comment">% Equivalent pre-R2021a syntax:</span>
+fm = <span class="keyword">ForwardModel</span>(<span class="string">'ift_method'</span>, <span class="string">"ifft2"</span>, <span class="string">'x_max'</span>, <span class="number">25</span>, <span class="string">'dx'</span>, <span class="number">0.5</span>, <span class="string">'scale'</span>, <span class="number">1e-6</span>, ...)</code></pre>
+
+        <details>
+            <summary>
+                <span class="summary-text">
+                    <b><code>ift_method</code> - 2-D inverse Fourier transform method</b>
+                    <span class="subline"><code>"ifft2"</code> (default) | <code>"integral2"</code></span>
+                </span>
+            </summary>
+            <div>
+                <p>
+                    2-D inverse Fourier transform method. When possible, the
+                    <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
+                    method should be used for its computational efficiency.
+                    However, if greater accuracy is needed, the
+                    <a href="https://www.mathworks.com/help/matlab/ref/integral2.html"><code>integral2</code></a>
+                    method may be used instead.
+                </p>
+                <p>
+                    When <code>ift_method = "ifft2"</code>, either
+                    <code>x_max</code> or <code>dx</code> must be provided.
+                    <code>Nx</code> has a default value, but <code>x_max</code>
+                    and <code>dx</code> do not. At least two of the three
+                    (<code>x_max</code>, <code>Nx</code>, <code>dx</code>)
+                    must be known to compute the third.
+                </p>
+                <p>
+                    Input value is validated using
+                    <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
+                </p>
+                <p>
+                    <b>Data Types:</b> <code>char</code> | <code>string</code>
+                </p>
+
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <span class="summary-text">
+                    <b><code>x_max</code> - Maximum spatial distance from pump</b>
+                    <span class="subline">positive real scalar</span>
+                </span>
+            </summary>
+            <div>
+                <p>
+                    Maximum spatial distance from the pump in the x- and y-directions used in the 2-D inverse fast Fourier transform
+                    (<a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>).
+                    When specified, the spatial domain for both <code>x_probe</code>
+                    and <code>y_probe</code> will be <code>[-x_max, x_max]</code>
+                    if <code>dx</code> is also specified or if <code>Nx</code> is odd;
+                    otherwise (<code>Nx</code> is even), the domain will be <code>[-x_max, x_max - dx]</code>.
+                </p>
+                <p>
+                    The value of <code>x_max</code> is ignored when <code>ift_method = "integral2"</code>.
+                </p>
+                <p>
+                    <b>Data Types:</b> <code>double</code> | <code>single</code>
+                </p>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <span class="summary-text">
+                    <b><code>Nx</code> - Number of spatial steps</b>
+                    <span class="subline"> 256 (default) | positive integer scalar</span>
+                </span>
+            </summary>
+            <div>
+                <p>
+                    Number of descrete spatial points to use in the
+                    <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
+                    transform. I.e., signal length.
+                </p>
+                <p>
+                    When possible, the value of <code>Nx</code> should only have small prime factors as this results in significantly faster execution of the
+                    <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
+                    transform.
+                </p>
+                <p>
+                    The value of <code>Nx</code> is ignored when <code>ift_method = "integral2"</code> or if all three <code>x_max</code>, <code>Nx</code>, and <code>dx</code> are specified.
+                </p>
+                <p>
+                    <b>Data Types:</b> <code>double</code> | <code>single</code> | <code>int8</code> | <code>int16</code> | <code>int32</code> | <code>uint8</code> | <code>uint16</code> | <code>uint32</code>
+                </p>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <span class="summary-text">
+                    <b><code>dx</code> - Descrete spatial step size</b>
+                    <span class="subline"> positive real scalar</span>
+                </span>
+            </summary>
+            <div>
+                <p>
+                    Descrete spatial step size. I.e., sampling period.
+                </p>
+                <p>
+                    The value of <code>dx</code> is ignored when <code>ift_method = "integral2"</code>.
+                </p>
+                <p>
+                    <b>Data Types:</b> <code>double</code> | <code>single</code>
+                </p>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <span class="summary-text">
+                    <b><code>scale</code> - Input scale factor</b>
+                    <span class="subline"> 1 (default) | positive real scalar</span>
+                </span>
+            </summary>
+            <div>
+                <p>
+                    The input scale factor defines the units of certain forward model inputs by scaling their base SI units as follows:
+                </p>
+                <ul>
+                    <li>\(\left[ h_f \right] = \left[ h_s \right] = \left[ s_x \right] = \left[ s_y \right] = \left[ x_\mathrm{probe} \right] = \mathrm{scale} \cdot \mathrm{m}\)</li>
+                    <li>\(\left[ \alpha_f \right] = \left[ \alpha_s \right] = \left[ u \right] = \left[ v \right] = \left[\frac{1}{ x_\mathrm{probe}} \right] = \frac{1}{\mathrm{scale} \cdot \mathrm{m}}\)</li>
+                    <li>\(\left[C_f\right] = \left[C_s\right] = \frac{\mathrm{W}}{\mathrm{scale} \cdot \mathrm{m}^3 \cdot \mathrm{K}}\)</li>
+                    <li>\(\left[ P \right] = \left[ \mathrm{scale} \cdot \mathrm{W} \right]\)</li>
+                    <li>\(\left[ f_0 \right] = \left[\frac{\mathrm{Hz}}{\mathrm{scale}} \right]\)</li>
+                </ul>
+                <p>
+                    <b>Example:</b> If <code>scale = 1e-6</code> forward model inputs are considered to be in the following units:
+                </p>
+                <ul>
+                    <li>\(\left[ h_f \right] = \left[ h_s \right] = \left[ s_x \right] = \left[ s_y \right] = \left[ x_\mathrm{probe} \right] = \mathrm{scale} \cdot \mathrm{m} = 10^{-6} \cdot \mathrm{m} = \mathrm{\upmu m}\)</li>
+                    <li>\(\left[ \alpha_f \right] = \left[ \alpha_s \right] = \left[ u \right] = \left[ v \right] = \left[\frac{1}{ x_\mathrm{probe}} \right] = \frac{1}{\mathrm{scale} \cdot \mathrm{m}} = \frac{1}{10^{-6} \cdot \mathrm{m}} = \frac{1}{\mathrm{\upmu m}}\)</li>
+                    <li>\(\left[C_f\right] = \left[C_s\right] = \frac{\mathrm{W}}{\mathrm{scale} \cdot \mathrm{m}^3 \cdot \mathrm{K}} = \frac{\mathrm{W}}{10^{-6} \cdot \mathrm{m}^3 \cdot \mathrm{K}} = \frac{\mathrm{W}}{\mathrm{cm}^3 \cdot \mathrm{K}}\)</li>
+                    <li>\(\left[ P \right] = \left[ \mathrm{scale} \cdot \mathrm{W} \right] = \left[ 10^{-6} \cdot \mathrm{W} \right] = \left[ \mathrm{\upmu W} \right]\)</li>
+                    <li>\(\left[ f_0 \right] = \left[\frac{\mathrm{Hz}}{\mathrm{scale}} \right] = \left[\frac{\mathrm{Hz}}{10^{-6}} \right] = \left[ 10^6 \cdot \mathrm{Hz} \right] = \left[ \mathrm{MHz} \right]\)</li>
+                </ul>
+                <p>
+                    <b>Data Types:</b> <code>double</code> | <code>single</code>
+                </p>
+            </div>
+        </details>
+
+        <h2>Properties</h2>
+
+        <h2>Object Functions</h2>
+
+        <h2>Examples</h2>
+
+        <h2>See Also</h2>
+
+    </body>
+</html>
