@@ -363,13 +363,13 @@ details.custom-details > div {
   border-radius: 0 0 6px 6px;
 }
 
-details.custom-details a {
-  color: #0366d6;        /* base link color (blue) */
-  text-decoration: none; /* remove underline */
+details.custom-details[open] a {
+  color: #0366d6 !important;
+  text-decoration: none !important;
 }
 
-details.custom-details a:hover,
-details.custom-details a:focus {
-  color: #005a99;        /* darker blue on hover */
-  text-decoration: underline; /* optional underline on hover */
+details.custom-details[open] a:hover,
+details.custom-details[open] a:focus {
+  color: #005a99 !important;
+  text-decoration: underline !important;
 }
