@@ -201,7 +201,7 @@ section a {
 section a:hover,
 section a:focus {
   color: #005a99;        /* darker blue on hover */
-  text-decoration: none; /* optional underline on hover */
+  text-decoration: underline; /* optional underline on hover */
 }
 
 a code.language-plaintext.highlighter-rouge {
