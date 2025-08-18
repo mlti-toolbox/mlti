@@ -373,3 +373,13 @@ details.custom-details[open] a:focus {
   color: #005a99 !important;
   text-decoration: underline !important;
 }
+details.custom-details[open] summary ~ * a {
+  color: #0366d6 !important;
+  text-decoration: none;
+}
+
+details.custom-details[open] summary ~ * a:hover,
+details.custom-details[open] summary ~ * a:focus {
+  color: #005a99 !important;
+  text-decoration: underline;
+}
