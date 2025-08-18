@@ -11,6 +11,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
     {% include head-custom.html %}
+
+    <script>
+          window.MathJax = {
+            loader: {load: ['[tex]/upgreek']},
+            tex: {packages: {'[+]': ['upgreek']}}
+          };
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
   </head>
   <body>
     <div class="wrapper">
