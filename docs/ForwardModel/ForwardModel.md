@@ -62,7 +62,6 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
         <p>
             <b>Data Types:</b> <code>char</code> | <code>string</code>
         </p>
-
     </div>
 </details>
 
@@ -173,45 +172,57 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>film_isotropy</code> - film isotropy type
-  </b></summary>
-
-  <br>
-
-  Film isotropy type specifies the isotropy level of the film.
-  
-  **Value Options:**
-  * `'iso'`: For scalar thermal conductivity `kf`
-  * `'simple'`: For 2 principal thermal conductivities along a specified axis `kf∥` and perpendicular to that axis `kf⊥` 
-  * `'complex'`: For 3 principal thermal conductivities sorted in descending order `kfp1`, `kfp2`, `kfp3` 
-  * `'tensor'` (default): For 6 element thermal conductivity tensor `kf11`, `kf12`, `kf13`, `kf22`, `kf23`, `kf33`
-    
-  **Data Types:** `string` | `char`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>film_isotropy</code> - Film isotropy type</b>
+            <span class="subline"><code>"tensor"</code> (default) | <code>"iso"</code></span> | <code>"simple"</code></span> | <code>"complex"</code></span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Film isotropy type specifies the isotropy level of the film.
+        </p>
+        <ul>
+            <li><code>"iso"</code>: For scalar thermal conductivity <code>kf</code></li>
+            <li><code>"simple"</code>: For 2 principal thermal conductivities along a specified axis <code>kf∥</code> and perpendicular to that axis <code>kf⊥</code></li>
+            <li><code>"complex"</code>: For 3 principal thermal conductivities sorted in descending order <code>kfp1</code>, <code>kfp2</code>, <code>kfp3</code></li>
+            <li><code>"tensor"</code>: For 6 element thermal conductivity tensor <code>kf11</code>, <code>kf12</code>, <code>kf13</code>, <code>kf22</code>, <code>kf23</code>, <code>kf33</code></li>
+        </ul>
+        <p>
+            Input value is validated using
+            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>char</code> | <code>string</code>
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>sub_isotropy</code> - substrate isotropy type
-  </b></summary>
-
-  <br>
-
-  Substrate isotropy type specifies the isotropy level of the substrate.
-  
-  **Value Options:**
-  * `'iso'`: For scalar thermal conductivity `ks`
-  * `'simple'`: For 2 principal thermal conductivities along a specified axis `ks∥` and perpendicular to that axis `ks⊥` 
-  * `'complex'`: For 3 principal thermal conductivities sorted in descending order `ksp1`, `ksp2`, `ksp3` 
-  * `'tensor'` (default): For 6 element thermal conductivity tensor `ks11`, `ks12`, `ks13`, `ks22`, `ks23`, `ks33`
-    
-  **Data Types:** `string` | `char`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>sub_isotropy</code> - Substrate isotropy type</b>
+            <span class="subline"><code>"tensor"</code> (default) | <code>"iso"</code></span> | <code>"simple"</code></span> | <code>"complex"</code></span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Substrate isotropy type specifies the isotropy level of the film.
+        </p>
+        <ul>
+            <li><code>"iso"</code>: For scalar thermal conductivity <code>ks</code></li>
+            <li><code>"simple"</code>: For 2 principal thermal conductivities along a specified axis <code>ks∥</code> and perpendicular to that axis <code>ks⊥</code></li>
+            <li><code>"complex"</code>: For 3 principal thermal conductivities sorted in descending order <code>ksp1</code>, <code>ksp2</code>, <code>ksp3</code></li>
+            <li><code>"tensor"</code>: For 6 element thermal conductivity tensor <code>ks11</code>, <code>ks12</code>, <code>ks13</code>, <code>ks22</code>, <code>ks23</code>, <code>kf33</code></li>
+        </ul>
+        <p>
+            Input value is validated using
+            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>char</code> | <code>string</code>
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
