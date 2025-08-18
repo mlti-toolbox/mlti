@@ -310,13 +310,13 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
             1 & 0 & 0 \\
             0 & \cos\theta & -\sin\theta \\
             0 & \sin\theta & \cos\theta
-            \end{bmatrix}}, \quad
+            \end{bmatrix}, \quad}
             {\mathbf{R}_y(\theta) =
             \begin{bmatrix}
             \cos\theta & 0 & \sin\theta \\
             0 & 1 & 0 \\
             -\sin\theta & 0 & \cos\theta
-            \end{bmatrix}}, \quad
+            \end{bmatrix}, \quad}
             {\mathbf{R}_z(\theta) =
             \begin{bmatrix}
             \cos\theta & -\sin\theta & 0 \\
@@ -339,99 +339,108 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>sweep_method</code> - Method for iterating over parameter combinations
-  </b></summary>
-
-  <br>
-
-  Specifies how the forward model iterates over all combinations of
-input parameter sets `M_train`, `O`, `f0`, `x_probe` when computing the
-4-D output array `G(i,j,k,l) = fm.solve(M_train(i,:), O(j,:), chi, f0(k,:), x_probe(l,:))`. This choice affects both memory usage
-and performance.
-
-  **Value Options:**
-  * "broadcast" (default) – Uses singleton expansion to apply
-  `fm.solve(...)` over multi-dimensional parameter arrays without
-  explicitly forming full grids in memory. Saves memory, but may be
-  slower in some cases.
-  * "ndgrid" – Expands all parameter arrays to full $$N_\mathrm{train} \times N_\mathrm{pump} \times N_f \times N_\mathrm{prope}$$ grids
-  using [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html). Fast for vectorized operations but uses the most
-  memory.
-  * "loop" – Iterates explicitly over all parameter combinations in
-  nested `for` loops. Uses minimal memory but is typically the slowest
-  method.
-    
-  **Data Types:** `string` | `char`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>sweep_method</code> - Method for iterating over parameter combinations</b>
+            <span class="subline">
+                <code>"broadcast"</code> (default) | <code>"ndgrid"</code> | <code>"loop"</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Specifies how the solver will iterate over all combinations of input parameter sets <code>M_train</code>, <code>O</code>, <code>f0</code>, <code>x_probe</code> when computing the 4-D output array <code>G(i,j,k,l) = fm.solve(M_train(i,:), O(j,:), chi, f0(k,:), x_probe(l,:))</code>. This choice affects both memory usage and performance.
+        </p>
+        <ul>
+            <li><code>"broadcast"</code> – Uses singleton expansion to apply <code>fm.solve(...)</code> over multi-dimensional parameter arrays without explicitly forming full grids in memory. Saves memory, but may be slower in some cases.</li>
+            <li><code>"ndgrid"</code> – Expands all parameter arrays to full \(N_\mathrm{train} \times N_\mathrm{pump} \times N_f \times N_\mathrm{prope}\) grids
+              using [<code>ndgrid</code>](https://www.mathworks.com/help/matlab/ref/ndgrid.html). Fast for vectorized operations but uses the most
+              memory.</li>
+            <li><code>"loop"</code> – Iterates explicitly over all parameter combinations in nested <code>for</code> loops. Uses minimal memory but is typically the slowest
+              method.</li>
+        </ul>
+        <p>
+            Input value is validated using
+            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>char</code> | <code>string</code>
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>inf_sub_thick</code> - use infinite substrate thickness approximation
-  </b></summary>
-
-  <br>
-
-  When set to `true`, approximates the thickness of the substrate as infinite in the z-direction, which is more numerically stable than using a finite substrate thickness.
-  
-  **Value Options:** 1 (default) | 0
-    
-  **Data Types:** `logical`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>inf_sub_thick</code> - Use infinite substrate thickness approximation</b>
+            <span class="subline">
+                <code>true</code> (default) | <code>false</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            When set to <code>true</code>, approximates the thickness of the substrate as infinite in the z-direction, which is more numerically stable than using a finite substrate thickness.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>logical</code>
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>phase_only</code> - return phase only
-  </b></summary>
-
-  <br>
-
-  When set to `true`, tells the solver that the user is only interested in phase; not amplitude nor DC temperature change.
-  
-  **Value Options:** 0 (default) | 1
-    
-  **Data Types:** `logical`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>phase_only</code> - Return phase only</b>
+            <span class="subline">
+                <code>false</code> (default) | <code>true</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            When set to <code>true</code>, tells the solver that the user is only interested in phase; not amplitude nor DC temperature change.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>logical</code>
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>force_sym_solve</code> - force reexecution of symbolic solution
-  </b></summary>
-
-  <br>
-
-  When set to `true`, forces the reexecution of the symbolic solutions even if the files already exist.
-
-  **Value Options:** 0 (default) | 1
-    
-  **Data Types:** `logical`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>force_sym_solve</code> - Force reexecution of symbolic solution</b>
+            <span class="subline">
+                <code>false</code> (default) | <code>true</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            When set to <code>true</code>, forces the reexecution of the symbolic solutions even if the files already exist.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>logical</code>
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>log_args</code> - log arguments
-  </b></summary>
-
-  <br>
-
-  When set to `true`, the solver expects the natural log of thermal conductivity, volumetric heat capacity, optical absorption coefficient, z-direction thickness, pump laser deviation, and power as inputs.
-
-  **Value Options:** 0 (default) | 1
-    
-  **Data Types:** `logical`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>log_args</code> - Use log arguments</b>
+            <span class="subline">
+                <code>false</code> (default) | <code>true</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            When set to <code>true</code>, the solver expects the natural log of thermal conductivity, volumetric heat capacity, optical absorption coefficient, z-direction thickness, pump laser deviation, and power as inputs.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>logical</code>
+        </p>
+    </div>
 </details>
