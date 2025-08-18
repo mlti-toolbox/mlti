@@ -39,7 +39,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
 
 #### Options
 
-<details>
+<details class="custom-details">
     <summary>
         <span class="summary-text">
             <b><code>ift_method</code> - 2-D inverse Fourier transform method</b>
@@ -73,7 +73,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
     </div>
 </details>
 
-<details>
+<details class="custom-details">
     <summary>
         <span class="summary-text">
             <b><code>x_max</code> - Maximum spatial distance from pump</b>
@@ -98,7 +98,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
     </div>
 </details>
 
-<details>
+<details class="custom-details">
     <summary>
         <span class="summary-text">
             <b><code>Nx</code> - Number of spatial steps</b>
@@ -125,7 +125,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
     </div>
 </details>
 
-<details>
+<details class="custom-details">
     <summary>
         <span class="summary-text">
             <b><code>dx</code> - Descrete spatial step size</b>
@@ -145,7 +145,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
     </div>
 </details>
 
-<details>
+<details class="custom-details">
     <summary>
         <span class="summary-text">
             <b><code>scale</code> - Input scale factor</b>
@@ -179,7 +179,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
     </div>
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>film_isotropy</code> - film isotropy type
   </b></summary>
@@ -200,7 +200,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>sub_isotropy</code> - substrate isotropy type
   </b></summary>
@@ -221,7 +221,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>film_orient</code> - film orientation type
   </b></summary>
@@ -244,7 +244,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>sub_orient</code> - substrate orientation type
   </b></summary>
@@ -267,7 +267,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>euler_seq</code> - Euler angle sequence
   </b></summary>
@@ -299,7 +299,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>sweep_method</code> - Method for iterating over parameter combinations
   </b></summary>
@@ -329,7 +329,7 @@ and performance.
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>inf_sub_thick</code> - use infinite substrate thickness approximation
   </b></summary>
@@ -346,7 +346,7 @@ and performance.
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>phase_only</code> - return phase only
   </b></summary>
@@ -363,7 +363,7 @@ and performance.
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>force_sym_solve</code> - force reexecution of symbolic solution
   </b></summary>
@@ -380,7 +380,7 @@ and performance.
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>log_args</code> - log arguments
   </b></summary>
@@ -399,7 +399,7 @@ and performance.
 
 ## Properties
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>c_args</code> - constructor arguments
   </b></summary>
@@ -414,7 +414,7 @@ and performance.
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>in_structure</code> - input structure
   </b></summary>
@@ -431,7 +431,7 @@ and performance.
   
 </details>
 
-<details>
+<details class="custom-details">
   <summary><b>
     <code>in_sizes</code> - input sizes
   </b></summary>
@@ -461,6 +461,7 @@ and performance.
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
