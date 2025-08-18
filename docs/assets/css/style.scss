@@ -194,7 +194,7 @@ section {
 }
 
 section a {
-  color: #267CB9;        /* base link color (blue) */
+  color: #0366d6;        /* base link color (blue) */
   text-decoration: none; /* remove underline */
 }
 
@@ -202,6 +202,10 @@ section a:hover,
 section a:focus {
   color: #005a99;        /* darker blue on hover */
   text-decoration: none; /* optional underline on hover */
+}
+
+a code.language-plaintext.highlighter-rouge {
+  color: #0366d6; /* GitHub-style link blue */
 }
 
 small {
