@@ -287,33 +287,36 @@ footer {
   }
 }
 
-details {
+/* Container styling for details */
+details.custom-details {
   border: 1px solid #ccc;
   border-radius: 6px;
   margin: 0.75em 0;
-  width: 100%;               /* span full window width */
-  background: #fff;          /* content background white */
-  box-sizing: border-box;    /* ✱ include border in width calc */
+  width: 100%;               /* span full width */
+  background: #fff;
+  box-sizing: border-box;    /* include border in width */
 }
 
-details summary {
-  list-style: none;
+/* Summary (clickable header) */
+details.custom-details summary {
+  list-style: none;          /* remove default marker */
   cursor: pointer;
   display: flex;
-  align-items: center;       /* centers the arrow between the two lines */
+  align-items: center;       /* vertically center arrow and text */
   padding: 0.75em 1em;
   background: #E8E8E8;       /* grey title bar */
   border-radius: 6px 6px 0 0;
-  width: 100%;               /* ✱ make the clickable bar full width */
-  box-sizing: border-box;    /* ✱ */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Hide default marker in all major engines */
-details summary::-webkit-details-marker { display: none; }
-details summary::marker { content: ""; } /* ✱ Firefox */
+/* Remove default browser arrows */
+details.custom-details summary::-webkit-details-marker { display: none; }
+details.custom-details summary::marker { content: ""; } /* Firefox */
 
-details summary::before {
-  content: "▸";              /* custom arrow */
+/* Custom arrow */
+details.custom-details summary::before {
+  content: "▸";              /* right-pointing arrow */
   display: inline-block;
   width: 1em;
   text-align: center;
@@ -322,23 +325,25 @@ details summary::before {
   color: #333;
 }
 
-details[open] summary::before {
+/* Rotate arrow when open */
+details.custom-details[open] summary::before {
   transform: rotate(90deg);
 }
 
 /* Two-line title block */
 .summary-text {
-  display: grid;             /* keeps lines stacked */
-  line-height: 1.25;         /* optional: tighter lines */
+  display: grid;             /* stack lines */
+  line-height: 1.25;         /* optional tighter lines */
 }
 
 .subline {
   font-size: 0.9em;
 }
 
-details > div {
+/* Content inside details */
+details.custom-details > div {
   padding: 1em;
-  background: #fff;          /* white content */
+  background: #fff;
   border-top: 1px solid #ccc;
   border-radius: 0 0 6px 6px;
 }
