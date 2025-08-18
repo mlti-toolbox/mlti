@@ -305,7 +305,6 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
         </p>
         <p>
             \(
-            \,
             {\mathbf{R}_x(\theta) =
             \begin{bmatrix}
             1 & 0 & 0 \\
@@ -445,3 +444,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
         </p>
     </div>
 </details>
+
+## See Also
+
+## See Also
