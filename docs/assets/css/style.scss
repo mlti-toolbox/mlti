@@ -8,6 +8,11 @@
 
 @import "{{ site.theme }}";
 
+.wrapper {
+  width:100%;
+  margin:0 auto;
+}
+
 details {
   border: 1px solid #ccc;
   border-radius: 6px;
