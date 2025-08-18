@@ -354,7 +354,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
         <ul>
             <li><code>"broadcast"</code> – Uses singleton expansion to apply <code>fm.solve(...)</code> over multi-dimensional parameter arrays without explicitly forming full grids in memory. Saves memory, but may be slower in some cases.</li>
             <li><code>"ndgrid"</code> – Expands all parameter arrays to full \(N_\mathrm{train} \times N_\mathrm{pump} \times N_f \times N_\mathrm{prope}\) grids
-              using [<code>ndgrid</code>](https://www.mathworks.com/help/matlab/ref/ndgrid.html). Fast for vectorized operations but uses the most
+              using <a href=https://www.mathworks.com/help/matlab/ref/ndgrid.html><code>ndgrid</code></a>. Fast for vectorized operations but uses the most
               memory.</li>
             <li><code>"loop"</code> – Iterates explicitly over all parameter combinations in nested <code>for</code> loops. Uses minimal memory but is typically the slowest
               method.</li>
