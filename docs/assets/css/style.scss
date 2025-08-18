@@ -58,9 +58,7 @@ a:hover small {
 }
 
 .wrapper {
-  display: flex;
-  gap: 40px; /* space between header and section */
-  width: 100%;
+  width:100%;
   margin:0 auto;
 }
 
@@ -123,7 +121,7 @@ kbd {
 }
 
 header {
-  flex: 0 0 270px;
+  width:270px;
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
@@ -190,7 +188,7 @@ strong {
 }
 
 section {
-  flex: 1;
+  width: calc(100% - 310px);
   float:right;
   padding-bottom:50px;
 }
@@ -207,7 +205,7 @@ hr {
 }
 
 footer {
-  flex: 0 0 270px;
+  width:270px;
   float:left;
   position:fixed;
   bottom:50px;
