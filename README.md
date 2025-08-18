@@ -1,2 +1,2 @@
-# thermal-conductivity-inference
-Infer thermal conductivity from phase lag data
+# Modulated Laser Thermal Inference (MLTI) Toolbox
+[Documentation](https://k-joshua-kelley.github.io/MLTI)
