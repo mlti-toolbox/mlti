@@ -12,7 +12,7 @@ Models the surface thermal response due to a harmonic laser heat source
 
 ## Creation
 
-Create a `ForwardModel` object with specified parameter values by using the [`ForwardModel`](/ForwardModel/ForwardModel) constructor.
+Create a `ForwardModel` object with specified parameter values by using the [`ForwardModel`](/MLTI/ForwardModel/ForwardModel) constructor.
 
 ## Properties
 
@@ -78,6 +78,7 @@ Create a `ForwardModel` object with specified parameter values by using the [`Fo
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
