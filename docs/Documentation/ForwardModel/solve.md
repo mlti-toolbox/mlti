@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: ForwardModel.solve
-hyperlink: Documentation/ForwardModel/solve
+hyperlink: /Documentation/ForwardModel/solve
 ---
 
 # ForwardModel.solve
@@ -43,4 +43,5 @@ These outputs correspond to the given inputs.
 ## Output Arguments
 
 ## See Also
+
 
