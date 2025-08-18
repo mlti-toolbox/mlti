@@ -301,7 +301,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     <div>
         <p>
             Euler angle sequence specified as three axes.
-            I.e., computes the rotation matrix as \(\mathbf{R} = \mathbf{R}_i\left(\theta_1\right)\) \cdot \mathbf{R}_j\left(\theta_2\right)\) \cdot \mathbf{R}_k\left(\theta_3\right)\), where \(i, j, k \in \left\{x, y, z\left\}\) are the 1st, 2nd, and 3rd characters of the input character array, and:
+            I.e., computes the rotation matrix as \(\mathbf{R} = \mathbf{R}_i\left(\theta_1\right) \cdot \mathbf{R}_j\left(\theta_2\right)\) \cdot \mathbf{R}_k\left(\theta_3\right)\), where \(i, j, k \in \left\{x, y, z\left\}\) are the 1st, 2nd, and 3rd characters of the input character array, and:
             \[
             R_x(\theta) =
             \begin{bmatrix}
