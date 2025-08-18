@@ -1,6 +1,11 @@
 ---
 ---
 
+.wrapper {
+  width:100%;
+  margin:0 auto;
+}
+
 @import "{{ site.theme }}";
 
 details {
