@@ -37,18 +37,18 @@ h3, h4, h5, h6 {
 }
 
 a {
-  color:blue;
+  color:#267CB9;
   text-decoration:none;
 }
 
 a:hover, a:focus {
-  color:red;
+  color:#069;
   font-weight: bold;
 }
 
 a small {
   font-size:11px;
-  color:blue;
+  color:#777;
   margin-top:-0.3em;
   display:block;
 }
@@ -191,6 +191,17 @@ section {
   width: calc(100% - 310px);
   float:right;
   padding-bottom:50px;
+}
+
+section a {
+  color: #267CB9;        /* base link color (blue) */
+  text-decoration: none; /* remove underline */
+}
+
+section a:hover,
+section a:focus {
+  color: #005a99;        /* darker blue on hover */
+  text-decoration: underline; /* optional underline on hover */
 }
 
 small {
