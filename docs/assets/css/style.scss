@@ -363,23 +363,21 @@ details.custom-details > div {
   border-radius: 0 0 6px 6px;
 }
 
-details.custom-details[open] a {
-  color: #0366d6 !important;
-  text-decoration: none !important;
-}
-
-details.custom-details[open] a:hover,
-details.custom-details[open] a:focus {
-  color: #005a99 !important;
-  text-decoration: underline !important;
-}
-details.custom-details[open] summary ~ * a {
-  color: #0366d6 !important;
+/* Make links in the dropdown blue */
+details.custom-details a,
+details.custom-details a:visited {
+  color: #0366d6;
   text-decoration: none;
 }
 
-details.custom-details[open] summary ~ * a:hover,
-details.custom-details[open] summary ~ * a:focus {
-  color: #005a99 !important;
+details.custom-details a:hover,
+details.custom-details a:focus {
+  color: #005a99;
   text-decoration: underline;
+}
+
+/* CRITICAL: ensure code inside links takes the link color */
+details.custom-details a code,
+details.custom-details a code.language-plaintext.highlighter-rouge {
+  color: currentColor !important;  /* inherit the <a> color */
 }
