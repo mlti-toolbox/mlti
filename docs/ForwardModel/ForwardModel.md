@@ -175,7 +175,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     <summary>
         <span class="summary-text">
             <b><code>film_isotropy</code> - Film isotropy type</b>
-            <span class="subline"><code>"tensor"</code> (default) | <code>"iso"</code></span> | <code>"simple"</code></span> | <code>"complex"</code></span>
+            <span class="subline"><code>"tensor"</code> (default) | <code>"iso"</code> | <code>"simple"</code> | <code>"complex"</code></span>
         </span>
     </summary>
     <div>
@@ -202,7 +202,9 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     <summary>
         <span class="summary-text">
             <b><code>sub_isotropy</code> - Substrate isotropy type</b>
-            <span class="subline"><code>"tensor"</code> (default) | <code>"iso"</code></span> | <code>"simple"</code></span> | <code>"complex"</code></span>
+            <span class="subline">
+                <code>"tensor"</code> (default) | <code>"iso"</code> | <code>"simple"</code> | <code>"complex"</code>
+            </span>
         </span>
     </summary>
     <div>
