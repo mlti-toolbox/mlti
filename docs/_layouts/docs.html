@@ -38,6 +38,24 @@
           <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
         </ul>
         {% endif %}
+
+        <details>
+          <summary>Documentation Pages</summary>
+          <ul>
+            <li><a href="{{ '/docs/page1.html' | relative_url }}">Page 1</a></li>
+            <li><a href="{{ '/docs/page2.html' | relative_url }}">Page 2</a></li>
+            <li>
+              <details>
+                <summary>Subfolder</summary>
+                <ul>
+                  <li><a href="{{ '/docs/subfolder/page3.html' | relative_url }}">Page 3</a></li>
+                  <li><a href="{{ '/docs/subfolder/page4.html' | relative_url }}">Page 4</a></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </details>
+
       </header>
       <section>
 
