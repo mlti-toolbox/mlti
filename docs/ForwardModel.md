@@ -40,118 +40,144 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6, 
 #### Options
 
 <details>
-  <summary><b>
-    <code>ift_method</code> - 2-D inverse Fourier transform method
-  </b></summary>
+    <summary>
+        <span class="summary-text">
+            <b><code>ift_method</code> - 2-D inverse Fourier transform method</b>
+            <span class="subline"><code>"ifft2"</code> (default) | <code>"integral2"</code></span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            2-D inverse Fourier transform method. When possible, the
+            <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
+            method should be used for its computational efficiency.
+            However, if greater accuracy is needed, the
+            <a href="https://www.mathworks.com/help/matlab/ref/integral2.html"><code>integral2</code></a>
+            method may be used instead.
+        </p>
+        <p>
+            When <code>ift_method = "ifft2"</code>, either
+            <code>x_max</code> or <code>dx</code> must be provided.
+            <code>Nx</code> has a default value, but <code>x_max</code>
+            and <code>dx</code> do not. At least two of the three
+            (<code>x_max</code>, <code>Nx</code>, <code>dx</code>)
+            must be known to compute the third.
+        </p>
+        <p>
+            Input value is validated using
+            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>char</code> | <code>string</code>
+        </p>
 
-  <br>
-
-  2-D inverse Fourier transform method.
-  When possible, the [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method should be used for its computational efficiency.
-  However, if greater accuracy is needed, the [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) method may be used instead.
-
-  When `ift_method = "ifft2"`, either `x_max` or `dx` must be provided. `Nx` has a default value, but `x_max` and `dx` do not. At least two of the three (`x_max`, `Nx`, `dx`) must be known to compute the third.
-  
-  **Value Options:** `'ifft2'` (default) | `'integral2'`
-  
-  Vaue options are validated using [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html).
-    
-  **Data Types:** `string` | `char`
-  
-  <br>
-  
+    </div>
 </details>
 
 <details>
-  <summary><b>
-    <code>x_max</code> - maximum spatial distance from pump
-  </b></summary>
-
-  <br>
-
-  Maximum spatial distance from the pump in the x- and y-directions used in the 2-D inverse fast Fourier transform ([`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html)).
-  I.e., the spatial domain for both `x_probe` and `y_probe` will be `[-x_max, x_max]`.
-
-  The value of `x_max` is ignored when `ift_method = "integral2"`.
-
-  **Value Options:** positive scalar value
-    
-  **Data Types:** `double`
-  
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>x_max</code> - Maximum spatial distance from pump</b>
+            <span class="subline">positive real scalar</span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Maximum spatial distance from the pump in the x- and y-directions used in the 2-D inverse fast Fourier transform
+            (<a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>).
+            When specified, the spatial domain for both <code>x_probe</code>
+            and <code>y_probe</code> will be <code>[-x_max, x_max]</code>
+            if <code>dx</code> is also specified or if <code>Nx</code> is odd;
+            otherwise (<code>Nx</code> is even), the domain will be <code>[-x_max, x_max - dx]</code>.
+        </p>
+        <p>
+            The value of <code>x_max</code> is ignored when <code>ift_method = "integral2"</code>.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>double</code> | <code>single</code>
+        </p>
+    </div>
 </details>
 
 <details>
-  <summary><b>
-    <code>Nx</code> - number of spatial steps
-  </b></summary>
-
-  <br>
-
-  Number of descrete spatial points to use in the `ifft2` transform.
-  I.e., signal length.
-  
-  When possible, the value of `Nx` should only have small prime factors as this results in significantly faster execution of the `ifft2` transform.
-
-  The value of `Nx` is ignored when `ift_method = "integral2"`.
-  Furthermore, If all three `x_max`, `Nx`, and `dx` are provided as inputs, `Nx` will be ignored.
-
-
-  **Value Options:** 256 (default) | positive scalar value
-    
-  **Data Types:** `double`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>Nx</code> - Number of spatial steps</b>
+            <span class="subline"> 256 (default) | positive integer scalar</span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Number of descrete spatial points to use in the
+            <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
+            transform. I.e., signal length.
+        </p>
+        <p>
+            When possible, the value of <code>Nx</code> should only have small prime factors as this results in significantly faster execution of the
+            <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
+            transform.
+        </p>
+        <p>
+            The value of <code>Nx</code> is ignored when <code>ift_method = "integral2"</code> or if all three <code>x_max</code>, <code>Nx</code>, and <code>dx</code> are specified.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>double</code> | <code>single</code> | <code>int8</code> | <code>int16</code> | <code>int32</code> | <code>uint8</code> | <code>uint16</code> | <code>uint32</code>
+        </p>
+    </div>
 </details>
 
 <details>
-  <summary><b>
-    <code>dx</code> - step size
-  </b></summary>
-
-  <br>
-
-  Descrete spatial step size.
-  
-  The value of `dx` is ignored when `ift_method = "integral2"`.
-
-  **Value Options:** positive scalar value
-    
-  **Data Types:** `double`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>dx</code> - Descrete spatial step size</b>
+            <span class="subline"> positive real scalar</span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Descrete spatial step size. I.e., sampling period.
+        </p>
+        <p>
+            The value of <code>dx</code> is ignored when <code>ift_method = "integral2"</code>.
+        </p>
+        <p>
+            <b>Data Types:</b> <code>double</code> | <code>single</code>
+        </p>
+    </div>
 </details>
 
 <details>
-  <summary><b>
-    <code>scale</code> - input scale factor
-  </b></summary>
-
-  <br>
-
-  The input scale factor defines the units of certain forward model inputs by scaling their base SI units as follows:
-  * $$\left[ h_f \right] = \left[ h_s \right] = \left[ s_x \right] = \left[ s_y \right] = \left[ x_\mathrm{probe} \right] = \mathrm{scale} \cdot \mathrm{m}$$
-  * $$\left[ \alpha_f \right] = \left[ \alpha_s \right] = \left[ u \right] = \left[ v \right] = \left[\frac{1}{ x_\mathrm{probe}} \right] = \frac{1}{\mathrm{scale} \cdot \mathrm{m}}$$
-  * $$\left[C_f\right] = \left[C_s\right] = \frac{\mathrm{W}}{\mathrm{scale} \cdot \mathrm{m}^3 \cdot \mathrm{K}}$$
-  * $$\left[ P \right] = \left[ \mathrm{scale} \cdot \mathrm{W} \right]$$
-  * $$\left[ f_0 \right] = \left[\frac{\mathrm{Hz}}{\mathrm{scale}} \right]$$
-
-  **Example:** If ```scale = 1e-6``` forward model inputs are considered to be in the following units:
-  * $$\left[ h_f \right] = \left[ h_s \right] = \left[ s_x \right] = \left[ s_y \right] = \left[ x_\mathrm{probe} \right] = \mathrm{scale} \cdot \mathrm{m} = 10^{-6} \cdot \mathrm{m} = \mathrm{\upmu m}$$
-  * $$\left[ \alpha_f \right] = \left[ \alpha_s \right] = \left[ u \right] = \left[ v \right] = \left[\frac{1}{ x_\mathrm{probe}} \right] = \frac{1}{\mathrm{scale} \cdot \mathrm{m}} = \frac{1}{10^{-6} \cdot \mathrm{m}} = \frac{1}{\mathrm{\upmu m}}$$
-  * $$\left[C_f\right] = \left[C_s\right] = \frac{\mathrm{W}}{\mathrm{scale} \cdot \mathrm{m}^3 \cdot \mathrm{K}} = \frac{\mathrm{W}}{10^{-6} \cdot \mathrm{m}^3 \cdot \mathrm{K}} = \frac{\mathrm{W}}{\mathrm{cm}^3 \cdot \mathrm{K}}$$
-  * $$\left[ P \right] = \left[ \mathrm{scale} \cdot \mathrm{W} \right] = \left[ 10^{-6} \cdot \mathrm{W} \right] = \left[ \mathrm{\upmu W} \right]$$
-  * $$\left[ f_0 \right] = \left[\frac{\mathrm{Hz}}{\mathrm{scale}} \right] = \left[\frac{\mathrm{Hz}}{10^{-6}} \right] = \left[ 10^6 \cdot \mathrm{Hz} \right] = \left[ \mathrm{MHz} \right]$$
-
-  **Value Options:** 1 (default) | positive scalar value
-    
-  **Data Types:** `double`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>scale</code> - Input scale factor</b>
+            <span class="subline"> 1 (default) | positive real scalar</span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            The input scale factor defines the units of certain forward model inputs by scaling their base SI units as follows:
+        </p>
+        <ul>
+            <li>\(\left[ h_f \right] = \left[ h_s \right] = \left[ s_x \right] = \left[ s_y \right] = \left[ x_\mathrm{probe} \right] = \mathrm{scale} \cdot \mathrm{m}\)</li>
+            <li>\(\left[ \alpha_f \right] = \left[ \alpha_s \right] = \left[ u \right] = \left[ v \right] = \left[\frac{1}{ x_\mathrm{probe}} \right] = \frac{1}{\mathrm{scale} \cdot \mathrm{m}}\)</li>
+            <li>\(\left[C_f\right] = \left[C_s\right] = \frac{\mathrm{W}}{\mathrm{scale} \cdot \mathrm{m}^3 \cdot \mathrm{K}}\)</li>
+            <li>\(\left[ P \right] = \left[ \mathrm{scale} \cdot \mathrm{W} \right]\)</li>
+            <li>\(\left[ f_0 \right] = \left[\frac{\mathrm{Hz}}{\mathrm{scale}} \right]\)</li>
+        </ul>
+        <p>
+            <b>Example:</b> If <code>scale = 1e-6</code> forward model inputs are considered to be in the following units:
+        </p>
+        <ul>
+            <li>\(\left[ h_f \right] = \left[ h_s \right] = \left[ s_x \right] = \left[ s_y \right] = \left[ x_\mathrm{probe} \right] = \mathrm{scale} \cdot \mathrm{m} = 10^{-6} \cdot \mathrm{m} = \mathrm{\upmu m}\)</li>
+            <li>\(\left[ \alpha_f \right] = \left[ \alpha_s \right] = \left[ u \right] = \left[ v \right] = \left[\frac{1}{ x_\mathrm{probe}} \right] = \frac{1}{\mathrm{scale} \cdot \mathrm{m}} = \frac{1}{10^{-6} \cdot \mathrm{m}} = \frac{1}{\mathrm{\upmu m}}\)</li>
+            <li>\(\left[C_f\right] = \left[C_s\right] = \frac{\mathrm{W}}{\mathrm{scale} \cdot \mathrm{m}^3 \cdot \mathrm{K}} = \frac{\mathrm{W}}{10^{-6} \cdot \mathrm{m}^3 \cdot \mathrm{K}} = \frac{\mathrm{W}}{\mathrm{cm}^3 \cdot \mathrm{K}}\)</li>
+            <li>\(\left[ P \right] = \left[ \mathrm{scale} \cdot \mathrm{W} \right] = \left[ 10^{-6} \cdot \mathrm{W} \right] = \left[ \mathrm{\upmu W} \right]\)</li>
+            <li>\(\left[ f_0 \right] = \left[\frac{\mathrm{Hz}}{\mathrm{scale}} \right] = \left[\frac{\mathrm{Hz}}{10^{-6}} \right] = \left[ 10^6 \cdot \mathrm{Hz} \right] = \left[ \mathrm{MHz} \right]\)</li>
+        </ul>
+        <p>
+            <b>Data Types:</b> <code>double</code> | <code>single</code>
+        </p>
+    </div>
 </details>
 
 <details>
@@ -436,4 +462,5 @@ and performance.
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
