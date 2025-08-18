@@ -301,21 +301,21 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     <div>
         <p>
             Euler angle sequence specified as three axes.
-            I.e., computes the rotation matrix as \(\mathbf{R} = \mathbf{R}_i\left(\theta_1\right) \cdot \mathbf{R}_j\left(\theta_2\right)\) \cdot \mathbf{R}_k\left(\theta_3\right)\), where \(i, j, k \in \left\{x, y, z\left\}\) are the 1st, 2nd, and 3rd characters of the input character array, and:
+            I.e., computes the rotation matrix as \(\mathbf{R} = \mathbf{R}_i\left(\theta_1\right) \cdot \mathbf{R}_j\left(\theta_2\right) \cdot \mathbf{R}_k\left(\theta_3\right)\), where \(i, j, k \in \left\{x, y, z\left\}\) are the 1st, 2nd, and 3rd characters of the input character array, and:
             \[
-            R_x(\theta) =
+            \mathbf{R}_x(\theta) =
             \begin{bmatrix}
             1 & 0 & 0 \\
             0 & \cos\theta & -\sin\theta \\
             0 & \sin\theta & \cos\theta
             \end{bmatrix}, \quad
-            R_y(\theta) =
+            \mathbf{R}_y(\theta) =
             \begin{bmatrix}
             \cos\theta & 0 & \sin\theta \\
             0 & 1 & 0 \\
             -\sin\theta & 0 & \cos\theta
             \end{bmatrix}, \quad
-            R_z(\theta) =
+            \mathbf{R}_z(\theta) =
             \begin{bmatrix}
             \cos\theta & -\sin\theta & 0 \\
             \sin\theta & \cos\theta & 0 \\
