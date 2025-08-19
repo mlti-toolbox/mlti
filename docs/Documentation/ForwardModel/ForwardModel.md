@@ -18,8 +18,8 @@ Where
     <li>\(G\left(...\right)\) represents the forward model function.</li>
     <li>\(\mathbf{M}\) is an array of material parameters</li>
     <li>\(\mathbf{O}\) is an array of orientation parameters</li>
-    <li>\(\chi\) is a array of experimental parameters</li>
-    <li>\(\mathbf{f}_0\) is a array of pump laser frequencies</li>
+    <li>\(\chi\) is an array of experimental parameters</li>
+    <li>\(\mathbf{f}_0\) is an array of pump laser frequencies</li>
     <li>\(\mathbf{X}_\mathrm{probe}\) is an array of probe offsets</li>
 </ul>
 <p>
@@ -533,6 +533,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
