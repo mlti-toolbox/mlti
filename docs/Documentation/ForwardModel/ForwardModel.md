@@ -6,9 +6,20 @@ hyperlink: /Documentation/ForwardModel
 
 # ForwardModel
 
-Models the surface thermal response due to a harmonic laser heat source
+Models the surface thermal response induced by a laser heat source with Gaussian spatial distribution and harmonic temporal modulation.
 
 ## Description
+
+The nonlinear `ForwardModel` class predicts the surface thermal response induced by a laser heat source with Gaussian spatial distribution and harmonic temporal modulation. Specifically, `ForwardModel.solve` returns the phase lag $\mathbf{\upphi}$, amplitude $\mathbf{A}$, and DC temperature rise \(\Delta\mathbf{T}_\mathrm{DC}\) at specific probe offsets $x_\mathrm{probe}$ within some error $\epsilon_T$.
+\[\left\{\mathbf{\upphi}, \mathbf{A}, \Delta\mathbf{T}_\mathrm{DC}\right\} = \text{ForwardModel.solve}\left(\mathbf{M}, \mathbf{\Theta}, \chi, \mathbf{f}_0, \mathbf{X}_\mathrm{probe}\right) + \epsilon_T\]
+Where
+* \(\mathbf{M}\) is an \(N \times N_m\) matrix of material parameters
+* \(\mathbf{\Theta}\) is an \(N_\mathrm{pump} \times N_\theta\) matrix of orientation parameters
+* \(\chi\) is a \(N_\chi\)-length vector of experimental parameters
+* \(\mathbf{f}_0\) is a \(N_f\)-length vector of pump laser frequencies
+* \(\mathbf{X}_\mathrm{probe}\) is a \(N_\mathrm{probe} \times 2 \) matrix of probe offsets
+
+The sample is expected to consist of a substrate layer and a thin film layer, modeled as semi-infinite in the x- and y-directions. Furthermore, the top surface of the sample \(\left(z=0\right)\) is modeled as insulated.
 
 ## Creation
 
@@ -516,6 +527,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
