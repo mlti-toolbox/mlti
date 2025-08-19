@@ -10,9 +10,20 @@ Models the surface thermal response induced by a laser heat source with Gaussian
 
 ## Description
 <p>
-The <code>ForwardModel</code> class predicts the surface thermal response induced by a laser heat source with Gaussian spatial distribution and harmonic temporal modulation. Specifically, it returns the phase lag \(\mathbf{\upphi}\), amplitude \(\mathbf{A}\), and DC temperature rise \(\Delta\mathbf{T}_\mathrm{DC}\) at specific probe offsets \(\mathbf{X}_\mathrm{probe}\) within some error \(\mathbf{\upepsilon}_T\).
-\[\left\{\mathbf{\upphi}, \mathbf{A}, \Delta\mathbf{T}_\mathrm{DC}\right\} = G\left(\mathbf{M}, \mathbf{\Theta}, \chi, \mathbf{f}_0, \mathbf{X}_\mathrm{probe}\right) + \epsilon_T\]
-Where \(G\left(...\right)\) represents the forward model function. See <a href="/MLTI/Documentation/ForwardModel/solve"><code>ForwardModel.solve</code></a> for more details.
+The <code>ForwardModel</code> class predicts the surface thermal response induced by a pump laser heat source with Gaussian spatial distribution and harmonic temporal modulation. Specifically, it returns the phase lag \(\mathbf{\upphi}\), amplitude \(\mathbf{A}\), and DC temperature rise \(\Delta\mathbf{T}_\mathrm{DC}\) at specific probe offsets \(\mathbf{X}_\mathrm{probe}\) within some error \(\mathbf{\upepsilon}_T\).
+\[\left\{\mathbf{\upphi}, \mathbf{A}, \Delta\mathbf{T}_\mathrm{DC}\right\} = G\left(\mathbf{M}, \mathbf{O}, \chi, \mathbf{f}_0, \mathbf{X}_\mathrm{probe}\right) + \epsilon_T\]
+Where
+</p>
+<ul>
+    <li>\(G\left(...\right)\) represents the forward model function.</li>
+    <li>\(\mathbf{M}\) is an array of material parameters</li>
+    <li>\(\mathbf{O}\) is an array of orientation parameters</li>
+    <li>\(\chi\) is a array of experimental parameters</li>
+    <li>\(\mathbf{f}_0\) is a array of pump laser frequencies</li>
+    <li>\(\mathbf{X}_\mathrm{probe}\) is an array of probe offsets</li>
+</ul>
+<p>
+    See <a href="/MLTI/Documentation/ForwardModel/solve"><code>ForwardModel.solve</code></a> for more details.
 </p>
 <p>
 The sample is expected to consist of a substrate layer and a thin film layer, modeled as semi-infinite in the \(x\)- and \(y\)-directions. Furthermore, the top surface of the sample \(\left(z=0\right)\) is modeled as insulated.
@@ -517,13 +528,12 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 | `solve`       | Solves the forward model |
 | `plot`        | Plots the surface thermal response |
 
-
-
 ## Examples
 
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
