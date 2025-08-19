@@ -22,9 +22,9 @@ Where
     <li>\(\mathbf{f}_0\) is an array of pump laser frequencies</li>
     <li>\(\mathbf{X}_\mathrm{probe}\) is an array of probe offsets</li>
 </ul>
-<p>
-    See <a href="/MLTI/Documentation/ForwardModel/solve"><code>ForwardModel.solve</code></a> for more details.
-</p>
+
+See [`ForwardModel.solve`](/MLTI/Documentation/ForwardModel/solve) for more details.
+
 <p>
 The sample is expected to consist of a substrate layer and a thin film layer, modeled as semi-infinite in the \(x\)- and \(y\)-directions. Furthermore, the top surface of the sample \(\left(z=0\right)\) is modeled as insulated.
 </p>
@@ -533,6 +533,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
