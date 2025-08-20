@@ -17,7 +17,7 @@
       {% include navbar.html %}
       
       <aside class="file-explorer">
-        <h2><a href="/Documentation">Documentation</a></h2>
+        <h2><a href="{{ '/Documentation' | relative_url }}">Documentation</a></h2>
       
         {%- assign fm_pages = 
             "/Documentation/ForwardModel,/Documentation/ForwardModel/plot,/Documentation/ForwardModel/solve" | split: "," -%}
