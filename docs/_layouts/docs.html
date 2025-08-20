@@ -25,7 +25,7 @@
         
           {%- assign current_is_fm = fm_pages | where_exp: "p", "page.url == p" | size -%}
         
-          <details id="fm-tab" {% if current_is_fm > 0 %}open{% endif %}>
+          <details {% if page.url contains '/Documentation/ForwardModel' %}open{% endif %}>
             <summary>
               <a href="{{ '/Documentation/ForwardModel' | relative_url }}"
                  {% if page.url == '/Documentation/ForwardModel' %}style="font-weight:bold;"{% endif %}>
