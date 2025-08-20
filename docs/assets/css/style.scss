@@ -381,3 +381,102 @@ details.custom-details a code,
 details.custom-details a code.language-plaintext.highlighter-rouge {
   color: currentColor !important;  /* inherit the <a> color */
 }
+
+/* ===== Responsive Navbar ===== */
+.navbar {
+  background: #f8f8f8;
+  border-bottom: 1px solid #e5e5e5;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  box-sizing: border-box;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.navbar h1 a {
+  color: #222;
+  text-decoration: none;
+}
+
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.5em;
+}
+
+.navbar li {
+  display: inline-block;
+}
+
+.navbar a {
+  color: #267CB9;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.25em 0;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.navbar a:hover,
+.navbar a:focus {
+  color: #005a99;
+  border-bottom: 2px solid #005a99;
+}
+
+/* ===== Hamburger button (hidden by default) ===== */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  background: #333;
+  display: block;
+  height: 3px;
+  margin: 4px 0;
+  width: 25px;
+  transition: 0.3s;
+}
+
+/* ===== Responsive behavior ===== */
+@media (max-width: 768px) {
+  .navbar ul {
+    display: none; /* hide links */
+    flex-direction: column;
+    background: #f8f8f8;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    padding: 1em;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+  }
+
+  .navbar ul.show {
+    display: flex; /* show when toggled */
+  }
+
+  .nav-toggle {
+    display: flex; /* show hamburger */
+  }
+}
+
+/* push content below navbar */
+body {
+  padding-top: 70px;
+}
+
