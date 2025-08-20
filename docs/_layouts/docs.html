@@ -28,24 +28,7 @@
           {% include file-explorer-contents.html %}
         
         </aside>
-        
-        
-        <script>
-          const fmTab = document.getElementById('fm-tab');
-          const currentIsFM = {{ page.url contains '/Documentation/ForwardModel' | jsonify }};
-        
-          if (currentIsFM) {
-            // Force open and prevent user from closing
-            fmTab.open = true;
-            fmTab.addEventListener('toggle', () => {
-              if (!fmTab.open) fmTab.open = true;
-            });
-          } else {
-            // Ensure closed by default, allow user to open manually
-            fmTab.removeAttribute('open');
-          }
-        </script>
-  
+
         <!-- Docs Content -->
         <main class="docs-content">
           {{ content }}
