@@ -26,22 +26,31 @@ h3, h4, h5, h6 { color: #494949; }
 
 p, ul, ol, table, pre, dl { margin: 0 0 20px; }
 
-a {
-  color: #267CB9;
-  text-decoration: none;
-}
-a:hover, a:focus {
-  color: #069;
-  font-weight: bold;
-}
 a small {
   font-size: 11px;
   color: #777;
   margin-top: -0.3em;
   display: block;
 }
-a code.language-plaintext.highlighter-rouge {
-  color: #0366d6;
+
+a,
+.file-explorer a,
+.details.custom-details a,
+a code,
+.file-explorer a code,
+.details.custom-details a code {
+  color: #0366d6 !important;
+  text-decoration: none !important;
+}
+
+a:hover,
+.file-explorer a:hover,
+.details.custom-details a:hover,
+a:hover code,
+.file-explorer a:hover code,
+.details.custom-details a:hover code {
+  color: #005a99 !important;
+  text-decoration: underline !important;
 }
 
 /* ===== Content Elements ===== */
@@ -164,14 +173,6 @@ details.custom-details > div {
   padding: 1em;
   border-top: 1px solid #ccc;
 }
-details.custom-details a {
-  color: #0366d6;
-  text-decoration: none;
-}
-details.custom-details a:hover { color: #005a99; text-decoration: underline; }
-details.custom-details a code.language-plaintext.highlighter-rouge {
-  color: #0366d6;
-}
 
 /* ===== Navbar ===== */
 .navbar {
@@ -242,15 +243,6 @@ details.custom-details a code.language-plaintext.highlighter-rouge {
   overflow-y: auto;
   position: sticky;
   top: 80px;
-}
-.file-explorer a {
-  color: #0366d6;
-  text-decoration: none;
-}
-.file-explorer a:hover { color: #005a99; text-decoration: underline; }
-
-.file-explorer a code.language-plaintext.highlighter-rouge {
-  color: #0366d6;
 }
 
 .docs-content {
