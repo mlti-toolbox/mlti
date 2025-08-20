@@ -251,11 +251,12 @@ details.custom-details > div {
 .file-explorer {
   width: 250px;
   border-right: 1px solid #e5e5e5;
-  padding: 0 3em;
+  padding: 3em 20px;
   background: #fafafa;
   height: calc(100vh - 80px);
   overflow-y: auto;
   position: sticky;
+  top: 80px;
 }
 
 .docs-content {
