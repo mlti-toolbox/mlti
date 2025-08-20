@@ -169,6 +169,9 @@ details.custom-details a {
   text-decoration: none;
 }
 details.custom-details a:hover { color: #005a99; text-decoration: underline; }
+details.custom-details a code.language-plaintext.highlighter-rouge {
+  color: #0366d6;
+}
 
 /* ===== Navbar ===== */
 .navbar {
@@ -245,6 +248,11 @@ details.custom-details a:hover { color: #005a99; text-decoration: underline; }
   text-decoration: none;
 }
 .file-explorer a:hover { color: #005a99; text-decoration: underline; }
+
+.file-explorer a code.language-plaintext.highlighter-rouge {
+  color: #0366d6;
+}
+
 .docs-content {
   flex: 1;
   padding: 2em;
