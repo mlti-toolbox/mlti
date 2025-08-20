@@ -262,7 +262,8 @@ details.custom-details > div {
 }
 
 .docs-content {
-  flex: 1;
+  flex: 1 1 auto; /* allow growing and shrinking */
+  min-width: 0;   /* critical for flex items to shrink below content width */
   padding: 2em;
   background: #fff;
 }
@@ -291,6 +292,7 @@ details.custom-details > div {
 @media (max-width: 960px) {
   .docs-wrapper { flex-direction: column; }
   .docs-content { padding: 1em; }
+  .file-explorer { padding: 2em 20px; }
   
   .file-explorer {
     width: 100%;
