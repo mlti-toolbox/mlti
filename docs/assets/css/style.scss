@@ -167,14 +167,14 @@ details.custom-details > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 80px;
   padding: 0 20px;
   background-color: #d9d9d9;
   border-bottom: 1px solid #e5e5e5;
 }
 
 .nav-logo {
-  height: 100%;      /* fills navbar height */
+  height: 80px;  /*same as navbar height*/
   width: auto;
   display: block;    /* removes inline baseline spacing */
   object-fit: contain;
