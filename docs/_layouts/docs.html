@@ -21,16 +21,39 @@
         <!-- Sidebar / File Explorer -->
         <aside class="file-explorer">
           <h2>Documentation</h2>
-          <details open>
-            <summary><code>ForwardModel</code></summary>
+      
+          {%- assign fm_pages = 
+              "/Documentation/ForwardModel,/Documentation/ForwardModel/plot,/Documentation/ForwardModel/solve" | split: "," -%}
+      
+          {%- assign current_is_fm = fm_pages | where_exp: "p", "page.url == p" | size -%}
+      
+          <details {% if page.url contains '/Documentation/ForwardModel' %}open{% endif %}>
+            <summary>
+              <code>ForwardModel</code>
+            </summary>
             <ul>
-              <li><a href="{{ '/Documentation/ForwardModel/ForwardModel' | relative_url }}"><code>ForwardModel</code></a></li>
-              <li><a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"><code>ForwardModel.plot</code></a></li>
-              <li><a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"><code>ForwardModel.solve</code></a></li>
+              <li>
+                <a href="{{ '/Documentation/ForwardModel' | relative_url }}"
+                   {% if page.url == '/Documentation/ForwardModel' %}style="font-weight:bold;"{% endif %}>
+                  <code>ForwardModel</code>
+                </a>
+              </li>
+              <li>
+                <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"
+                   {% if page.url == '/Documentation/ForwardModel/plot' %}style="font-weight:bold;"{% endif %}>
+                  <code>ForwardModel.plot</code>
+                </a>
+              </li>
+              <li>
+                <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"
+                   {% if page.url == '/Documentation/ForwardModel/solve' %}style="font-weight:bold;"{% endif %}>
+                  <code>ForwardModel.solve</code>
+                </a>
+              </li>
             </ul>
           </details>
         </aside>
-  
+      
         <!-- Docs Content -->
         <main class="docs-content">
           {{ content }}
