@@ -4,66 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     {% seo %}
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
     {% include head-custom.html %}
-
-    <script>
-      window.MathJax = {
-        loader: {load: ['[tex]/upgreek']},
-        tex: {packages: {'[+]': ['upgreek']}}
-      };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    {% include math-format.html %}
   </head>
   <body>
-    <!-- ✅ Top Navigation Bar -->
-    {% include navbar.html %}
-
-    <!-- ✅ Main layout wrapper -->
-    <div class="docs-wrapper">
-      <!-- Sidebar / File Explorer -->
-      <aside class="file-explorer">
-        <h2>Documentation</h2>
-        <details open>
-          <summary>Classes</summary>
-          <ul>
-            <li><a href="{{ '/docs/page1.html' | relative_url }}">ForwardModel</a></li>
-            <details>
-              <summary>Subfolder</summary>
-              <ul>
-                <li><a href="{{ '/docs/subfolder/page3.html' | relative_url }}">ForwardModel constructor</a></li>
-                <li><a href="{{ '/docs/subfolder/page4.html' | relative_url }}">plot</a></li>
-                <li><a href="{{ '/docs/subfolder/page4.html' | relative_url }}">solve</a></li>
-              </ul>
-            </details>
-          </ul>
-        </details>
-      </aside>
-
-      <!-- Docs Content -->
-      <main class="docs-content">
-        {{ content }}
-      </main>
+    <div class="wrapper">
+      {% include navbar.html %}
+      
+      <!-- ✅ Main layout wrapper -->
+      <div class="docs-wrapper">
+        <!-- Sidebar / File Explorer -->
+        <aside class="file-explorer">
+          <h2>Documentation</h2>
+          <details open>
+            <summary><code>ForwardModel</code></summary>
+            <ul>
+              <li><a href="{{ '/Documentation/ForwardModel/ForwardModel' | relative_url }}"><code>ForwardModel</code></a></li>
+              <li><a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"><code>ForwardModel.plot</code></a></li>
+              <li><a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"><code>ForwardModel.solve</code></a></li>
+            </ul>
+          </details>
+        </aside>
+  
+        <!-- Docs Content -->
+        <main class="docs-content">
+          {{ content }}
+        </main>
+      </div>
+      
+      {% include footer.html %}
     </div>
-
-    <!-- Footer -->
-    <footer>
-      {% if site.github.is_project_page %}
-      <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-      {% endif %}
-    </footer>
-
-    <!-- Scripts -->
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
-    <script>
-      const navToggle = document.getElementById("navToggle");
-      const navMenu = document.getElementById("navMenu");
-
-      navToggle.addEventListener("click", () => {
-        navMenu.classList.toggle("show");
-      });
-    </script>
   </body>
 </html>
