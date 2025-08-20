@@ -13,7 +13,7 @@ Models the surface thermal response induced by a laser heat source with Gaussian
 The <code>ForwardModel</code> class predicts the surface thermal response induced by a pump laser heat source with Gaussian spatial distribution and harmonic temporal modulation. Specifically, it returns the phase lag \(\mathbf{\upphi}\), amplitude \(\mathbf{A}\), and DC temperature rise \(\Delta\mathbf{T}_\mathrm{DC}\) at specific probe offsets \(\mathbf{X}_\mathrm{probe}\) within some error \(\mathbf{\upepsilon}_T\).
 </p>
 <p>
-\({\left\{\mathbf{\upphi}, \mathbf{A}, \Delta\mathbf{T}_\mathrm{DC}\right\}} = {G\left(\mathbf{M}, \mathbf{O}, \chi, \mathbf{f}_0, \mathbf{X}_\mathrm{probe}\right) + \epsilon_T}\)
+\({\left\{\mathbf{\upphi}, \mathbf{A}, \Delta\mathbf{T}_\mathrm{DC}\right\}} = {\text{ForwardModel.solve}\left(\mathbf{M}, \mathbf{O}, \chi, \mathbf{f}_0, \mathbf{X}_\mathrm{probe}\right) + \epsilon_T}\)
 </p>
 <p>
 Where
@@ -538,6 +538,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
