@@ -32,20 +32,24 @@ a small {
   margin-top: -0.3em;
   display: block;
 }
+a, .file-explorer a,
+.details.custom-details a {
+  color: #0366d6;
+  text-decoration: none;
+}
+a:hover, a:focus,
+.file-explorer a:hover,
+.details.custom-details a:hover {
+  color: #005a99;
+  text-decoration: underline;
+}
 
-a,
-.file-explorer a,
-.details.custom-details a,
-a code,
-.file-explorer a code,
+a code, .file-explorer a code,
 .details.custom-details a code {
   color: #0366d6 !important;
   text-decoration: none !important;
 }
 
-a:hover,
-.file-explorer a:hover,
-.details.custom-details a:hover,
 a:hover code,
 .file-explorer a:hover code,
 .details.custom-details a:hover code {
