@@ -16,49 +16,54 @@
     <div class="wrapper">
       {% include navbar.html %}
       
-      <!-- ✅ Main layout wrapper -->
-      <div class="docs-wrapper">
-        <!-- Sidebar / File Explorer -->
-        <aside class="file-explorer">
-          <h2>Documentation</h2>
+      <aside class="file-explorer">
+        <h2><a href="/Documentation">Documentation</a></h2>
       
-          {%- assign fm_pages = 
-              "/Documentation/ForwardModel,/Documentation/ForwardModel/plot,/Documentation/ForwardModel/solve" | split: "," -%}
+        {%- assign fm_pages = 
+            "/Documentation/ForwardModel,/Documentation/ForwardModel/plot,/Documentation/ForwardModel/solve" | split: "," -%}
       
-          {%- assign current_is_fm = fm_pages | where_exp: "p", "page.url == p" | size -%}
+        {%- assign current_is_fm = fm_pages | where_exp: "p", "page.url == p" | size -%}
       
-          <details {% if page.url contains '/Documentation/ForwardModel' %}open{% endif %}>
-            <summary>
+        <details id="fm-tab" {% if current_is_fm > 0 %}open{% endif %}>
+          <summary>
+            <a href="{{ '/Documentation/ForwardModel' | relative_url }}"
+               {% if page.url == '/Documentation/ForwardModel' %}style="font-weight:bold;"{% endif %}>
               <code>ForwardModel</code>
-            </summary>
-            <ul>
-              <li>
-                <a href="{{ '/Documentation/ForwardModel' | relative_url }}"
-                   {% if page.url == '/Documentation/ForwardModel' %}style="font-weight:bold;"{% endif %}>
-                  <code>ForwardModel</code>
-                </a>
-              </li>
-              <li>
-                <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"
-                   {% if page.url == '/Documentation/ForwardModel/plot' %}style="font-weight:bold;"{% endif %}>
-                  <code>ForwardModel.plot</code>
-                </a>
-              </li>
-              <li>
-                <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"
-                   {% if page.url == '/Documentation/ForwardModel/solve' %}style="font-weight:bold;"{% endif %}>
-                  <code>ForwardModel.solve</code>
-                </a>
-              </li>
-            </ul>
-          </details>
-        </aside>
+            </a>
+          </summary>
+          <ul>
+            <li>
+              <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"
+                 {% if page.url == '/Documentation/ForwardModel/plot' %}style="font-weight:bold;"{% endif %}>
+                <code>ForwardModel.plot</code>
+              </a>
+            </li>
+            <li>
+              <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"
+                 {% if page.url == '/Documentation/ForwardModel/solve' %}style="font-weight:bold;"{% endif %}>
+                <code>ForwardModel.solve</code>
+              </a>
+            </li>
+          </ul>
+        </details>
       
-        <!-- Docs Content -->
-        <main class="docs-content">
-          {{ content }}
-        </main>
-      </div>
+      </aside>
+      
+      <script>
+        const fmTab = document.getElementById('fm-tab');
+        const currentIsFM = {{ current_is_fm | default: 0 }};
+      
+        if (currentIsFM > 0) {
+          // Force tab open and prevent closing
+          fmTab.addEventListener('toggle', (e) => {
+            if (!fmTab.open) fmTab.open = true;
+          });
+        } else {
+          // Tab is closed by default; user must click the main link to open
+          fmTab.removeAttribute('open');
+        }
+      </script>
+
       
       {% include footer.html %}
     </div>
