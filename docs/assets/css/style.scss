@@ -480,3 +480,68 @@ body {
   padding-top: 70px;
 }
 
+/* ===== Docs Layout ===== */
+.docs-wrapper {
+  display: flex;
+  margin-top: 80px; /* push below navbar */
+}
+
+.file-explorer {
+  width: 250px;
+  min-width: 200px;
+  max-width: 300px;
+  border-right: 1px solid #e5e5e5;
+  padding: 1em;
+  background: #fafafa;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  position: sticky;
+  top: 80px; /* stays below navbar */
+}
+
+.docs-content {
+  flex: 1;
+  padding: 2em;
+  background: #fff;
+}
+
+/* Make file explorer collapsible tree look nice */
+.file-explorer summary {
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+.file-explorer ul {
+  list-style: none;
+  padding-left: 1em;
+}
+
+.file-explorer a {
+  color: #267CB9;
+  text-decoration: none;
+}
+
+.file-explorer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive: collapse sidebar */
+@media (max-width: 960px) {
+  .docs-wrapper {
+    flex-direction: column;
+  }
+
+  .file-explorer {
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    position: static;
+  }
+
+  .docs-content {
+    padding: 1em;
+  }
+}
