@@ -250,6 +250,8 @@ details.custom-details > div {
 }
 .file-explorer {
   width: 250px;
+  min-width: 250px;   /* prevents shrinking below 250px */
+  flex-shrink: 0;     /* prevents flexbox from shrinking it */
   border-right: 1px solid #e5e5e5;
   padding: 2em 20px;
   background: #fafafa;
