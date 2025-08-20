@@ -15,60 +15,62 @@
   <body>
     <div class="wrapper">
       {% include navbar.html %}
-      
-      <aside class="file-explorer">
-        <h2><a href="{{ '/Documentation/' | relative_url }}">Documentation</a></h2>
-      
-        {%- assign fm_pages = 
-            "/Documentation/ForwardModel,/Documentation/ForwardModel/plot,/Documentation/ForwardModel/solve" | split: "," -%}
-      
-        {%- assign current_is_fm = fm_pages | where_exp: "p", "page.url == p" | size -%}
-      
-        <details id="fm-tab" {% if current_is_fm > 0 %}open{% endif %}>
-          <summary>
-            <a href="{{ '/Documentation/ForwardModel/' | relative_url }}"
-               {% if page.url == '/Documentation/ForwardModel/' %}style="font-weight:bold;"{% endif %}>
-              <code>ForwardModel</code>
-            </a>
-          </summary>
-          <ul>
-            <li>
-              <a href="{{ '/Documentation/ForwardModel/plot/' | relative_url }}"
-                 {% if page.url == '/Documentation/ForwardModel/plot.html' %}style="font-weight:bold;"{% endif %}>
-                <code>ForwardModel.plot</code>
-              </a>
-            </li>
-            <li>
-              <a href="{{ '/Documentation/ForwardModel/solve/' | relative_url }}"
-                 {% if page.url == '/Documentation/ForwardModel/solve/' %}style="font-weight:bold;"{% endif %}>
-                <code>ForwardModel.solve</code>
-              </a>
-            </li>
-          </ul>
-        </details>
-      
-      </aside>
-      
-      
-      <script>
-        const fmTab = document.getElementById('fm-tab');
-        const currentIsFM = {{ current_is_fm | default: 0 }};
-      
-        if (currentIsFM > 0) {
-          // Force tab open and prevent closing
-          fmTab.addEventListener('toggle', (e) => {
-            if (!fmTab.open) fmTab.open = true;
-          });
-        } else {
-          // Tab is closed by default; user must click the main link to open
-          fmTab.removeAttribute('open');
-        }
-      </script>
 
-      <!-- Docs Content -->
-      <main class="docs-content">
-        {{ content }}
-      </main>
+      <div class="docs-wrapper">
+        <aside class="file-explorer">
+          <h2><a href="{{ '/Documentation/' | relative_url }}">Documentation</a></h2>
+        
+          {%- assign fm_pages = 
+              "/Documentation/ForwardModel,/Documentation/ForwardModel/plot,/Documentation/ForwardModel/solve" | split: "," -%}
+        
+          {%- assign current_is_fm = fm_pages | where_exp: "p", "page.url == p" | size -%}
+        
+          <details id="fm-tab" {% if current_is_fm > 0 %}open{% endif %}>
+            <summary>
+              <a href="{{ '/Documentation/ForwardModel/' | relative_url }}"
+                 {% if page.url == '/Documentation/ForwardModel/' %}style="font-weight:bold;"{% endif %}>
+                <code>ForwardModel</code>
+              </a>
+            </summary>
+            <ul>
+              <li>
+                <a href="{{ '/Documentation/ForwardModel/plot/' | relative_url }}"
+                   {% if page.url == '/Documentation/ForwardModel/plot.html' %}style="font-weight:bold;"{% endif %}>
+                  <code>ForwardModel.plot</code>
+                </a>
+              </li>
+              <li>
+                <a href="{{ '/Documentation/ForwardModel/solve/' | relative_url }}"
+                   {% if page.url == '/Documentation/ForwardModel/solve/' %}style="font-weight:bold;"{% endif %}>
+                  <code>ForwardModel.solve</code>
+                </a>
+              </li>
+            </ul>
+          </details>
+        
+        </aside>
+        
+        
+        <script>
+          const fmTab = document.getElementById('fm-tab');
+          const currentIsFM = {{ current_is_fm | default: 0 }};
+        
+          if (currentIsFM > 0) {
+            // Force tab open and prevent closing
+            fmTab.addEventListener('toggle', (e) => {
+              if (!fmTab.open) fmTab.open = true;
+            });
+          } else {
+            // Tab is closed by default; user must click the main link to open
+            fmTab.removeAttribute('open');
+          }
+        </script>
+  
+        <!-- Docs Content -->
+        <main class="docs-content">
+          {{ content }}
+        </main>
+      </div>
       {% include footer.html %}
     </div>
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
