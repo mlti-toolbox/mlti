@@ -43,26 +43,26 @@ a small {
   display: block;
 }
 a, .file-explorer a,
-.details.custom-details a {
+details.custom-details a {
   color: #0366d6;
   text-decoration: none;
 }
 a:hover, a:focus,
 .file-explorer a:hover,
-.details.custom-details a:hover {
+details.custom-details a:hover {
   color: #005a99;
   text-decoration: underline;
 }
 
 a code, .file-explorer a code,
-.details.custom-details a code {
+details.custom-details a code {
   color: #0366d6 !important;
   text-decoration: none !important;
 }
 
 a:hover code,
 .file-explorer a:hover code,
-.details.custom-details a:hover code {
+details.custom-details a:hover code {
   color: #005a99 !important;
   text-decoration: underline !important;
 }
@@ -163,29 +163,65 @@ ul.downloads {
 .downloads a:hover { color: #675C5C; font-weight: bold; }
 
 /* ===== Custom Details Dropdowns ===== */
+/* Container styling for details */
 details.custom-details {
   border: 1px solid #ccc;
   border-radius: 6px;
   margin: 0.75em 0;
+  width: 100%;               /* span full width */
   background: #fff;
+  box-sizing: border-box;    /* include border in width */
 }
+
+/* Summary (clickable header) */
 details.custom-details summary {
+  list-style: none;          /* remove default marker */
   cursor: pointer;
-  padding: 0.75em 1em;
-  background: #f8f8f8;
-  border-radius: 6px 6px 0 0;
   display: flex;
-  align-items: center;
+  align-items: center;       /* vertically center arrow and text */
+  padding: 0.75em 1em;
+  background: #f8f8f8;       /* grey title bar */
+  border-radius: 6px 6px 0 0;
+  width: 100%;
+  box-sizing: border-box;
 }
+
+/* Remove default browser arrows */
+details.custom-details summary::-webkit-details-marker { display: none; }
+details.custom-details summary::marker { content: ""; } /* Firefox */
+
+/* Custom arrow */
 details.custom-details summary::before {
-  content: "▸";
+  content: "▸";              /* right-pointing arrow */
+  display: inline-block;
+  width: 1em;
+  text-align: center;
   margin-right: 0.5em;
   transition: transform 0.2s ease;
+  color: #333;
 }
-details.custom-details[open] summary::before { transform: rotate(90deg); }
+
+/* Rotate arrow when open */
+details.custom-details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* Two-line title block */
+.summary-text {
+  display: grid;             /* stack lines */
+  line-height: 1.25;         /* optional tighter lines */
+}
+
+.subline {
+  font-size: 0.9em;
+}
+
+/* Content inside details */
 details.custom-details > div {
   padding: 1em;
+  background: #fff;
   border-top: 1px solid #ccc;
+  border-radius: 0 0 6px 6px;
 }
 
 /* ===== Navbar ===== */
