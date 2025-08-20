@@ -1,5 +1,5 @@
 ---
 layout: docs
 title: Documentation
-hyperlink: /Documentation
+permalink: /Documentation
 ---
