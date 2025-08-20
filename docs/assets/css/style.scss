@@ -6,6 +6,9 @@
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 
+.highlight .nb {
+  color: #000000;
+}
 /* Comments */
 .highlight .cm, .highlight .c1, .highlight .c, .highlight .cd {
   color: #008000;  /* green */
