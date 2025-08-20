@@ -164,6 +164,11 @@ details.custom-details > div {
   padding: 1em;
   border-top: 1px solid #ccc;
 }
+details.custom-details a {
+  color: #0366d6;
+  text-decoration: none;
+}
+details.custom-details a:hover { color: #005a99; text-decoration: underline; }
 
 /* ===== Navbar ===== */
 .navbar {
@@ -235,6 +240,11 @@ details.custom-details > div {
   position: sticky;
   top: 80px;
 }
+.file-explorer a {
+  color: #0366d6;
+  text-decoration: none;
+}
+.file-explorer a:hover { color: #005a99; text-decoration: underline; }
 .docs-content {
   flex: 1;
   padding: 2em;
