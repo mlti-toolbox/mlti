@@ -38,7 +38,7 @@ fm = ForwardModel(Name, Value)
 
 ### Description
 
-`fm = ForwardModel(Name, Value)` creates a forward model object according to specifications provided as name-value arguments.
+`fm = ForwardModel(Name, Value)` creates a forward model object according to specifications provided as name-value arguments. Name-Value arguments specify which solving methods and approximations to use as well as how thermal conductivity will be represented in input arrays `M` and `O`. The constructor displays the expected structure of solver inputs upon construction. See [example](#constructor-ex1).
 
 ### Input (Name-Value) Arguments
 
@@ -470,6 +470,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 </details>
 
 ### Examples
+<a id="constructor-ex1"></a>
 
 ## Properties
 
@@ -533,6 +534,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
