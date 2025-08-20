@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: ForwardModel.plot
-hyperlink: /Documentation/ForwardModel/plot
+permalink: /Documentation/ForwardModel/plot
 ---
 
 # ForwardModel.plot
@@ -18,5 +18,6 @@ Plots the surface thermal response.
 ## Output Arguments
 
 ## See Also
+
 
 
