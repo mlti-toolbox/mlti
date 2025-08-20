@@ -255,7 +255,7 @@ details.custom-details > div {
   border-right: 1px solid #e5e5e5;
   padding: 2em 20px;
   background: #fafafa;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 4em);
   overflow-y: auto;
   position: sticky;
   top: 0px;
@@ -291,8 +291,7 @@ details.custom-details > div {
 /* ===== Responsive ===== */
 @media (max-width: 960px) {
   .docs-wrapper { flex-direction: column; }
-  .docs-content { padding: 1em; }
-  .file-explorer { padding: 2em 20px; }
+  .docs-content, .file-explorer { padding: 1em; }
   
   .file-explorer {
     width: 100%;
