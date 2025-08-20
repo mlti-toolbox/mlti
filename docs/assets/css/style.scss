@@ -3,6 +3,60 @@
 
 @import "{{ site.theme }}";
 
+.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+
+/* Comments */
+.highlight .cm, .highlight .c1, .highlight .c, .highlight .cd {
+  color: #008000;  /* green */
+  font-style: italic;
+}
+
+/* Keywords */
+.highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kd {
+  color: #0000FF;  /* blue */
+  font-weight: bold;
+}
+
+/* Strings */
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .s1 {
+  color: #A2142F;  /* MATLAB dark red */
+}
+
+/* Numbers */
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .mb, .highlight .mx, .highlight .il {
+  color: #008080;  /* teal / cyan */
+}
+
+/* Functions */
+.highlight .nf, .highlight .nl, .highlight .nd {
+  color: #000000;
+  font-weight: bold;
+}
+
+/* Operators */
+.highlight .o, .highlight .ow {
+  color: #000000;
+  font-weight: bold;
+}
+
+/* Built-ins / Classes / Types */
+.highlight .nc, .highlight .no, .highlight .nd, .highlight .ni {
+  color: #1E90FF; /* slightly lighter blue */
+  font-weight: bold;
+}
+
+/* Errors */
+.highlight .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+
+/* Background */
+.highlight {
+  background-color: #f8f8f8;
+}
+
 /* ===== Base Typography & Body ===== */
 body {
   background-color: #fff;
