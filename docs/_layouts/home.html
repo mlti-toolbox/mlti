@@ -24,7 +24,16 @@
     <div class="wrapper">
       <header class="navbar">
         <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
-        <ul>
+      
+        <!-- Hamburger button -->
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      
+        <!-- Nav links -->
+        <ul id="navMenu">
           <li><a href="{{ '/docs/index.html' | relative_url }}">Documentation</a></li>
           <li><a href="{{ '/about.html' | relative_url }}">About</a></li>
           <li><a href="{{ site.github.repository_url }}">GitHub</a></li>
@@ -45,5 +54,13 @@
       </footer>
     </div>
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+    <script>
+      const navToggle = document.getElementById("navToggle");
+      const navMenu = document.getElementById("navMenu");
+    
+      navToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("show");
+      });
+    </script>
   </body>
 </html>
