@@ -10,7 +10,7 @@ body {
   color: #727272;
   font-weight: 400;
   padding: 50px;
-  padding-top: 0px; /* push below navbar */
+  padding-top: 0px;
   word-wrap: break-word;
 }
 
@@ -168,6 +168,7 @@ details.custom-details > div {
 /* ===== Navbar ===== */
 .navbar {
   width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -267,6 +268,7 @@ details.custom-details > div {
   
   .file-explorer {
     width: 100%;
+    box-sizing: border-box;
     height: auto;
     border-right: none;
     border-bottom: 1px solid #e5e5e5;
