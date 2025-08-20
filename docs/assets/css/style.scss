@@ -20,7 +20,17 @@ h1, h2, h3 { line-height: 1.1; }
 h1 { font-size: 28px; }
 h1 { color: #4682b4; }
 h2 {  color: #222; }
-.file-explorer h2 { color: #222 !important; }
+.file-explorer h2 a {
+  color: inherit;   /* inherits the h2 color (#222) */
+  text-decoration: none;
+}
+
+.file-explorer h2 a:hover,
+.file-explorer h2 a:focus {
+  color: inherit;   /* stay same on hover/focus */
+  text-decoration: underline; /* optional */
+}
+
 h3 { color: #ff3131; }
 h4, h5, h6 { color: #494949; }
 
