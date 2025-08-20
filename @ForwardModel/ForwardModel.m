@@ -23,19 +23,9 @@ classdef ForwardModel
             fprintf("ForwardModel object created with the following constructor arguments:\n\n");
             disp(this.c_args);
 
-            [this.in_structure, this.in_sizes, MOchi2input] = this.get_input_structure();
-            if isempty(this.in_structure{2})
-                orient_structure = "";
-            else
-                orient_structure = strjoin(this.in_structure{2}, ", ");
-            end
-            fprintf("\nFunction inputs 'M', 'O', and 'chi' expected to be formatted as follows:\n" + ...
-                "\tM = [%s]; i.e., an N_train-by-%d matrix of doubles\n" + ...
-                "\tO = [%s]; i.e., an N_pump-by-%d matrix of doubles\n" + ...
-                "\tchi = [%s]; i.e., a 1-by-%d vector of doubles\n", ...
-                strjoin(this.in_structure{1}, ", "), this.in_sizes(1), ...
-                orient_structure, this.in_sizes(2), ...
-                strjoin(this.in_structure{3}, ", "), this.in_sizes(3));
+            inputs = this.get_input_structure();
+            [length_unit, C_unit, P_unit, f_unit] = scale2units(this.c_args.scale);
+      
 
             if this.c_args.force_sym_solve ...
                     || ~exist("@ForwardModel/private/T0_hat_finite.m", "file") ...
@@ -81,10 +71,11 @@ classdef ForwardModel
         % ORIENT_OPTIONS - String array of valid orientation types
         orient_options = ["azpol", "uvect", "euler", "uquat", "rotmat"];
         
-        % SEQ_OPTIONS - String array of valid Euler-angle rotation sequences
-        seq_options = ["ZYZ", "ZXZ", "ZYX", "ZXY", ...
-                       "YXY", "YZY", "YXZ", "YZX", ...
-                       "XZX", "XYX", "XZY", "XYZ"];
+        % SEQ_OPTIONS - Cell array of valid Euler-angle rotation sequences
+        % (1-by-3 character arrays comprised only of 'X', 'Y', or 'Z')
+        seq_options = {'ZYZ', 'ZXZ', 'ZYX', 'ZXY', ...
+                       'YXY', 'YZY', 'YXZ', 'YZX', ...
+                       'XZX', 'XYX', 'XZY', 'XYZ'};
 
         % VLD - Validation and default specifications for ForwardModel constructor
         %
@@ -273,55 +264,6 @@ classdef ForwardModel
                 || (isfield(props, 'sub_orient') && isequal(props.sub_orient, 'euler')))
                 warning("Input, euler_seq = '%s', ignored because neither film_orient nor sub_orient was set to 'euler'.", props.euler_seq)
                 props = rmfield(props, "euler_seq");
-            end
-        end
-        function orient_structure = format_orient(orient_type, subscript, ndims, seq)
-            switch orient_type
-                case "azpol"
-                    orient_structure = ["θ" + subscript + "_az", "θ" + subscript + "_pol"];
-                case "uvect"
-                    orient_structure = strings(1,3);
-                    for i = 1:3, orient_structure(i) = "v" + subscript + i; end
-                case "euler"
-                    orient_structure = strings(1, ndims);
-                    for i = 1:ndims, orient_structure(i) = "θ" + subscript + seq(i) + i; end
-                case "uquat"
-                    orient_structure = strings(1, 4);
-                    for i = 1:4, orient_structure(i) = "q" + subscript + i; end
-                case "rotmat"
-                    orient_structure = strings(3,3);
-                    for j = 1:3
-                        for i = 1:3
-                            orient_structure(i,j) = "R" + subscript + i + j;
-                        end
-                    end
-                    orient_structure = orient_structure(:)';
-            end
-        end
-        function [k, o] = format_ko(isotropy, orient, subscript, seq)
-            switch isotropy
-                case "iso"
-                    k = "k" + subscript;
-                    o = [];
-                case "simple"
-                    k = ["k" + subscript + "⊥", "k" + subscript + "∥"];
-                    o = ForwardModel.format_orient(orient, subscript, 2, seq);
-                case "complex"
-                    k = strings(1,3);
-                    for i = 1:3
-                        k(i) = "k" + subscript + "p" + i;
-                    end
-                    o = ForwardModel.format_orient(orient, subscript, 3, seq);
-                case "tensor"
-                    k = strings(1,6);
-                    count = 1;
-                    for i = 1:3
-                        for j = i:3
-                            k(count) = "k" + subscript + i + j;
-                            count = count + 1;
-                        end
-                    end
-                    o = [];
             end
         end
     end

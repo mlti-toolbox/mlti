@@ -1,48 +1,278 @@
-function [in_structure, in_sizes, MOchi2input] = get_input_structure(fm)
-    % generate in_structure TODO make this more elegant
-    % TODO handle log_args
-    if isfield(fm.c_args, "film_orient")
-        film_orient = fm.c_args.film_orient;
-    else
-        film_orient = [];
-    end
+function inputs = get_input_structure(fm)
+% get_input_structure returns a struct with the following field names:
+% M, O, chi, f0, X_probe, where each field value is another struct with the
+% following fields:
+%   ncols: number of columns; uint8 scalar
+%   cols: variable representation of each column; 1-by-ncols string array
+%   units: units of each column (pre-log transformation if
+%          fm.c_args.log_args is true); 1-by-ncols string array
 
-    if isfield(fm.c_args, "sub_orient")
-        sub_orient = fm.c_args.sub_orient;
-    else
-        sub_orient = [];
-    end
+    % Get scaled units
+    [length_unit, P_unit, C_unit, f_unit] = scale2units(fm.c_args.scale);
 
-    if isfield(fm.c_args, "euler_seq")
-        seq = fm.c_args.euler_seq;
-    else
-        seq = [];
-    end
+    % Other units
+    Rth_units = "m^2*K/W";
+    unitless = "-";
 
-    [kf, of] = fm.format_ko(fm.c_args.film_isotropy, film_orient, 'f', seq);
-    [ks, os] = fm.format_ko(fm.c_args.sub_isotropy, sub_orient, 's', seq);
+    % Format with ln(...) where relevant
+    if fm.c_args.log_args, log_wrap = @(x) "ln(" + x + ")";
+    else, log_wrap = @(x) x; end
 
-    if fm.c_args.inf_sub_thick
-        hs = [];
-    else
-        hs = "hs";
-    end
+    % Get cols and units for thermal conductivity and orientation
+    [kf, of] = get_ko_structure(fm, "film", log_wrap);
+    [ks, os] = get_ko_structure(fm, "sub", log_wrap);
 
+    % Handle inf_sub_thick condition
+    if fm.c_args.inf_sub_thick, hs = make_field("");
+    else, hs = make_field(log_wrap("hs"), length_unit); end
+
+    % Handle phase_only condition
     if fm.c_args.phase_only
-        P = [];
-        Rf = [];
-        Rs = [];
+        P = make_field("");
+        Rf = make_field("");
+        Rs = make_field("");
     else
-        P = "P";
-        Rf = "Rf";
-        Rs = "Rs";
+        P = make_field(log_wrap("P"), P_unit);
+        Rf = make_field(log_wrap("Rf"), unitless);
+        Rs = make_field(log_wrap("Rs"), unitless);
     end
 
-    in_structure{1} = [kf, "Cf", "αf", Rf, "hf", ks, "Cs", "αs", Rs, hs];
-    in_structure{2} = [of, os];
-    in_structure{3} = ["sx", "sy", P];
+    % Build 'inputs'
+    inputs = struct( ...
+        "M", make_field( ...
+            [ ...
+                kf.cols, ...
+                log_wrap(["Cf", "αf"]), ...
+                Rf.cols, ...
+                log_wrap("hf"), ...
+                ks.cols, ...
+                log_wrap(["Cs", "αs"]), ...
+                Rs.cols, hs.cols, ...
+                log_wrap("Rth"), ...
+            ], ...
+            [ ...
+                kf.units, C_unit, "1/"+length_unit, Rf.units, length_unit, ...
+                ks.units, C_unit, "1/"+length_unit, Rs.units, hs.units, Rth_units ...
+            ] ...
+        ), ...
+        "O", make_field( ...
+            [of.cols, os.cols], ...
+            [of.units, os.units] ...
+        ), ...
+        "chi", make_field( ...
+            [log_wrap(["sx", "sy"]), P.cols], ...
+            [repmat(length_unit, 1, 2), P.units] ...
+        ) ...
+    );
 
-    in_sizes = [length(in_structure{1}), length(in_structure{2}), length(in_structure{3})];
+    all_values = cellfun(@(fn) [inputs.(fn).cols, inputs.(fn).units], fieldnames(inputs), 'UniformOutput', false);
+    all_values = horzcat(all_values{:});
 
-    MOchi2input = NaN;
+    pad_n = max(strlength(all_values));
+
+    inputs.msg = compose( ...
+        "Function inputs 'M', 'O', 'chi', 'f0', and 'X_probe' should be formatted as follows:\n" ...
+        ) + input_msg(inputs.M, "M", "N", pad_n) ...
+        + input_msg(inputs.O, "O", "N_pump", pad_n) ...
+        + input_msg(inputs.chi, "chi", "1", pad_n) ...
+        + compose("f0: (N_f-by-1) [%s]\n\n", f_unit) ...
+        + compose("X_probe: (N_probe-by-2) [%s]\n\n", length_unit);
+    disp(inputs.msg)
+end
+
+%% ----------------- Helper Functions -------------------
+function out = input_msg(s, name, nrows, pad_n)
+    if s.ncols == 0
+        out = compose("%s: []; i.e., empty array\n\n", name);
+    else
+        out = compose( ...
+            "%s: (%s-by-%d)\n" + ...
+            "    Column: | %s |\n" + ...
+            "    Value:  | %s |\n" + ...
+            "    Units:  | %s |\n\n", ...
+            name, nrows, s.ncols, ...
+            strjoin(pad(string(1:s.ncols), pad_n), " | "), ...
+            strjoin(pad(s.cols, pad_n), " | "), ...
+            strjoin(pad(s.units, pad_n), " | ") ...
+        );
+    end
+end
+
+function s = make_field(cols, units)
+    if nargin < 2, units = ""; end
+    if isempty(cols) || all(cols == "")
+        s = struct("ncols", uint8(0), "cols", strings(1,0), "units", strings(1,0));
+    else
+        s = struct("ncols", uint8(numel(cols)), "cols", cols, "units", units);
+    end
+end
+
+function [k, o] = get_ko_structure(fm, layer, log_wrap)
+% get_ko_structure returns 2 structs with the following fields:
+%   ncols: number of columns; uint8 scalar
+%   cols: variable representation of each column; 1-by-ncols string array
+%   units: units of each column (pre-log transformation if
+%          fm.c_args.log_args is true); 1-by-ncols string array
+%
+% Inputs:
+%   fm: ForwardModel object with validated constructor arguments (c_args)
+%   layer: layer specification; "film" | "sub"
+
+    % Thermal conductivity units
+    k_units = "W/m/K";
+
+    % Validate 'layer'
+    layer = validatestring(layer, ["film", "sub"]);
+
+    % Get subscript from 'layer'
+    subscript = extractBefore(layer, 2);
+
+    % Default o for 'iso' and 'tensor'
+    o = make_field("","");
+
+    % Format k and o based on constructor arguments
+    switch fm.c_args.(layer+"_isotropy")
+        case "iso"
+            k = make_field( ...
+                log_wrap("k" + subscript), ...
+                k_units ...
+            );
+        case "simple"
+            k = make_field( ...
+                log_wrap("k" + subscript + ["⊥", "∥"]), ...
+                repmat(k_units, 1, 2) ...
+            );
+            o = get_o_structure(fm, layer, 2);
+        case "complex"
+            k = make_field( ...
+                log_wrap("k" + subscript + (1:3)), ...
+                repmat(k_units, 1, 3) ...
+            );
+            o = get_o_structure(fm, layer, 3);
+        case "tensor"
+            [i,j] = ndgrid(1:3,1:3);
+            k_str = "k" + subscript + i + j;
+            
+            % Wrap diagonal elements in ln(...)
+            k_str(i == j) = log_wrap(k_str(i == j));
+            
+            % Keep only lower triangle
+            k_str = k_str(tril(true(size(k_str))));
+
+            k = make_field(k_str', repmat(k_units, 1, 6));
+    end
+end
+
+function o = get_o_structure(fm, layer, ndims)
+% get_o_structure returns a structs with the following fields:
+%   ncols: number of columns; uint8 scalar
+%   cols: variable representation of each column; 1-by-ncols string array
+%   units: units of each column (pre-log transformation if
+%          fm.c_args.log_args is true); 1-by-ncols string array
+%
+% Inputs:
+%   fm: ForwardModel object with validated constructor arguments (c_args)
+%   layer: layer specification; "film" | "sub"
+%   ndims: number of principal thermal conductivities
+
+    % Angle and unitless units
+    theta_units = "rad";
+    unitless = "-";
+
+    % Get subscript from 'layer'
+    subscript = extractBefore(layer, 2);
+
+    % Format o based on constructor arguments
+    switch fm.c_args.(layer+"_orient")
+        case "azpol"
+            o = make_field( ...
+                "θ" + subscript + ["_az", "_pol"], ...
+                repmat(theta_units, 1, 2) ...
+            );
+        case "uvect"
+            o = make_field( ...
+                "v" + subscript + (1:3), ...
+                repmat(unitless, 1, 3) ...
+            );
+        case "euler"
+            o = make_field( ...
+                "θ" + subscript + string(fm.c_args.euler_seq(1:ndims)')' + (1:ndims), ...
+                repmat(theta_units, 1, ndims) ...
+            );
+        case "uquat"
+            o = make_field( ...
+                "q" + subscript + (1:4), ...
+                repmat(unitless, 1, 4) ...
+            );
+        case "rotmat"
+            [i,j] = ndgrid(1:3,1:3);
+            o = make_field( ...
+                "R" + subscript + i(:)' + j(:)', ...
+                repmat(unitless, 1, 9) ...
+            );
+    end
+end
+
+function [length_unit, P_unit, C_unit, f_unit] = scale2units(scale)
+%SCALE2UNITS Return formatted SI unit strings based on scaling factor.
+%
+%   The input scale factor defines the units of forward model variables
+%   relative to base SI units:
+%       Length vars ~  scale ⋅ m
+%       Power       ~  scale ⋅ W
+%       Capacity    ~  W / (scale ⋅ m^3 ⋅ K)
+%       Frequency   ~  Hz / scale
+%
+%   Example:
+%       >> scale2units(1e-6)
+%       ans =
+%           "µm"    "µW"    "MW/m^3/K"    "MHz"
+%
+%   Supports scale ∈ [1e-15, 1e18).
+
+    % Validate input
+    if ~isscalar(scale) || ~isnumeric(scale) || scale <= 0
+        error('Input must be a positive scalar.');
+    end
+
+    % Define SI prefixes (-15:3:15)
+    prefixes = ["f","p","n","µ","m","","k","M","G","T","P"];
+    exps = -15:3:15;
+
+    % -------- Directly scaled quantities --------
+    [num, symbol] = format_with_prefix(scale, exps, prefixes);
+    if isempty(num)
+    length_unit   = sprintf("%s%sm", "", symbol);
+    P_unit        = sprintf("%s%sW", "", symbol);
+    else
+    length_unit   = sprintf("%s%sm", num2str(num)+"*", symbol);
+    P_unit        = sprintf("%s%sW", num2str(num)+"*", symbol);
+    end
+
+    % -------- Inversely scaled quantities --------
+    invscale = 1/scale;
+    [num, symbol] = format_with_prefix(invscale, exps, prefixes);
+    if isempty(num)
+    f_unit        = sprintf("%sHz%s", symbol, "");
+    C_unit        = sprintf("%sW/m^3/K%s", symbol, "");
+    else
+    f_unit        = sprintf("%sHz%s", symbol, "/"+num2str(1/num));
+    C_unit        = sprintf("%sW/m^3/K%s", symbol, "/"+num2str(1/num));
+    end
+
+end
+
+function [num, symbol] = format_with_prefix(value, exps, prefixes)
+    % Get order of magnitude
+    exponent = floor(log10(value));
+    % Snap to nearest multiple of 3
+    power3   = max(min(3*round(exponent/3), max(exps)), min(exps));
+    % Scale value
+    num      = value / 10^power3;
+    if abs(num-1) < 1e-12
+        num = [];
+    end
+    % Pick prefix
+    idx      = (power3 - min(exps))/3 + 1;
+    symbol   = prefixes(idx);
 end
