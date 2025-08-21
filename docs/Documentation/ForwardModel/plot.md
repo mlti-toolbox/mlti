@@ -15,10 +15,11 @@ Plots the surface thermal response.
 
 ## Input Arguments
 {% include_relative fun_in_args.html %}
-
+{% include_relative fun_in_nomenclature.html %}
 ## Output Arguments
 
 ## See Also
+
 
 
 
