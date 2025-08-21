@@ -322,7 +322,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
         <span class="summary-text">
             <b><code>euler_seq</code> - Euler angle sequence</b>
             <span class="subline">
-                <code>"ZYZ"</code> (default) | <code>"ZXZ"</code> | <code>"ZYX"</code> | <code>"ZXY"</code> | <code>"YXY"</code> | <code>"YZY"</code> | <code>"YXZ"</code> | <code>"YZX"</code> | <code>"XYX"</code> | <code>"XZX"</code> | <code>"XYZ"</code> | <code>"XZY"</code>
+                <code>'ZYZ'</code> (default) | <code>'ZXZ'</code> | <code>'ZYX'</code> | <code>'ZXY'</code> | <code>'YXY'</code> | <code>'YZY'</code> | <code>'YXZ'</code> | <code>'YZX'</code> | <code>'XYX'</code> | <code>'XZX'</code> | <code>'XYZ'</code> | <code>'XZY'</code>
             </span>
         </span>
     </summary>
@@ -479,52 +479,44 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ## Properties
 
 <details class="custom-details">
-  <summary><b>
-    <code>c_args</code> - constructor arguments
-  </b></summary>
-
-  <br>
-
-  Struct of input arguments passed into the constructor.
-    
-  **Data Types:** `struct`
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>c_args</code> - constructor arguments</b>
+            <span class="subline">
+                <code>struct</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Struct of validated constructor arguments (input and default).
+        </p>
+    </div>
 </details>
 
 <details class="custom-details">
-  <summary><b>
-    <code>in_structure</code> - input structure
-  </b></summary>
-
-  <br>
-
-  Specifies the expected input structure for `M`, `Theta`, and `chi` (inputs to `ForwardModel` functions).
-
-  **Data Type:** 1-by-3 cell array, where each element is a string array
-
-  **Example:** 
-
-  <br>
-  
-</details>
-
-<details class="custom-details">
-  <summary><b>
-    <code>in_sizes</code> - input sizes
-  </b></summary>
-
-  <br>
-
-  Specifies the expected input sizes for `M`, `Theta`, and `chi` (inputs to `ForwardModel` functions).
-
-  **Data Type:** 1-by-3 array of positive scalar values
-
-  **Example:** 
-
-  <br>
-  
+    <summary>
+        <span class="summary-text">
+            <b><code>fun_inputs</code> - Function inputs format specifications</b>
+            <span class="subline">
+                <code>struct</code>
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            Struct of format specifications for method inputs <code>M</code>, <code>O</code>, <code>chi</code>, <code>f0</code>, and <code>X_probe</code> (used in <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"><code>ForwardModel.plot</code></a> and <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"><code>ForwardModel.solve</code></a>).
+        </p>
+        <p>
+            Each field value is another struct with the following fields:
+        </p>
+        <ul>
+            <li>ncols:</li>
+            <li>cols:</li>
+            <li>units:</li>
+            <li>msg:</li>
+        </ul>
+    </div>
 </details>
 
 ## Object Functions
@@ -538,6 +530,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
