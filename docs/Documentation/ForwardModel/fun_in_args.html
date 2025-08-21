@@ -61,6 +61,28 @@
         <p>
             <b>Data Types:</b> <code>double</code> | <code>single</code>
         </p>
+        
+        <h3>Examples:</h3>
+        <p>
+            If <code>fm.c_args</code> includes the following fields:
+        </p>
+        <pre>
+            <code>
+film_isotropy: "iso"
+ sub_isotropy: "iso"
+inf_sub_thick: 1
+   phase_only: 1
+     log_args: 0
+            </code>
+        </pre>
+        <p>
+            Then <code>M</code> must be an \(N_T\)-by-8 positive real matrix composed of the following column vectors:
+        </p>
+        <pre>
+            <code>
+M = [kf, Cf, αf, hf, ks, Cs, αs, Rth];
+            </code>
+        </pre>
     </div>
 </details>
 
