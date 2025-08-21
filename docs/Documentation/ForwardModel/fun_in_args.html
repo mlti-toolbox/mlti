@@ -30,7 +30,7 @@
                 \(N_T\)-by-\(N_\mathrm{pump}\)-by-<code>fm.fun_inputs.M.ncols</code>
                 <ul>
                     <li>
-                        Use only when <code>fm.fun_inputs.O.ncols == 0</code>.
+                        Use only when <code>fm.fun_inputs.O.ncols</code> equals 0.
                     </li>
                     <li>
                         If only one temperature is considered (\(N_T = 1\)), 
@@ -66,23 +66,21 @@
         <p>
             If <code>fm.c_args</code> includes the following fields:
         </p>
-        <pre>
-            <code>
+        <pre><code>
 film_isotropy: "iso"
  sub_isotropy: "iso"
 inf_sub_thick: 1
    phase_only: 1
      log_args: 0
-            </code>
-        </pre>
+        </code></pre>
         <p>
-            Then <code>M</code> must be an \(N_T\)-by-8 positive real matrix composed of the following column vectors:
+            Then
         </p>
-        <pre>
-            <code>
-M = [kf, Cf, αf, hf, ks, Cs, αs, Rth];
-            </code>
-        </pre>
+        <ul>
+            <li><code>fm.fun_inputs.O.ncols</code> equals 0</li>
+            <li><code>fm.fun_inputs.M.ncols</code> equals 8</li>
+            <li><code>fm.fun_inputs.M.ncols</code> equals <code>[kf, Cf, αf, hf, ks, Cs, αs, Rth]</code></li>
+        </ul>
     </div>
 </details>
 
