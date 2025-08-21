@@ -4,14 +4,14 @@ title: ForwardModel.solve
 permalink: /Documentation/ForwardModel/solve
 ---
 
-# ForwardModel.solve
+# solve
 Solves the forward model
 
 ## Syntax
 
 ```matlab
-[phi, A, DC] = fm.solve(M, Theta, chi, f0)
-[phi, A, DC] = fm.solve(M, Theta, chi, f0, x_probe)
+[phi, A, DC] = solve(fm, M, O, chi, f0)
+[phi, A, DC] = solve(fm, M, O, chi, f0, X_probe)
 ```
 
 ## Description
@@ -43,6 +43,7 @@ These outputs correspond to the given inputs.
 ## Output Arguments
 
 ## See Also
+
 
 
 
