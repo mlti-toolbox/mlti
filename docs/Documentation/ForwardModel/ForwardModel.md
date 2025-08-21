@@ -568,7 +568,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     </summary>
     <div>
         <p>
-            Struct of validated constructor arguments (input and default).
+            <code>c_args</code> is a struct of validated constructor arguments (input and default) populated by <code>validate_c_args</code>, a private <code>ForwardModel</code> method.
         </p>
     </div>
 </details>
@@ -576,7 +576,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 <details class="custom-details">
     <summary>
         <span class="summary-text">
-            <b><code>fun_inputs</code> - Function inputs format specifications</b>
+            <b><code>fun_inputs</code> - Function input format specifications</b>
             <span class="subline">
                 <code>struct</code>
             </span>
@@ -590,11 +590,25 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
             Each field value is another struct with the following fields:
         </p>
         <ul>
-            <li>ncols:</li>
-            <li>cols:</li>
-            <li>units:</li>
-            <li>msg:</li>
+            <li>
+                ncols: Number of columns
+            </li>
+            <li>
+                cols: 1-by-<code>ncols</code> string array; Specifies the variable name associated with each column of <code>M</code>.
+            </li>
+            <li>
+                units: 1-by-<code>ncols</code> string array; Specifies the units of each column of <code>M</code>. If <code>c_args.log_args</code> is <code>true</code>, these units refer to the values before log-transformation, since the transformation implicitly normalizes by the base unit, yielding a unitless quantity.
+            </li>
+            <li>
+                msg: A formatted string message for displaying the values of <code>ncols</code>, <code>cols</code>, and <code>units</code> to the screen.
+            </li>
+            <li>
+                vld: Input validation function handle.
+            </li>
         </ul>
+        <p>
+            <code>fun_inputs</code> is populated by <code>get_input_structure</code>, a private <code>ForwardModel</code> method.
+        </p>
         <h3>Function Inputs Nomenclature</h3>
         {% include_relative fun_in_nomenclature.html %}
     </div>
@@ -611,6 +625,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
