@@ -14,10 +14,12 @@ Plots the surface thermal response.
 ## Examples
 
 ## Input Arguments
+{% include_relative ./fun_in_args.html %}
 
 ## Output Arguments
 
 ## See Also
+
 
 
 
