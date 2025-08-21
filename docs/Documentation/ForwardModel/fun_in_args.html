@@ -3,16 +3,10 @@
     <summary>
         <span class="summary-text">
             <b>
-              <code>M</code> - Material parameters
+                <code>M</code> - Material parameters
             </b>
             <span class="subline">
-              \(N_T \times N_m\) |
-              \(N_T \times N_\mathrm{pump} \times N_m\) |
-              \(N_T \cdot  N_\mathrm{pump} \times N_m\) |
-              \(1 \times 1 \times N_T \times N_\mathrm{pump} \times 1 \times N_m\) | 
-              \(1 \times 1 \times N_T \cdot  N_\mathrm{pump} \times 1 \times N_m\) | 
-              \(N_x \times N_x \times N_T \times N_\mathrm{pump} \times N_f \times N_m\) |
-              \(N_x \times N_x \times N_T \cdot  N_\mathrm{pump} \times N_f \times N_m\) matrix
+                real <code>fun_inputs.M.ncols</code>-column matrix
             </span>
         </span>
     </summary>
@@ -26,9 +20,85 @@
 </details>
 
 <!-- O: orientation parameters -->
+<details class="custom-details">
+    <summary>
+        <span class="summary-text">
+            <b>
+                <code>O</code> - Orientation parameters
+            </b>
+            <span class="subline">
+                real <code>fun_inputs.O.ncols</code>-column matrix
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+        </p>
+        <p>
+            <b>Data Types:</b> <code>double</code> | <code>single</code>
+        </p>
+    </div>
+</details>
 
 <!-- chi: experimental parameters -->
+<details class="custom-details">
+    <summary>
+        <span class="summary-text">
+            <b>
+                <code>chi</code> - Experimental parameters
+            </b>
+            <span class="subline">
+                real <code>fun_inputs.chi.ncols</code>-length vector
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+        </p>
+        <p>
+            <b>Data Types:</b> <code>double</code> | <code>single</code>
+        </p>
+    </div>
+</details>
 
 <!-- f0: pump laser frequencies -->
+<details class="custom-details">
+    <summary>
+        <span class="summary-text">
+            <b>
+                <code>f0</code> - Pump laser frequencies
+            </b>
+            <span class="subline">
+                real vector
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+        </p>
+        <p>
+            <b>Data Types:</b> <code>double</code> | <code>single</code>
+        </p>
+    </div>
+</details>
 
 <!-- X_probe: probe offsets -->
+<details class="custom-details">
+    <summary>
+        <span class="summary-text">
+            <b>
+                <code>X_probe</code> - Probe laser offsets
+            </b>
+            <span class="subline">
+                real 2-column matrix
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+        </p>
+        <p>
+            <b>Data Types:</b> <code>double</code> | <code>single</code>
+        </p>
+    </div>
+</details>
