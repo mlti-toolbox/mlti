@@ -657,8 +657,8 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ## See Also
 ### ForwardModel methods
 
-[`ForwardModel.plot`](/Documentation/ForwardModel/plot) |
-[`ForwardModel.solve`](/Documentation/ForwardModel/solve)
+[`ForwardModel.plot`](/MLTI/Documentation/ForwardModel/plot) |
+[`ForwardModel.solve`](/MLTI/Documentation/ForwardModel/solve)
 
 ### Companion Classes and Functions
 
@@ -667,4 +667,5 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) |
 [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html) |
 [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html)
+
 
