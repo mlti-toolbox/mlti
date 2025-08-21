@@ -4,11 +4,8 @@ classdef ForwardModel
         % c_args - Struct of constructor arguments.
         c_args struct = struct();
 
-        % in_structure - Input structure for ForwardModel functions.
-        in_structure cell = cell(1,3);
-
-        % in_sizes - Input sizes for ForwardModel functions.
-        in_sizes uint8 = [0,0,0];
+        % fun_inputs - Input structure for ForwardModel functions.
+        fun_inputs struct = struct();
 
         % xu_vects - Nx-by-2 array of spatial and spatial frequency vectors.
         xu_vects (:,2) double
@@ -23,9 +20,7 @@ classdef ForwardModel
             fprintf("ForwardModel object created with the following constructor arguments:\n\n");
             disp(this.c_args);
 
-            inputs = this.get_input_structure();
-            [length_unit, C_unit, P_unit, f_unit] = scale2units(this.c_args.scale);
-      
+            this.fun_inputs = this.get_input_structure();
 
             if this.c_args.force_sym_solve ...
                     || ~exist("@ForwardModel/private/T0_hat_finite.m", "file") ...
