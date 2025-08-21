@@ -4,10 +4,14 @@ title: ForwardModel.plot
 permalink: /Documentation/ForwardModel/plot
 ---
 
-# ForwardModel.plot
+# plot
 Plots the surface thermal response.
 
 ## Syntax
+
+```matlab
+plot(fm, M, O, chi, f0, X_probe, Name, Value)
+```
 
 ## Description
 
@@ -19,6 +23,7 @@ Plots the surface thermal response.
 ## Output Arguments
 
 ## See Also
+
 
 
 
