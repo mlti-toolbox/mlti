@@ -6,13 +6,58 @@
                 <code>M</code> - Material parameters
             </b>
             <span class="subline">
-                real <code>fun_inputs.M.ncols</code>-column matrix
+                real matrix
             </span>
         </span>
     </summary>
     <div>
         <p>
+            Material parameters include thermal conductivity, 
+            volumetric heat capacity, optical absorption coefficient, 
+            optical reflectivity (omitted if <code>fm.c_args.phase_only</code> 
+            is <code>true</code>), thickness in the z-direction, and thermal contact resistance 
+            for the film and substrate of the sample.
         </p>
+        
+        <p>
+            The shape of <code>M</code> may be either:
+        </p>
+        <ul>
+            <li>
+                \(N_T\)-by-<code>fm.fun_inputs.M.ncols</code>, or
+            </li>
+            <li>
+                \(N_T\)-by-\(N_\mathrm{pump}\)-by-<code>fm.fun_inputs.M.ncols</code>
+                <ul>
+                    <li>
+                        Use only when <code>fm.fun_inputs.O.ncols == 0</code>.
+                    </li>
+                    <li>
+                        If only one temperature is considered (\(N_T = 1\)), 
+                        the first dimension may be dropped, so that 
+                        <code>M</code> is an \(N_\mathrm{pump}\)-by-<code>fm.fun_inputs.M.ncols</code> matrix.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
+        <p>
+            The axes of <code>M</code> represent:
+        </p>
+        <ul>
+            <li>Parameter variation wrt. temperature (\(N_T\)),</li>
+            <li>Parameter variation wrt. pump laser location (\(N_\mathrm{pump}\), if present),</li>
+            <li>Material parameter type, as listed in <code>fm.fun_inputs.M.cols</code>.</li>
+        </ul>
+        
+        <p>
+            Additional constraints on <code>M</code>:
+        </p>
+        <ul>
+            <li>The size of the parameter axis (i.e., <code>size(M,ndims(M))</code>) must equal <code>fm.fun_inputs.M.ncols</code>.</li>
+            <li>If <code>fm.c_args.log_args</code> is <code>false</code>, all elements of <code>M</code> must be positive.</li>
+            <li>If <code>fm.c_args.phase_only</code> is <code>false</code>, elements corresponding to optical reflectivity must lie within [0,1].</li>
+        </ul>
         <p>
             <b>Data Types:</b> <code>double</code> | <code>single</code>
         </p>
@@ -27,7 +72,7 @@
                 <code>O</code> - Orientation parameters
             </b>
             <span class="subline">
-                real <code>fun_inputs.O.ncols</code>-column matrix
+                real matrix
             </span>
         </span>
     </summary>
@@ -48,7 +93,7 @@
                 <code>chi</code> - Experimental parameters
             </b>
             <span class="subline">
-                real <code>fun_inputs.chi.ncols</code>-length vector
+                real vector
             </span>
         </span>
     </summary>
@@ -69,7 +114,7 @@
                 <code>f0</code> - Pump laser frequencies
             </b>
             <span class="subline">
-                real vector
+                nonnegative real vector
             </span>
         </span>
     </summary>
@@ -90,7 +135,7 @@
                 <code>X_probe</code> - Probe laser offsets
             </b>
             <span class="subline">
-                real 2-column matrix
+                nonnegative real 2-column matrix
             </span>
         </span>
     </summary>
