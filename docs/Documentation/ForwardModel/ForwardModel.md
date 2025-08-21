@@ -560,7 +560,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 <details class="custom-details">
     <summary>
         <span class="summary-text">
-            <b><code>c_args</code> - constructor arguments</b>
+            <b><code>c_args</code> - Constructor arguments</b>
             <span class="subline">
                 <code>struct</code>
             </span>
@@ -614,45 +614,57 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     </div>
 </details>
 
+<details class="custom-details">
+    <summary>
+        <span class="summary-text">
+            <b><code>xu</code> - FFT spatial and spatial-frequency domains</b>
+            <span class="subline">
+                real 2-column matrix
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            2-column matrix where the 1st column is the descretized spatial vector, and the 2nd column is the descretized spatial-frequency vector referenced when <code>ift_method="ifft2"</code>.
+        </p>
+    </div>
+</details>
+
 ## Object Functions
-| Function Name | Summary |
-|---------------|---------|
-| `solve`       | Solves the forward model |
-| `plot`        | Plots the surface thermal response |
+<table>
+  <tbody>
+    <tr>
+        <td>
+            <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"><code>plot</code></a>
+        </td>
+        <td>
+            Plots the surface thermal response
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"><code>solve</code></a>
+        </td>
+        <td>
+            Solves the forward model
+        </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Examples
 
-```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
-
 ## See Also
+### ForwardModel methods
 
+[`ForwardModel.plot`](/Documentation/ForwardModel/plot) |
+[`ForwardModel.solve`](/Documentation/ForwardModel/solve)
 
+### Companion Classes and Functions
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### MATLAB built-ins
+[`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) |
+[`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) |
+[`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html) |
+[`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html)
 
