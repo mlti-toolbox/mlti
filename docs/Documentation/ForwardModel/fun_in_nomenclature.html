@@ -1,0 +1,95 @@
+<ul>
+  <li>
+    <code>M</code>: Material parameters.
+  </li>
+  <ul>
+    <li>
+      <code>kf</code>, <code>ks</code>:
+      Isotropic thermal conductivity of the film and substrate.
+    </li>
+    <li>
+      <code>kf⊥</code>, <code>ks⊥</code>:
+      Transverse (radial) thermal conductivity of the film and substrate (simple anisotropy).
+    </li>
+    <li>
+      <code>kf∥</code>, <code>ks∥</code>:
+      Axial (longitudinal) thermal conductivity of the film and substrate (simple anisotropy).
+    </li>
+    <li>
+      <code>kpfi</code>, <code>kpsi</code>:
+      \(i\)-th principal thermal conductivity of the film and substrate (complex anisotropy), with \(i \in \{1,2,3\}\).
+    </li>
+    <li>
+      <code>kfij</code>, <code>ksij</code>:
+      \((i,j)\)-th component of the thermal conductivity tensor of the film and substrate, with \(i,j \in \{1,2,3\}\).
+    </li>
+    <li>
+      <code>Cf</code>, <code>Cs</code>:
+      Volumetric heat capacity of the film and substrate.
+    </li>
+    <li>
+      <code>αf</code>, <code>αs</code>:
+      Optical absorption coefficient of the film and substrate.
+    </li>
+    <li>
+      <code>Rf</code>, <code>Rs</code>:
+      Optical reflectivity of the film and substrate.
+    </li>
+    <li>
+      <code>hf</code>, <code>hs</code>:
+      Thickness of the film and substrate in the \(z\)-direction.
+    </li>
+    <li>
+      <code>Rth</code>:
+      Thermal contact resistance between film and substrate.
+    </li>
+  </ul>
+  <li>
+    <code>O</code>: Orientation parameters.
+  </li>
+  <ul>
+    <li>
+      <code>θf_az</code>, <code>θs_az</code>:
+      Azimuthal angle of the thermal conductivity axis of rotation for the film and substrate (simple anisotropy).
+    </li>
+    <li>
+      <code>θf_pol</code>, <code>θs_pol</code>:
+      Polar angle of the thermal conductivity axis of rotation for the film and substrate (simple anisotropy).
+    </li>
+    <li>
+      <code>θfai</code>, <code>θsai</code>:
+      \(i\)-th Euler rotation angle about the \(a\)-axis, defining the orientation of the principal thermal condcutivity axes of the film and substrate, with \(i \in \{1,2,3\}\), \(a \in \{X,Y,Z\}\).
+    </li>
+    <li>
+      <code>vfi</code>, <code>vsi</code>:
+      \(i\)-th component of the unit vector along the thermal conductivity axis of rotation for the film and substrate (simple anisotropy), with \(i \in \{1,2,3\}\).
+    </li>
+    <li>
+      <code>qfi</code>, <code>qsi</code>:
+      \(i\)-th component of the unit quaternion defining the orientation of the principal thermal condcutivity axes of the film and substrate, with \(i \in \{1,2,3,4\}\).
+    </li>
+    <li> 
+      <code>Rfij</code>, <code>Rsij</code>: 
+      \((i,j)\)-th component of the rotation matrix defining the orientation of the principal thermal condcutivity axes of the film and substrate, with \(i,j \in \{1,2,3\}\).
+    </li>
+  </ul>
+  <li>
+    <code>chi</code>: Experimental parameters.
+  </li>
+  <ul>
+    <li>
+      <code>sx</code>, <code>sy</code>:
+      Standard deviations of the pump laser's distribution in the \(x\)- and \(y\)-directions.
+    </li>
+    <li>
+      <code>P</code>:
+      Pump laser power.
+    </li>
+  </ul>
+  <li>
+    <code>f0</code>: Pump laser temporal frequency.
+  </li>
+  <li>
+    <code>X_probe</code>: Probe laser offsets, with each row being the \(x,y\)-coordinate of the probe wrt. the pump.
+  </li>
+</ul>
