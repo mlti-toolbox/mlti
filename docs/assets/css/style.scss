@@ -60,6 +60,15 @@
   background-color: #f8f8f8;
 }
 
+.collapsible-header summary {
+  display: list-item;     /* ensures marker (triangle) shows */
+  cursor: pointer;
+  font-size: 1.5em;       /* adjust to match h2 */
+  font-weight: bold;
+  margin: 0.5em 0;
+  list-style-position: outside; /* marker to the left */
+}
+
 /* ===== Base Typography & Body ===== */
 body {
   background-color: #fff;
