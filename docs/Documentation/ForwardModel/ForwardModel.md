@@ -517,7 +517,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 <details class="custom-details">
     <summary>
         <span class="summary-text">
-            <b><code>force_sym_solve</code> - Force reexecution of symbolic solution</b>
+            <b><code>log_args</code> - Use log arguments</b>
             <span class="subline">
                 <code>false</code> (default) | <code>true</code>
             </span>
@@ -525,7 +525,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     </summary>
     <div>
         <p>
-            When set to <code>true</code>, forces the reexecution of the symbolic solutions even if the files already exist.
+            When set to <code>true</code>, the solver expects the natural log of thermal conductivity, volumetric heat capacity, optical absorption coefficient, z-direction thickness, pump laser deviation, and power as inputs.
         </p>
         <p>
             <b>Data Types:</b> <code>logical</code>
@@ -536,7 +536,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 <details class="custom-details">
     <summary>
         <span class="summary-text">
-            <b><code>log_args</code> - Use log arguments</b>
+            <b><code>force_sym_solve</code> - Force reexecution of symbolic solution</b>
             <span class="subline">
                 <code>false</code> (default) | <code>true</code>
             </span>
@@ -544,7 +544,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     </summary>
     <div>
         <p>
-            When set to <code>true</code>, the solver expects the natural log of thermal conductivity, volumetric heat capacity, optical absorption coefficient, z-direction thickness, pump laser deviation, and power as inputs.
+            When set to <code>true</code>, forces the reexecution of the symbolic solutions even if the files already exist.
         </p>
         <p>
             <b>Data Types:</b> <code>logical</code>
@@ -625,6 +625,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 ```fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6, ___)``` creates a ```ForwardModel``` object that uses MATLAB's built in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method to solve the 2-D inverse Fourier transform, with spatial vectors ```x = y = -25:0.5:25``` in units of microns and spatial frequency vectors ```u = v = -2:0.04:2``` in units of inverse microns.
 
 ## See Also
+
 
 
 
