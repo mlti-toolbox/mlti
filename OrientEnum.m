@@ -1,10 +1,10 @@
-classdef OrientationRepresentation
-% OrientationRepresentation - Orientation representations for conductivity axes.
+classdef OrientEnum
+% OrientEnum - Orientation representations for conductivity axes.
 %
-% OrientationRepresentation is an enumeration class that defines property
+% OrientEnum is an enumeration class that defines property
 % value validation for orientation properties.
 %
-% OrientationRepresentation Enumerations:
+% OrientEnum Enumerations:
 %
 %   NA      - Orientation specification not needed
 %   AZPOL   - Azimuthal and polar angles (θ_az, θ_pol) of symmetry axis
@@ -14,7 +14,7 @@ classdef OrientationRepresentation
 %   ROTMAT  - Rotation matrix (R11, R21, R31, R12, R22, R32, R13, R23, R33) representation of principal axes orientation
 %
 % See also:
-% ConductivityRepresentation,
+% IsotropyEnum,
 % ForwardModel,
 % <a href="https://www.mathworks.com/help/matlab/enumeration-classes.html">Enumerations</a>,
 % <a href="https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html">Enumerations for Property Values</a>
@@ -32,17 +32,17 @@ classdef OrientationRepresentation
     methods
         function No = get.No(obj)
             switch obj
-                case OrientationRepresentation.na
+                case OrientEnum.na
                     No = 0;
-                case OrientationRepresentation.azpol
+                case OrientEnum.azpol
                     No = 2;
-                case OrientationRepresentation.uvect
+                case OrientEnum.uvect
                     No = 3;
-                case OrientationRepresentation.euler
+                case OrientEnum.euler
                     No = 3;
-                case OrientationRepresentation.uquat
+                case OrientEnum.uquat
                     No = 4;
-                case OrientationRepresentation.rotmat
+                case OrientEnum.rotmat
                     No = 9;
             end
         end
@@ -51,12 +51,12 @@ classdef OrientationRepresentation
             % cross_validate - Validate that orientation representation matches conductivity representation
             %
             % Syntax:
-            %   OrientationRepresentation.cross_validate(or, cr, layer)
-            %   options = OrientationRepresentation.cross_validate(or, cr, layer, options)
+            %   OrientEnum.cross_validate(or, cr, layer)
+            %   options = OrientEnum.cross_validate(or, cr, layer, options)
             %
             % Inputs:
-            %   or      - OrientationRepresentation enum
-            %   cr      - ConductivityRepresentation enum
+            %   or      - OrientEnum enum
+            %   cr      - IsotropyEnum enum
             %   layer   - String specifying the layer (used to construct field names)
             %   options - Struct of input arguments, may contain orientation fields
             %
@@ -75,8 +75,8 @@ classdef OrientationRepresentation
 
 
             arguments
-                or (1,1) OrientationRepresentation
-                cr (1,1) ConductivityRepresentation
+                or (1,1) OrientEnum
+                cr (1,1) IsotropyEnum
                 layer (1,1) string
                 options struct
             end
@@ -84,8 +84,8 @@ classdef OrientationRepresentation
             oname = layer + "_orient";
             iname = layer + "_isotropy";
 
-            princ_opts = [OrientationRepresentation.euler, OrientationRepresentation.uquat, OrientationRepresentation.rotmat];
-            uni_opts = [OrientationRepresentation.azpol, OrientationRepresentation.uvect, princ_opts];
+            princ_opts = [OrientEnum.euler, OrientEnum.uquat, OrientEnum.rotmat];
+            uni_opts = [OrientEnum.azpol, OrientEnum.uvect, princ_opts];
 
             reqd_msg = compose( ...
                 "Input value for '%s' required when %s = '%s'.", ...
@@ -106,21 +106,21 @@ classdef OrientationRepresentation
             out_warn_msg = "Field removed, but change not assigned back to the structure.";
 
             switch cr
-                case ConductivityRepresentation.uniaxial
+                case IsotropyEnum.uniaxial
                     % Orientation required, must not be NA
-                    if or == OrientationRepresentation.na
+                    if or == OrientEnum.na
                         error(reqd_msg + vld_opts_msg(uni_opts));
                     end
-                case ConductivityRepresentation.principal
+                case IsotropyEnum.principal
                     % Orientation required, must be EULER/UQUAT/ROTMAT
-                    if or == OrientationRepresentation.na
+                    if or == OrientEnum.na
                         error(reqd_msg + vld_opts_msg(princ_opts));
-                    elseif ismember(or, [OrientationRepresentation.azpol, OrientationRepresentation.uvect])
+                    elseif ismember(or, [OrientEnum.azpol, OrientEnum.uvect])
                         error(invalid_msg + vld_opts_msg(princ_opts));
                     end
                 otherwise
                     % Orientation not needed
-                    if or ~= OrientationRepresentation.na
+                    if or ~= OrientEnum.na
                         error(not_alwd_msg);
                     end
                     if nargin > 3 && isfield(options, oname)

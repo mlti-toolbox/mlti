@@ -17,14 +17,30 @@ classdef ForwardModel
 
     methods
         % CONSTRUCTOR
-        function this = ForwardModel(varargin)
+        function this = ForwardModel(c_args)
             % ForwardModel constructor description TODO
             % See also ForwardModel.private.validate_c_args, ForwardModel
-
-            % Validate constructor arguments
-            this.c_args = this.validate_c_args(varargin{:});
-            fprintf("ForwardModel object created with the following constructor arguments:\n\n");
-            disp(this.c_args);
+            arguments
+                c_args.ift_method (1,1) IFTEnum = IFTEnum.ifft2;
+                c_args.x_max (1,1) double {mustBeReal, mustBePositive};
+                c_args.Nx (1,1) uint32 {mustBeInteger, mustBePositive} = 256;
+                c_args.dx (1,1) double {mustBeReal, mustBePositive};
+                c_args.scale (1,1) double {mustBeReal, mustBePositive} = 1;
+                c_args.film_isotropy (1,1) IsotropyEnum = IsotropyEnum.tensor;
+                c_args.sub_isotropy (1,1) IsotropyEnum = IsotropyEnum.tensor;
+                c_args.film_orient (1,1) OrientEnum = OrientEnum.na;
+                c_args.sub_orient (1,1) OrientEnum = OrientEnum.na;
+                c_args.euler_seq (1,1) SeqEnum = SeqEnum.ZYZ;
+                c_args.inf_sub_thick (1,1) logical = true;
+                c_args.phase_only (1,1) logical = false;
+                c_args.log_args (1,1) logical = false;
+                c_args.force_sym_solve (1,1) logical = false;
+            end
+            c_args = c_args.ift_method.cross_validate(c_args);
+            c_args = c_args.film_orient.cross_validate(c_args.film_isotropy, "film", c_args);
+            c_args = c_args.sub_orient.cross_validate(c_args.sub_isotropy, "sub", c_args);
+            c_args = c_args.euler_seq.cross_validate(c_args);
+            this.c_args = c_args;
 
             % Get function input structure
             this.fun_inputs = this.get_input_structure();
