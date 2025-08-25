@@ -7,8 +7,12 @@ classdef ForwardModel
         % fun_inputs - Input structure for ForwardModel functions.
         fun_inputs struct = struct();
 
-        % xu_vects - Nx-by-2 array of spatial and spatial frequency vectors.
-        xu_vects (:,2) double
+        % xu - Nx-by-2 array of spatial and spatial-frequency vectors.
+        xu (:,2) double
+    end
+
+    properties (Access = private)
+        T0_hat function_handle
     end
 
     methods
@@ -16,19 +20,20 @@ classdef ForwardModel
         function this = ForwardModel(varargin)
             % ForwardModel constructor description TODO
             % See also ForwardModel.private.validate_c_args, ForwardModel
+
+            % Validate constructor arguments
             this.c_args = this.validate_c_args(varargin{:});
             fprintf("ForwardModel object created with the following constructor arguments:\n\n");
             disp(this.c_args);
 
+            % Get function input structure
             this.fun_inputs = this.get_input_structure();
-
-            if this.c_args.force_sym_solve ...
-                    || ~exist("@ForwardModel/private/T0_hat_finite.m", "file") ...
-                    || ~exist("@ForwardModel/private/T0_hat_infinite.m", "file")
-                solve_system_symbolically();
-                rehash;
+            fprintf("\nFunction inputs 'M', 'O', 'chi', 'f0', and 'X_probe' should be formatted as follows:\n\n")
+            for name = string(fieldnames(this.fun_inputs))'
+                disp(strjoin("    " + splitlines(this.fun_inputs.(name).msg), newline))
             end
 
+            % Construct FFT spatial and spatial-frequency domains:
             if isequal(this.c_args.ift_method, "ifft2")
                 if isfield(this.c_args, "dx") && isfield(this.c_args, "Nx")
                     dx = this.c_args.dx;
@@ -40,10 +45,30 @@ classdef ForwardModel
                     Nx = this.c_args.Nx;
                     dx = this.c_args.x_max / floor(Nx/2);
                 end
+                du = 1 / (Nx * dx);
                 steps = -floor(Nx/2) : ceil(Nx/2) - 1;
                 x = steps * dx;
-                u = steps / (Nx * dx);
-                this.xu_vects = [x(:), u(:)];
+                u = steps * du;
+                this.xu = [x(:), u(:)];
+                fprintf("\nFFT domains are as follows:\n" + ...
+                    "    x = y = %g:%g:%g\n" + ...
+                    "    u = v = %g:%g:%g\n", ...
+                    x(1), dx, x(end), ...
+                    u(1), du, u(end));
+            end
+
+            % solve for T0_hat symbolically if needed
+            if this.c_args.force_sym_solve ...
+                    || ~exist("@ForwardModel/private/T0_hat_finite.m", "file") ...
+                    || ~exist("@ForwardModel/private/T0_hat_infinite.m", "file")
+                solve_system_symbolically();
+                rehash;
+            end
+
+            if this.c_args.inf_sub_thick
+                this.T0_hat = @T0hat_infinite;
+            else
+                this.T0_hat = @T0hat_finite;
             end
 
         % 
@@ -177,11 +202,11 @@ classdef ForwardModel
                 "selfValidate", @(x) ForwardModel.enforceLogical(x), ...
                 "getDefault", @(~) false ...
             ), ...
-            "force_sym_solve", struct( ...
+            "log_args", struct( ...
                 "selfValidate", @(x) ForwardModel.enforceLogical(x), ...
                 "getDefault", @(~) false ...
             ), ...
-            "log_args", struct( ...
+            "force_sym_solve", struct( ...
                 "selfValidate", @(x) ForwardModel.enforceLogical(x), ...
                 "getDefault", @(~) false ...
             ) ...
