@@ -41,6 +41,8 @@ classdef ForwardModel
             c_args = c_args.sub_orient.cross_validate(c_args.sub_isotropy, "sub", c_args);
             c_args = c_args.euler_seq.cross_validate(c_args);
             this.c_args = c_args;
+            fprintf("ForwardModel object created with the following constructor arguments:\n\n");
+            disp(this.c_args);
 
             % Get function input structure
             this.fun_inputs = this.get_input_structure();

@@ -13,9 +13,6 @@ classdef SeqEnum
 %
 % See also:
 % OrientationRepresentation,
-% <a href="https://www.mathworks.com/help/matlab/ref/rotx.html">rotx</a>,
-% <a href="https://www.mathworks.com/help/matlab/ref/roty.html">roty</a>,
-% <a href="https://www.mathworks.com/help/matlab/ref/rotz.html">rotz</a>,
 % <a href="https://www.mathworks.com/help/matlab/enumeration-classes.html">Enumerations</a>,
 % <a href="https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html">Enumerations for Property Values</a>
 %
@@ -29,6 +26,12 @@ classdef SeqEnum
         XYZ, YXZ, ZXZ
         XZX, YZX, ZYX
         XZY, YZY, ZYZ
+    end
+
+    properties (Constant, Access = private)
+        Rx = @(t) [];
+        Ry = @(t) [];
+        Rz = @(t) [];
     end
 
     methods

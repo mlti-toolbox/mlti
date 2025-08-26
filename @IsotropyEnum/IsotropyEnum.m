@@ -7,7 +7,7 @@ classdef IsotropyEnum
 % IsotropyEnum Enumerations:
 %
 %   ISOTROPIC  - 1 DOF: isotropic thermal conductivity (k).
-%   UNIAXIAL   - 4 DOFs: axial and transverse conductivities (k∥ & k⊥) + symmetry axis orientation.
+%   UNIAXIAL   - 4 DOFs: transverse and axial conductivities (k⊥ & k∥) + symmetry axis orientation.
 %   PRINCIPAL  - 6 DOFs: three principal conductivities (kp1 > kp2 > kp3) + principal axes orientation.
 %   TENSOR     - 6 DOFs: 6 unique tensor elements (k11, k21, k31, k22, k32, k33).
 %
