@@ -177,6 +177,8 @@ kbd {
 .wrapper { width: 100%; margin: 0 auto; }
 
 header, section, footer {
+  background-color: inherit;
+  color: inherit;
   width: 100%;         /* full width on home */
   float: none;
   position: static;
