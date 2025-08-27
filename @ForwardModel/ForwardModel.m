@@ -36,13 +36,15 @@ classdef ForwardModel
                 c_args.log_args (1,1) logical = false;
                 c_args.force_sym_solve (1,1) logical = false;
             end
+            
             c_args = c_args.ift_method.cross_validate(c_args);
             c_args = c_args.film_orient.cross_validate(c_args.film_isotropy, "film", c_args);
             c_args = c_args.sub_orient.cross_validate(c_args.sub_isotropy, "sub", c_args);
             c_args = c_args.euler_seq.cross_validate(c_args);
-            this.c_args = c_args;
+
             fprintf("ForwardModel object created with the following constructor arguments:\n\n");
-            disp(this.c_args);
+            disp(c_args);
+            this.c_args = c_args;
 
             % Get function input structure
             this.fun_inputs = this.get_input_structure();

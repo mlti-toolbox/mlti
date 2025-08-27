@@ -1,14 +1,14 @@
 function solve_system_symbolically()
     syms Kf11 Kf12 Kf13 Kf22 Kf23 Kf33 Cf af Rf hf
     syms Ks11 Ks12 Ks13 Ks22 Ks23 Ks33 Cs as Rs hs
-    syms Rth sx sy P f0 U V
+    syms Rth sx sy P f0 u v
     syms AA BB [6,1]
     syms LAMBDA [2,1]
     syms E [4,1]
 
     input_vars = [Kf11 Kf12 Kf13 Kf22 Kf23 Kf33 Cf af Rf hf ...
                   Ks11 Ks12 Ks13 Ks22 Ks23 Ks33 Cs as Rs hs ...
-                  Rth sx sy P f0 U V];
+                  Rth sx sy P f0 u v];
     
     FF = @(AAi, BBi) [AAi;  AAi * BBi;  (Rth * AAi + 1) * BBi;  0];
     SS = @(AAi, BBi) [0;  -AAi;  -1;  AAi * BBi];
@@ -26,21 +26,21 @@ function solve_system_symbolically()
     Ep_infinite = matlabFunction(sol3.E1, Vars=[AA; BB; LAMBDA; Rth]);
     Em_infinite = matlabFunction(sol3.E2, Vars=[AA; BB; LAMBDA; Rth]);
                
-    phu = exp(-2 .* pi.^2 .* sx.^2 .* U.^2);
-    phv = exp(-2 .* pi.^2 .* sy.^2 .* V.^2);
+    phu = exp(-2 .* pi.^2 .* sx.^2 .* u.^2);
+    phv = exp(-2 .* pi.^2 .* sy.^2 .* v.^2);
     psi  = 0.25;
     
     I0f = P .* (1 - Rf);
     I0s = P .* (1 - Rf) .* (1 - Rs) .* exp(-af .* hf);
     
-    lf = 2 .* pi .* (U .* Kf13 + V .* Kf23);
-    ls = 2 .* pi .* (U .* Ks13 + V .* Ks23);
+    lf = 2 .* pi .* (u .* Kf13 + v .* Kf23);
+    ls = 2 .* pi .* (u .* Ks13 + v .* Ks23);
     
     gf = 4 .* pi.^2 .* ...
-        (U.^2 .* Kf11 + 2 .* U .* V .* Kf12 + V.^2 .* Kf22) ...
+        (u.^2 .* Kf11 + 2 .* u .* v .* Kf12 + v.^2 .* Kf22) ...
         + pi * 2i .* f0 .* Cf;
     gs = 4 .* pi.^2 .* ...
-        (U.^2 .* Ks11 + 2 .* U .* V .* Ks12 + V.^2 .* Ks22) ...
+        (u.^2 .* Ks11 + 2 .* u .* v .* Ks12 + v.^2 .* Ks22) ...
         + pi * 2i .* f0 .* Cs;
     
     epf = (1i .* lf + sqrt(gf .* Kf33 - lf.^2)) ./ -Kf33;

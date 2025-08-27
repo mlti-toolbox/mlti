@@ -1,7 +1,7 @@
 function fh = ko2K(k_type, o_type)
     arguments
-        k_type (1,1) IsotropyEnum
-        o_type (1,1) OrientEnum
+        k_type (1,1) IsotropyEnum;
+        o_type (1,1) OrientEnum = OrientEnum.na;
     end
 
     switch k_type
