@@ -64,16 +64,11 @@
 body {
   background-color: #fff;
   font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #E4080A;
+  color: #727272;
   font-weight: 400;
   padding: 50px;
   padding-top: 0px;
   word-wrap: break-word;
-}
-@media (prefers-color-scheme: dark) {
-  body{
-    background-color: #0b1020;
-  }
 }
 
 h1, h2, h3, h4, h5, h6 { margin: 0 0 20px; }
