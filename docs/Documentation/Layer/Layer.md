@@ -24,20 +24,25 @@ Characterizes a material layer and converts user input into canonical thermal pr
 [`layer = Layer(___,Name,Value)`](#d5)<br>
 
 ### Description
-<a id="d1"></a><hr>
+<a id="d1"></a>
+<hr>
 `layer = Layer()` creates a `Layer` object using the default tensor representation of thermal conductivity.
-<a id="d2"></a><hr>
-`layer = Layer(`[`isotropy`](#i1)`)` creates a `Layer` object with a user-specified isotropy type. Valid only for `isotropic` and `tensor` representations, since `orient` must also be specified for `uniaxial` and `principal` cases.
-<a id="d3"></a><hr>
-`layer = Layer(`[`isotropy`](#i1)`,`[`orient`](#i2)`)` creates a `Layer` object with a user-specified isotropy type and orientation. Valid only for `uniaxial` and `principal` representations, since `orient` is not required for `isotropic` or `tensor`.
-<a id="d4"></a><hr>
-`layer = Layer(`[`isotropy`](#i1)`,`[`orient`](#i2)`,`[`euler_seq`](#i3)`)` creates a `Layer` object with a user-specified isotropy type, orientation, and Euler sequence. Valid only when `orient` is `euler`, since `euler_seq` is not required for other orientations.
-<a id="d5"></a><hr>
+<a id="d2"></a>
+<hr>
+`layer = Layer(`[`isotropy`](#isotropy-argument)`)` creates a `Layer` object with a user-specified isotropy type. Valid only for `isotropic` and `tensor` representations, since `orient` must also be specified for `uniaxial` and `principal` cases.
+<a id="d3"></a>
+<hr>
+`layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`)` creates a `Layer` object with a user-specified isotropy type and orientation. Valid only for `uniaxial` and `principal` representations, since `orient` is not required for `isotropic` or `tensor`.
+<a id="d4"></a>
+<hr>
+`layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`,`[`euler_seq`](#euler-seq-argument)`)` creates a `Layer` object with a user-specified isotropy type, orientation, and Euler sequence. Valid only when `orient` is `euler`, since `euler_seq` is not required for other orientations.
+<a id="d5"></a>
+<hr>
 `layer = Layer(___,`[`Name,Value`](#name-value-arguments)`)` creates a `Layer` object using one or more name-value arguments. Specify the name-value arguments after all the arguments in any of the previous syntaxes.
 <hr>
 
 ### Input Arguments
-<details class="custom-details" id="i1">
+<details class="custom-details" id="isotropy-argument">
     <summary>
         <span class="summary-text">
             <b><code>isotropy</code> - Isotropy type</b>
@@ -63,8 +68,8 @@ Characterizes a material layer and converts user input into canonical thermal pr
         </p>
     </div>
 </details>
-<a id="i2"></a>
-<a id="i3"></a>
+<a id="orient-argument"></a>
+<a id="euler-seq-argument"></a>
 
 #### Name-Value Arguments
 
