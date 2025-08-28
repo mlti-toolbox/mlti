@@ -19,12 +19,7 @@
       <div class="docs-wrapper">
         <aside class="file-explorer">
           <h2><a href="{{ '/Documentation' | relative_url }}">Documentation</a></h2>
-        
-          {%- assign fm_pages = 
-              "/Documentation/ForwardModel,/Documentation/ForwardModel/plot,/Documentation/ForwardModel/solve" | split: "," -%}
-        
-          {%- assign current_is_fm = fm_pages | where_exp: "p", "page.url == p" | size -%}
-        
+                
           {% include file-explorer-contents.html %}
         
         </aside>
