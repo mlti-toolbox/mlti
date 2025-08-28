@@ -1,3 +1,8 @@
+{%- assign fm_pages = 
+    "/Documentation/ForwardModel,/Documentation/ForwardModel/plot,/Documentation/ForwardModel/solve" | split: "," -%}
+
+{%- assign current_is_fm = fm_pages | where_exp: "p", "page.url == p" | size -%}
+
 <details {% if page.url contains '/Documentation/ForwardModel' %}open{% endif %}>
   <summary>
     <a href="{{ '/Documentation/ForwardModel' | relative_url }}"
