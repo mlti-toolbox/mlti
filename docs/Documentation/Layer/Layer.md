@@ -15,7 +15,6 @@ Characterizes a material layer and converts user input into canonical thermal pr
 ## Creation
 
 ### Syntax
-<hr>
 
 [`layer = Layer()`](#d1)<br>
 [`layer = Layer(isotropy)`](#d2)<br>
@@ -26,8 +25,6 @@ Characterizes a material layer and converts user input into canonical thermal pr
 ### Description
 
 <a id="d1"></a>
-
-<hr>
 
 `layer = Layer()` creates a `Layer` object using the default tensor representation of thermal conductivity.
 
@@ -54,8 +51,6 @@ Characterizes a material layer and converts user input into canonical thermal pr
 <hr>
 
 `layer = Layer(___,`[`Name,Value`](#name-value-arguments)`)` creates a `Layer` object using one or more name-value arguments. Specify the name-value arguments after all the arguments in any of the previous syntaxes.
-
-<hr>
 
 ### Input Arguments
 <details class="custom-details" id="isotropy-argument">
