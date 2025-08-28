@@ -36,15 +36,60 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
 ## Creation
 
 ### Syntax
-```matlab
-fm = ForwardModel(Name, Value)
-```
+
+<hr>
+
+[`fm = ForwardModel(film,substrate,Name,Value)`](#d1)<br>
 
 ### Description
 
-`fm = ForwardModel(Name, Value)` creates a forward model object according to specifications provided as name-value arguments. Name-Value arguments specify which solving methods and approximations to use as well as how thermal conductivity will be represented in input arrays `M` and `O`. The constructor displays the expected structure of solver inputs upon construction. See [example](#constructor-ex1).
+<a id="d1"></a>
 
-### Input (Name-Value) Arguments
+<hr>
+
+`fm = ForwardModel(`[`film`](#film-argument)`,`[`substrate`](#substrate-argument)`,`[`Name, Value`](#name-value-arguments)`)` creates a `ForwardModel` object according to user specifications. `film` and `substrate` are [`Layer`](/MLTI/Documentation/Layer) objects that specify how thermal conductivity will be represented in their respective layers. Name-value arguments specify which solving methods and approximations to use.
+
+### Input Arguments
+
+<details class="custom-details" id="film-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>film</code> - Film layer specifications</b>
+            <span class="subline">
+                <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a> object
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            The <code>film</code> arguments is a <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a> object that specifies how thermal conductivity is represented for the thin film layer of the sample.
+        </p>
+        <p>
+            <b>Data Types:</b> <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a>
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="film-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>substrate</code> - Substrate layer specifications</b>
+            <span class="subline">
+                <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a> object
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            The <code>substrate</code> arguments is a <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a> object that specifies how thermal conductivity is represented for the substrate layer of the sample.
+        </p>
+        <p>
+            <b>Data Types:</b> <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a>
+        </p>
+    </div>
+</details>
+
+#### Name-Value Arguments
 
 Specify name–value pairs as `Name1=Value1, ..., NameN=ValueN`, where each `Name` is an argument name and each `Value` is the corresponding value. The order of the pairs does not matter.  
 
@@ -281,173 +326,6 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 <details class="custom-details">
     <summary>
         <span class="summary-text">
-            <b><code>film_isotropy</code> - Film isotropy type</b>
-            <span class="subline"><code>"tensor"</code> (default) | <code>"iso"</code> | <code>"simple"</code> | <code>"complex"</code></span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            Film isotropy type specifies the isotropy level of the film.
-        </p>
-        <ul>
-            <li><code>"iso"</code>: For scalar thermal conductivity <code>kf</code></li>
-            <li><code>"simple"</code>: For 2 principal thermal conductivities along a specified axis <code>kf∥</code> and perpendicular to that axis <code>kf⊥</code></li>
-            <li><code>"complex"</code>: For 3 principal thermal conductivities sorted in descending order <code>kfp1</code>, <code>kfp2</code>, <code>kfp3</code></li>
-            <li><code>"tensor"</code>: For 6 element thermal conductivity tensor <code>kf11</code>, <code>kf12</code>, <code>kf13</code>, <code>kf22</code>, <code>kf23</code>, <code>kf33</code></li>
-        </ul>
-        <p>
-            Input value is validated using
-            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>char</code> | <code>string</code>
-        </p>
-    </div>
-</details>
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
-            <b><code>sub_isotropy</code> - Substrate isotropy type</b>
-            <span class="subline">
-                <code>"tensor"</code> (default) | <code>"iso"</code> | <code>"simple"</code> | <code>"complex"</code>
-            </span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            Substrate isotropy type specifies the isotropy level of the film.
-        </p>
-        <ul>
-            <li><code>"iso"</code>: For scalar thermal conductivity <code>ks</code></li>
-            <li><code>"simple"</code>: For 2 principal thermal conductivities along a specified axis <code>ks∥</code> and perpendicular to that axis <code>ks⊥</code></li>
-            <li><code>"complex"</code>: For 3 principal thermal conductivities sorted in descending order <code>ksp1</code>, <code>ksp2</code>, <code>ksp3</code></li>
-            <li><code>"tensor"</code>: For 6 element thermal conductivity tensor <code>ks11</code>, <code>ks12</code>, <code>ks13</code>, <code>ks22</code>, <code>ks23</code>, <code>kf33</code></li>
-        </ul>
-        <p>
-            Input value is validated using
-            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>char</code> | <code>string</code>
-        </p>
-    </div>
-</details>
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
-            <b><code>film_orient</code> - Film orientation type</b>
-            <span class="subline">
-                <code>"azpol"</code> | <code>"uvect"</code> | <code>"euler"</code> | <code>"uquat"</code> | <code>"rotmat"</code>
-            </span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            Film orientation type specifies how the principal axes orientations of the film are represented.
-            Required when <code>film_isotropy</code> equals either <code>"simple"</code> or <code>"complex"</code>.
-        </p>
-        <ul>
-            <li><code>"azpol"</code>: For representing the <code>kf∥</code> axis as azimuthal <code>θf1</code> and polar <code>θf2</code> angles. Use only when <code>film_isotropy = "simple"</code>.</li>
-            <li><code>"uvect"</code>: For representing the <code>kf∥</code> axis as a unit vector <code>vf1</code>, <code>vf2</code>, <code>vf3</code>. Use only when <code>film_isotropy = "simple"</code>.</li>
-            <li><code>"euler"</code>: For representing the orientation of the principal axes as Euler angles <code>θf1</code>, <code>θf2</code>, <code>θf3</code>.</li>
-            <li><code>"uquat"</code>: For representing the orientation of the principal axes as a unit quaternion <code>qf1</code>, <code>qf2</code>, <code>qf3</code>, <code>qf4</code>.</li>
-            <li><code>"rotmat"</code>: For representing the orientation of the principal axes as a rotation matrix <code>Rf11</code>, <code>Rf21</code>, <code>Rf31</code>, <code>Rf12</code>, <code>Rf22</code>, <code>Rf32</code>, <code>Rf13</code>, <code>Rf23</code>, <code>Rf33</code>.</li>
-        </ul>
-        <p>
-            Input value is validated using
-            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>char</code> | <code>string</code>
-        </p>
-    </div>
-</details>
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
-            <b><code>sub_orient</code> - Substrate orientation type</b>
-            <span class="subline">
-                <code>"azpol"</code> | <code>"uvect"</code> | <code>"euler"</code> | <code>"uquat"</code> | <code>"rotmat"</code>
-            </span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            Substrate orientation type specifies how the principal axes orientations of the film are represented.
-            Required when <code>sub_isotropy</code> equals either <code>"simple"</code> or <code>"complex"</code>.
-        </p>
-        <ul>
-            <li><code>"azpol"</code>: For representing the <code>ks∥</code> axis as azimuthal <code>θs1</code> and polar <code>θs2</code> angles. Use only when <code>sub_isotropy = "simple"</code>.</li>
-            <li><code>"uvect"</code>: For representing the <code>ks∥</code> axis as a unit vector <code>vs1</code>, <code>vs2</code>, <code>vs3</code>. Use only when <code>sub_isotropy = "simple"</code>.</li>
-            <li><code>"euler"</code>: For representing the orientation of the principal axes as Euler angles <code>θs1</code>, <code>θs2</code>, <code>θs3</code>.</li>
-            <li><code>"uquat"</code>: For representing the orientation of the principal axes as a unit quaternion <code>qs1</code>, <code>qs2</code>, <code>qs3</code>, <code>qs4</code>.</li>
-            <li><code>"rotmat"</code>: For representing the orientation of the principal axes as a rotation matrix <code>Rs11</code>, <code>Rs21</code>, <code>Rs31</code>, <code>Rs12</code>, <code>Rs22</code>, <code>Rs32</code>, <code>Rs13</code>, <code>Rs23</code>, <code>Rs33</code>.</li>
-        </ul>
-        <p>
-            Input value is validated using
-            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>char</code> | <code>string</code>
-        </p>
-    </div>
-</details>
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
-            <b><code>euler_seq</code> - Euler angle sequence</b>
-            <span class="subline">
-                <code>'ZYZ'</code> (default) | <code>'ZXZ'</code> | <code>'ZYX'</code> | <code>'ZXY'</code> | <code>'YXY'</code> | <code>'YZY'</code> | <code>'YXZ'</code> | <code>'YZX'</code> | <code>'XYX'</code> | <code>'XZX'</code> | <code>'XYZ'</code> | <code>'XZY'</code>
-            </span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            Euler angle sequence specified as three axes.
-            I.e., computes the rotation matrix as \(\mathbf{R} = \mathbf{R}_i\left(\theta_1\right) \cdot \mathbf{R}_j\left(\theta_2\right) \cdot \mathbf{R}_k\left(\theta_3\right)\), where \(i, j, k \in \left\{x, y, z\right\}\) are the 1st, 2nd, and 3rd characters of the input character array, and:
-        </p>
-        <p>
-            \(
-            {\mathbf{R}_x(\theta) =
-            \begin{bmatrix}
-            1 & 0 & 0 \\
-            0 & \cos\theta & -\sin\theta \\
-            0 & \sin\theta & \cos\theta
-            \end{bmatrix}},\,
-            {\mathbf{R}_y(\theta) =
-            \begin{bmatrix}
-            \cos\theta & 0 & \sin\theta \\
-            0 & 1 & 0 \\
-            -\sin\theta & 0 & \cos\theta
-            \end{bmatrix}},\,
-            {\mathbf{R}_z(\theta) =
-            \begin{bmatrix}
-            \cos\theta & -\sin\theta & 0 \\
-            \sin\theta & \cos\theta & 0 \\
-            0 & 0 & 1
-            \end{bmatrix}}
-            \)
-        </p>
-        <p>
-            Only referenced when either <code>film_orient</code> or <code>sub_orient</code> is set to <code>"euler"</code>.
-        </p>
-        <p>
-            Input value is validated using
-            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>char</code> | <code>string</code>
-        </p>
-    </div>
-</details>
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
             <b><code>sweep_method</code> - Method for iterating over parameter combinations</b>
             <span class="subline">
                 <code>"broadcast"</code> (default) | <code>"ndgrid"</code> | <code>"loop"</code>
@@ -667,5 +545,6 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) |
 [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html) |
 [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html)
+
 
 
