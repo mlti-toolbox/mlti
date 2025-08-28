@@ -25,11 +25,13 @@
   
       // When clicking links, expand the target <details>
       window.addEventListener("click", (e) => {
-        if (e.target.tagName.toLowerCase() === "a" && e.target.hash) {
-          const target = document.querySelector(e.target.hash);
-          if (target && target.tagName.toLowerCase() === "details") {
-            target.setAttribute("open", "true");
-          }
+        const link = e.target.closest("a[href^='#']");
+        if (!link) return;
+      
+        const target = document.querySelector(link.hash);
+        if (target && target.tagName.toLowerCase() === "details") {
+          target.setAttribute("open", "true");
+          target.scrollIntoView({ behavior: "smooth" });
         }
       });
     </script>
@@ -56,4 +58,5 @@
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
   </body>
 </html>
+
 
