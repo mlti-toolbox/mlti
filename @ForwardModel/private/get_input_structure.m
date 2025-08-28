@@ -148,7 +148,8 @@ function [k, o] = get_ko_structure(fm, layer, log_wrap)
             o = get_o_structure(fm, layer, 3);
         case "tensor"
             [i,j] = ndgrid(1:3,1:3);
-            k_str = "k" + subscript + i + j;
+            k_str = "k" + i + j;
+            k_str = k_str(tril(true(size(k_str))));
             
             % Wrap diagonal elements in ln(...)
             k_str(i == j) = log_wrap(k_str(i == j));

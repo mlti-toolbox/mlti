@@ -1,4 +1,4 @@
-function options = cross_validate(or, cr, layer, options)
+function cross_validate(orient, isotropy)
     % cross_validate - Validate that orientation representation matches conductivity representation
     %
     % Syntax:
@@ -26,59 +26,47 @@ function options = cross_validate(or, cr, layer, options)
 
 
     arguments
-        or (1,1) OrientEnum
-        cr (1,1) IsotropyEnum
-        layer (1,1) string
-        options struct
+        orient (1,1) OrientEnum
+        isotropy (1,1) IsotropyEnum
     end
-
-    oname = layer + "_orient";
-    iname = layer + "_isotropy";
 
     princ_opts = [OrientEnum.euler, OrientEnum.uquat, OrientEnum.rotmat];
     uni_opts = [OrientEnum.azpol, OrientEnum.uvect, princ_opts];
 
     reqd_msg = compose( ...
-        "Input value for '%s' required when %s = '%s'.", ...
-        oname, iname, cr ...
+        "\nInput value for 'orient' required when isotropy = '%s'.", ...
+        isotropy ...
     );
     not_alwd_msg = compose( ...
-        "Input value for '%s' not allowed when %s = '%s'.", ...
-        oname, iname, cr ...
+        "\nInput value for 'orient' not allowed when isotropy = '%s'.", ...
+        isotropy ...
     );
     invalid_msg = compose( ...
-        "Input, %s = '%s', is invalid when %s = '%s'.", ...
-        oname, or, iname, cr ...
+        "\nInput, orient = '%s', is invalid when isotropy = '%s'.", ...
+        orient, isotropy ...
     );
     vld_opts_msg = @(opts) compose( ...
         "\nValid value options: %s", ...
         strjoin("'" + string(opts) + "'") ...
     );
-    out_warn_msg = "Field removed, but change not assigned back to the structure.";
 
-    switch cr
+    switch isotropy
         case IsotropyEnum.uniaxial
             % Orientation required, must not be NA
-            if or == OrientEnum.na
+            if orient == OrientEnum.na
                 error(reqd_msg + vld_opts_msg(uni_opts));
             end
         case IsotropyEnum.principal
             % Orientation required, must be EULER/UQUAT/ROTMAT
-            if or == OrientEnum.na
+            if orient == OrientEnum.na
                 error(reqd_msg + vld_opts_msg(princ_opts));
-            elseif ismember(or, [OrientEnum.azpol, OrientEnum.uvect])
+            elseif ismember(orient, [OrientEnum.azpol, OrientEnum.uvect])
                 error(invalid_msg + vld_opts_msg(princ_opts));
             end
         otherwise
             % Orientation not needed
-            if or ~= OrientEnum.na
+            if orient ~= OrientEnum.na
                 error(not_alwd_msg);
-            end
-            if nargin > 3 && isfield(options, oname)
-                options = rmfield(options, oname);
-                if nargout < 1
-                    warning(out_warn_msg)
-                end
             end
     end
 end

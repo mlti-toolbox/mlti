@@ -1,4 +1,4 @@
-function [K11, K21, K31, K22, K32, K33] = kpR2K(kp1, kp2, kp3, R11, R21, R31, R12, R22, R32, R13, R23, R33)
+function [K11, K21, K31, K22, K32, K33] = kpR2K(kp1, kp2, kp3, R11, R21, R31, R12, R22, R32, R13, R23, R33, exp_if_log)
 arguments
     kp1 (:,:) double
     kp2 (:,:) double
@@ -12,11 +12,12 @@ arguments
     R13 (1,:) double
     R23 (1,:) double
     R33 (1,:) double
+    exp_if_log (1,1) function_handle = @(x) x;
 end
 
-kp1 = obj.exp_if_log(kp1);
-kp2 = obj.exp_if_log(kp2);
-kp3 = obj.exp_if_log(kp3);
+kp1 = exp_if_log(kp1);
+kp2 = exp_if_log(kp2);
+kp3 = exp_if_log(kp3);
 
 % Computes:
 % K = R*diag(kp)*R';

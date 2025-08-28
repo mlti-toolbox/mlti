@@ -22,20 +22,15 @@ classdef SeqEnum
 %   - If not required, SeqEnum defaults to ZYZ and other values are ignored.
 
     enumeration
+        na
         XYX, YXY, ZXY
         XYZ, YXZ, ZXZ
         XZX, YZX, ZYX
         XZY, YZY, ZYZ
     end
 
-    properties (Constant, Access = private)
-        Rx = @(t) [];
-        Ry = @(t) [];
-        Rz = @(t) [];
-    end
-
     methods
-        function options = cross_validate(seq, options)
+        function cross_validate(seq, orient)
             % CROSS_VALIDATE Ensures consistency of Euler sequence options.
             %
             % If Euler orientations are not required, the sequence must be ZYZ.
@@ -53,22 +48,23 @@ classdef SeqEnum
 
             arguments
                 seq (1,1) SeqEnum
-                options struct
+                orient (1,1) OrientEnum
             end
 
-            out_warn_msg = "Field removed, but change not assigned back to the structure.";
-            not_alwd_msg = "Input value for 'euler_seq' not allowed when neither film_orient nor sub_orient equal 'euler'.";
+            reqd_msg = compose( ...
+                "\nInput value for 'euler_seq' required " + ...
+                "when orient = 'euler'." ...
+            );
+            not_alwd_msg = compose( ...
+                "\nInput value for 'euler_seq' not allowed " + ...
+                "when orient ~= 'euler'." ...
+            );
 
-            need_seq = ...
-                (isfield(options, "film_orient") && strcmp(options.film_orient, "euler")) || ...
-                (isfield(options, "sub_orient")  && strcmp(options.sub_orient, "euler"));
-            
-            if ~need_seq
-                if ~isequal(seq, SeqEnum.ZYZ), error(not_alwd_msg); end
-                if isfield(options, "euler_seq")
-                    options = rmfield(options, "euler_seq");
-                end
-                if nargout < 1, warning(out_warn_msg); end
+            if orient == OrientEnum.euler && seq == SeqEnum.na
+                error(reqd_msg)
+            end
+            if orient ~= OrientEnum.euler && seq ~= SeqEnum.na
+                error(not_alwd_msg);
             end
         end
     end

@@ -1,10 +1,10 @@
-function [K11, K21, K31, K22, K32, K33] = iso2K(obj, kiso)
+function [K11, K21, K31, K22, K32, K33] = iso2K(kiso, exp_if_log)
 arguments
-    obj (1,1) Layer
     kiso (:,:) double
+    exp_if_log (1,1) function_handle = @(x) x;
 end
 
-kiso = obj.exp_if_log(kiso);
+kiso = exp_if_log(kiso);
 z = zeros(size(kiso));
 
 K11 = kiso; 
