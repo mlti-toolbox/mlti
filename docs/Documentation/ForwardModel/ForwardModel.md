@@ -8,7 +8,12 @@ permalink: /Documentation/ForwardModel
 
 Models the surface thermal response induced by a laser heat source with Gaussian spatial distribution and harmonic temporal modulation.
 
+<hr>
+
 ## Description
+
+<hr>
+    
 <p>
 The <code>ForwardModel</code> class predicts the surface thermal response induced by a pump laser heat source with Gaussian spatial distribution and harmonic temporal modulation. Specifically, it returns the phase lag \(\mathbf{\upphi}\), amplitude \(\mathbf{A}\), and DC temperature rise \(\Delta\mathbf{T}_\mathrm{DC}\) at specific probe offsets \(\mathbf{X}_\mathrm{probe}\) within some error \(\mathbf{\upepsilon}_T\).
 </p>
@@ -35,6 +40,8 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
 
 ## Creation
 
+<hr>
+
 ### Syntax
 
 <hr>
@@ -43,6 +50,8 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
 
 ### Description
 
+<hr>
+
 <a id="d1"></a>
 
 <hr>
@@ -50,6 +59,8 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
 `fm = ForwardModel(`[`film`](#film-argument)`,`[`substrate`](#substrate-argument)`,`[`Name,Value`](#name-value-arguments)`)` creates a `ForwardModel` object according to user specifications. `film` and `substrate` are [`Layer`](/MLTI/Documentation/Layer) objects that specify how thermal conductivity will be represented in their respective layers. Name-value arguments specify which solving methods and approximations to use.
 
 ### Input Arguments
+
+<hr>
 
 <details class="custom-details" id="film-argument">
     <summary>
@@ -90,6 +101,8 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
 </details>
 
 #### Name-Value Arguments
+
+<hr>
 
 Specify name–value pairs as `Name1=Value1, ..., NameN=ValueN`, where each `Name` is an argument name and each `Value` is the corresponding value. The order of the pairs does not matter.  
 
@@ -431,9 +444,14 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 </details>
 
 ### Examples
+
+<hr>
+
 <a id="constructor-ex1"></a>
 
 ## Properties
+
+<hr>
 
 <details class="custom-details">
     <summary>
@@ -509,6 +527,9 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 </details>
 
 ## Object Functions
+
+<hr>
+
 <table>
   <tbody>
     <tr>
@@ -532,7 +553,12 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 
 ## Examples
 
+<hr>
+
 ## See Also
+
+<hr>
+
 ### ForwardModel methods
 
 [`ForwardModel.plot`](/MLTI/Documentation/ForwardModel/plot) |
@@ -545,6 +571,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) |
 [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html) |
 [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html)
+
 
 
 
