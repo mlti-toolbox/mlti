@@ -158,7 +158,7 @@ Characterizes a material layer and converts user input into canonical thermal pr
     </div>
 </details>
 
-#### Name-Value Arguments
+### Name-Value Arguments
 
 ### Examples
 
