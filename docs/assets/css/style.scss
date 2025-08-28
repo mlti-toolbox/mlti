@@ -71,18 +71,13 @@ body {
   word-wrap: break-word;
 }
 
-h1, h2, h3, h4, h5, h6 { 
+h1, h2, h3, h4, h5, h6 { margin: 0, 0, 20px; }
+
+section h1, section h2, section h3, section h4, section h5, section h6 { 
   border-bottom: 1px solid #ccc;  /* light gray line */
   padding-bottom: 0.25em;        /* space between text and line */
   margin-bottom: 0.5em;          /* space after the line */
 }
-h1 { margin-left: 20px; }
-h2 { margin-left: 40px; }
-h3 { margin-left: 60px; }
-h4 { margin-left: 80px; }
-h5 { margin-left: 100px; }
-h6 { margin-left: 120px; }
-
 
 h1, h2, h3 { line-height: 1.1; }
 h1 { font-size: 28px; }
@@ -449,4 +444,5 @@ details.custom-details > div {
 @media print {
   body { padding: 0.4in; font-size: 12pt; color: #444; }
 }
+
 
