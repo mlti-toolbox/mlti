@@ -70,7 +70,7 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
     </div>
 </details>
 
-<details class="custom-details" id="film-argument">
+<details class="custom-details" id="substrate-argument">
     <summary>
         <span class="summary-text">
             <b><code>substrate</code> - Substrate layer specifications</b>
@@ -545,6 +545,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) |
 [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html) |
 [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html)
+
 
 
 
