@@ -1,5 +1,6 @@
-function [K11, K21, K31, K22, K32, K33] = kpEuler2K(kp1, kp2, kp3, t1, t2, t3, seq)
+function [K11, K21, K31, K22, K32, K33] = kpEuler2K(obj, kp1, kp2, kp3, t1, t2, t3, seq)
 arguments
+    obj (1,1) Layer
     kp1 (:,:) double
     kp2 (:,:) double
     kp3 (:,:) double
@@ -8,6 +9,10 @@ arguments
     t3 (:,1) double
     seq (1,1) SeqEnum
 end
+
+kp1 = obj.exp_if_log(kp1);
+kp2 = obj.exp_if_log(kp2);
+kp3 = obj.exp_if_log(kp3);
 
 R = angle2dcm(t1, t2, t3, string(seq));  % 3-by-3-by-N
 R = pagetranspose(R);  % Because quat2dcm returns rotation for row vectors.

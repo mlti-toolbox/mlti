@@ -36,7 +36,10 @@ classdef ForwardModel
                 c_args.log_args (1,1) logical = false;
                 c_args.force_sym_solve (1,1) logical = false;
             end
-            
+
+            Film = Layer(c_args.film_isotropy, c_args.film_orient, c_args.euler_seq, inf_thick=false, phase_only=c_args.phase_only, log_args=c_args.log_args);
+            Sub  = Layer(c_args.sub_isotropy,  c_args.sub_orient,  c_args.euler_seq, inf_thick=c_args.inf_sub_thick, phase_only=c_args.phase_only, log_args=c_args.log_args);
+
             c_args = c_args.ift_method.cross_validate(c_args);
             c_args = c_args.film_orient.cross_validate(c_args.film_isotropy, "film", c_args);
             c_args = c_args.sub_orient.cross_validate(c_args.sub_isotropy, "sub", c_args);
