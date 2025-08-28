@@ -86,7 +86,7 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
     </div>
 </details>
 
-#### Name-Value Arguments
+### Name-Value Arguments
 
 Specify name–value pairs as `Name1=Value1, ..., NameN=ValueN`, where each `Name` is an argument name and each `Value` is the corresponding value. The order of the pairs does not matter.  
 
@@ -545,6 +545,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) |
 [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html) |
 [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html)
+
 
 
 
