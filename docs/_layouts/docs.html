@@ -11,6 +11,28 @@
     <![endif]-->
     {% include head-custom.html %}
     {% include math-format.html %}
+
+    <script>
+      // When the page loads, check if there's a hash in the URL
+      window.addEventListener("DOMContentLoaded", () => {
+        if (location.hash) {
+          const target = document.querySelector(location.hash);
+          if (target && target.tagName.toLowerCase() === "details") {
+            target.setAttribute("open", "true");
+          }
+        }
+      });
+  
+      // When clicking links, expand the target <details>
+      window.addEventListener("click", (e) => {
+        if (e.target.tagName.toLowerCase() === "a" && e.target.hash) {
+          const target = document.querySelector(e.target.hash);
+          if (target && target.tagName.toLowerCase() === "details") {
+            target.setAttribute("open", "true");
+          }
+        }
+      });
+    </script>
   </head>
   <body>
     <div class="wrapper">
@@ -34,3 +56,4 @@
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
   </body>
 </html>
+
