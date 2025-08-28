@@ -20,3 +20,26 @@
     </li>
   </ul>
 </details>
+
+<details {% if page.url contains '/Documentation/Layer' %}open{% endif %}>
+  <summary>
+    <a href="{{ '/Documentation/Layer' | relative_url }}"
+       {% if page.url == '/Documentation/Layer' %}style="font-weight:bold;"{% endif %}>
+      <code>Layer</code>
+    </a>
+  </summary>
+  <ul>
+    <li>
+      <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"
+         {% if page.url == '/Documentation/ForwardModel/plot' %}style="font-weight:bold;"{% endif %}>
+        <code>ForwardModel.plot</code>
+      </a>
+    </li>
+    <li>
+      <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"
+         {% if page.url == '/Documentation/ForwardModel/solve' %}style="font-weight:bold;"{% endif %}>
+        <code>ForwardModel.solve</code>
+      </a>
+    </li>
+  </ul>
+</details>
