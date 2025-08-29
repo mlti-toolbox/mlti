@@ -37,7 +37,18 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 <p><a id="d1"></a>
   `layer = Layer()` creates a `Layer` object using the default tensor representation of thermal conductivity.
 </p>
-<p><a id="d2"></a><hr style="margin: 0;">
+<hr style="margin: -1em 0 0.5em 0;">
+<p><a id="d2"></a>
+  `layer = Layer(`[`isotropy`](#isotropy-argument)`)` creates a `Layer` object with a user-specified isotropy type.
+Valid only for `"isotropic"` and `"tensor"` conductivity representations, since `orient` must also be specified for `"uniaxial"` and `"principal"` cases.
+</p>
+<hr style="margin: 0;">
+<p><a id="d3"></a>
+  `layer = Layer(`[`isotropy`](#isotropy-argument)`)` creates a `Layer` object with a user-specified isotropy type.
+Valid only for `"isotropic"` and `"tensor"` conductivity representations, since `orient` must also be specified for `"uniaxial"` and `"principal"` cases.
+</p>
+<hr>
+<p><a id="d4"></a>
   `layer = Layer(`[`isotropy`](#isotropy-argument)`)` creates a `Layer` object with a user-specified isotropy type.
 Valid only for `"isotropic"` and `"tensor"` conductivity representations, since `orient` must also be specified for `"uniaxial"` and `"principal"` cases.
 </p>
