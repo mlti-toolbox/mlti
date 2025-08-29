@@ -33,7 +33,7 @@ See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/ho
 <table>
   <tr>
     <td>
-      ifft2
+      <code>ifft2</code>
     </td>
     <td>
       Use MATLAB's built-in <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a> method
@@ -41,7 +41,7 @@ See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/ho
   </tr>
   <tr>
     <td>
-      integral2
+      <code>integral2</code>
     </td>
     <td>
       Use MATLAB's built-in <a href="https://www.mathworks.com/help/matlab/ref/integral2.html"><code>integral2</code></a> method
@@ -60,6 +60,7 @@ See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/ho
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
