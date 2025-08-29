@@ -12,17 +12,17 @@ Characterizes a material layer and converts user input into canonical thermal pr
 ## Description
 
 The `Layer` class defines the thermal conductivity of a material layer—whether isotropic, uniaxially anisotropic, or fully anisotropic—and specifies how conductivity is expressed in user inputs. It also handles conversion of user inputs into the tensor representation, which is required by the internal [`ForwardModel`](MLTI/Documentation/ForwardModel) solver.
-
+`
 **Supported Representations:**
 * Isotropic conductivity: `k`
-* Transverse and axial conductivities (`k⊥`, `k∥`) with
-   * Azimuthal and polar axis direction angles: `θ_az`, `θ_pol`
-   * Unit vector axis direction: `v1`, `v2`, `v3`
-* Principal conductivities (`kp1`, `kp2`, `kp3`) with
-   * Euler orientation angles: `θA1`, `θB2`, `θC3`
-   * Unit quaternion orientation: `q0`, `q1`, `q2`, `q3`
-   * Vectorized rotation matrix orientation: `R11`, `R21`, `R31`, `R12`, `R22`, `R32`, `R13`, `R23`, `R33`
-* 6-element tensor conductivity: `k11`, `k21`, `k31`, `k22`, `k32`, `k33`
+* Transverse and axial conductivities (`k⊥, k∥`) with
+   * Azimuthal and polar axis direction angles: `θ_az, θ_pol`
+   * Unit vector axis direction: `v1, v2, v3`
+* Principal conductivities (`kp1, kp2, kp3`) with
+   * Euler orientation angles: `θA1, θB2, θC3`
+   * Unit quaternion orientation: `q0, q1, q2, q3`
+   * Vectorized rotation matrix orientation: `R11, R21, R31, R12, R22, R32, R13, R23, R33`
+* 6-element tensor conductivity: `k11, k21, k31, k22, k32, k33`
 
 ## Creation
 
