@@ -33,26 +33,15 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 [`layer = Layer(isotropy,orient)`](#d3)<br>
 [`layer = Layer(isotropy,orient,euler_seq)`](#d4)<br>
 
-<h3>Description</h3>
-<p><a id="d1"></a>
-  `layer = Layer()` creates a `Layer` object using the default tensor representation of thermal conductivity.
-</p>
-<hr style="margin: -1em 0 0.5em 0;">
-<p><a id="d2"></a>
-  `layer = Layer(`[`isotropy`](#isotropy-argument)`)` creates a `Layer` object with a user-specified isotropy type.
-  Valid only for `"isotropic"` and `"tensor"` conductivity representations, since `orient` must also be specified for `"uniaxial"` and `"principal"` cases.
-</p>
-<hr style="margin: -1em 0 0.5em 0;">
-<p><a id="d3"></a>
-  `layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`)` creates a `Layer` object with a user-specified isotropy type and orientation.
-  Valid only for `"uniaxial"` and `"principal"` representations, since `orient` is not required for `"isotropic"` or `"tensor"`.
-  If Euler orientation angles are used, `euler_seq` must also be provided (see next).
-</p>
-<hr style="margin: -1em 0 0 0;">
-<a id="d4"></a>
-<p>
-  `layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`,`[`euler_seq`](#euler-seq-argument)`)` creates a `Layer` object with a user-specified isotropy type, orientation, and Euler angle sequence. Valid only when `orient` is `"euler"`, since `euler_seq` is not required for other orientations.
-</p>
+### Description
+<a id="d1"></a>
+`layer = Layer()` creates a `Layer` object using the default tensor representation of thermal conductivity.
+<hr style="margin: -1em 0 0.5em 0;"><a id="d2"></a>
+`layer = Layer(`[`isotropy`](#isotropy-argument)`)` creates a `Layer` object with a user-specified isotropy type. Valid only for `"isotropic"` and `"tensor"` conductivity representations, since `orient` must also be specified for `"uniaxial"` and `"principal"` cases.
+<hr style="margin: -1em 0 0.5em 0;"><a id="d3"></a>
+`layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`)` creates a `Layer` object with a user-specified isotropy type and orientation. Valid only for `"uniaxial"` and `"principal"` representations, since `orient` is not required for `"isotropic"` or `"tensor"`. If Euler orientation angles are used, `euler_seq` must also be provided (see next).
+<hr style="margin: -1em 0 0 0;"><a id="d4"></a>
+`layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`,`[`euler_seq`](#euler-seq-argument)`)` creates a `Layer` object with a user-specified isotropy type, orientation, and Euler angle sequence. Valid only when `orient` is `"euler"`, since `euler_seq` is not required for other orientations.
 
 ### Input Arguments
 <details class="custom-details" id="isotropy-argument">
