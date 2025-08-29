@@ -14,16 +14,16 @@ Inverse Fourier transform evaluation methods
 
 ## Creation
 
-Direct construction:
+**Direct construction:**<br>
 `method = IFTEnum.member`
 
-Conversion from character or string arrays:
-`method = IFTEnum('memberName')`
+**Conversion from character or string arrays:**<br>
+`method = IFTEnum('memberName')`<br>
 `method = IFTEnum("memberName")`
 
-Creating an `IFTEnum` enumeration array:
-`methods = [IFTEnum.member1,IFTEnum.member2,...]`
-`methods = IFTEnum({'memberName1','memberName2',...})`
+**Creating an `IFTEnum` enumeration array:**<br>
+`methods = [IFTEnum.member1,IFTEnum.member2,...]`<br>
+`methods = IFTEnum({'memberName1','memberName2',...})`<br>
 `methods = IFTEnum(["memberName1","memberName2",...])`
 
 See [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html) for more details.
@@ -49,17 +49,11 @@ See [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how
   </tr>
 </table>
 
-## Object Functions
-
 ## See Also
-
 ### MATLAB Built-in Methods
 <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a> | <a href="https://www.mathworks.com/help/matlab/ref/integral2.html"><code>integral2</code></a>
 
 ### Topics
-
-[Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)
-
-[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)
-
+[Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
+[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
