@@ -152,7 +152,7 @@ pre {
   overflow-x: auto;
 }
 code.hang {
-  display: inline-block; /* or inline-block */
+  display: inline; /* or inline-block */
   white-space: pre-wrap; /* preserve spaces, allow wrapping */
   word-break: normal; /* don't break words arbitrarily */
   overflow-wrap: normal; /* don't break words arbitrarily */
@@ -474,6 +474,7 @@ details.custom-details > div {
 @media print {
   body { padding: 0.4in; font-size: 12pt; color: #444; }
 }
+
 
 
 
