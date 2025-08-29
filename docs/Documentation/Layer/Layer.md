@@ -32,7 +32,6 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 <style>
 /* hanging-indent code blocks that wrap */
 code {
-  display: inline;            /* or inline-block */
   white-space: pre-wrap;     /* preserve spaces, allow wrapping */
   word-break: normal;        /* don't break words arbitrarily */
   overflow-wrap: normal;     /* don't break words arbitrarily */
