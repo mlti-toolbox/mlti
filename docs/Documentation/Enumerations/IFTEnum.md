@@ -26,7 +26,7 @@ Inverse Fourier transform evaluation methods
 `methods = IFTEnum({'memberName1','memberName2',...})`<br>
 `methods = IFTEnum(["memberName1","memberName2",...])`
 
-See [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html) for more details.
+See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)" for more details.
 
 ## Enumeration Members
 
@@ -50,10 +50,13 @@ See [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how
 </table>
 
 ## See Also
-### MATLAB Built-in Methods
-<a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a> | <a href="https://www.mathworks.com/help/matlab/ref/integral2.html"><code>integral2</code></a>
+### MLTI Companion Classes and Methods
+[`IFTSolver`](MLTI/Documentation/IFTSolver)
 
-### Topics
+### MATLAB Built-in Methods
+[`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) | [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html)
+
+### MATLAB Topics
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
