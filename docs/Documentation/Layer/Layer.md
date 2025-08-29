@@ -37,7 +37,7 @@ code.hang {
   text-indent: -2ch;
 }
 </style>
-<a href="#d2"><code class="hang">layer = Layer(isotropy) extra long stuff to make sure it will extend past the page.</code></a><br>
+<a href="#d2"><code class="hang">layer = Layer(isotropy),extra,long,stuff,to,make,sure,it,will,extend,past,the,page.</code></a><br>
 [`layer = Layer(isotropy)`](#d2)<br>
 [`layer = Layer(isotropy,orient)`](#d3)<br>
 [`layer = Layer(isotropy,orient,euler_seq)`](#d4)<br>
