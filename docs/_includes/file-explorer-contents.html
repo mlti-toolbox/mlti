@@ -3,53 +3,39 @@
     Enumerations
   </summary>
   <ul>
-    <li> {% include file_explorer_link.html name="IFTEnum" %} </li>
-    <li> {% include file_explorer_link.html name="IsotropyEnum" %} </li>
-    <li> {% include file_explorer_link.html name="OrientEnum" %} </li>
-    <li> {% include file_explorer_link.html name="SeqEnum" %} </li>
+    <li>
+      {% include file-explorer-link.html name="IFTEnum" path="/Documentation/IFTEnum" %}
+    </li>
+    <li>
+      {% include file-explorer-link.html name="IsotropyEnum" path="/Documentation/IsotropyEnum" %}
+    </li>
+    <li>
+      {% include file-explorer-link.html name="OrientEnum" path="/Documentation/OrientEnum" %}
+    </li>
+    <li>
+      {% include file-explorer-link.html name="SeqEnum" path="/Documentation/SeqEnum" %}
+    </li>
   </ul>
 </details>
 
 <details {% if page.url contains '/Documentation/ForwardModel' %}open{% endif %}>
-  <summary>{% include file_explorer_link.html name="ForwardModel" %}</summary>
-  <ul>
-    <li> {% include file_explorer_link.html name="IFTEnum" %} </li>
-    <li>
-      <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"
-         {% if page.url == '/Documentation/ForwardModel/plot' %}style="font-weight:bold;"{% endif %}>
-        <code>ForwardModel.plot</code>
-      </a>
-    </li>
-    <li>
-      <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"
-         {% if page.url == '/Documentation/ForwardModel/solve' %}style="font-weight:bold;"{% endif %}>
-        <code>ForwardModel.solve</code>
-      </a>
-    </li>
-  </ul>
-</details>
-
-<details {% if page.url contains '/Documentation/Layer' %}open{% endif %}>
   <summary>
-    <a href="{{ '/Documentation/Layer' | relative_url }}"
-       {% if page.url == '/Documentation/Layer' %}style="font-weight:bold;"{% endif %}>
-      <code>Layer</code>
-    </a>
+    {% include file-explorer-link.html name="ForwardModel" path="/Documentation/ForwardModel" %}
   </summary>
   <ul>
     <li>
-      <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"
-         {% if page.url == '/Documentation/ForwardModel/plot' %}style="font-weight:bold;"{% endif %}>
-        <code>ForwardModel.plot</code>
-      </a>
+      {% include file-explorer-link.html name="plot" path="/Documentation/ForwardModel/plot" %}
     </li>
     <li>
-      <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"
-         {% if page.url == '/Documentation/ForwardModel/solve' %}style="font-weight:bold;"{% endif %}>
-        <code>ForwardModel.solve</code>
-      </a>
+      {% include file-explorer-link.html name="solve" path="/Documentation/ForwardModel/solve" %}
     </li>
   </ul>
 </details>
 
+<p>
+  {% include file-explorer-link.html name="IFTSolver" path="/Documentation/IFTSolver" %}
+</p>
 
+<p>
+  {% include file-explorer-link.html name="Layer" path="/Documentation/Layer" %}
+</p>
