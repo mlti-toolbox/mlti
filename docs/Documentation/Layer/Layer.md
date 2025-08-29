@@ -29,6 +29,7 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 ### Syntax
 
 [```layer = Layer()```](#d1)<br>
+<pre><code><a href=#d2>layer = Layer(isotropy)</a></code></pre>
 [`layer = Layer(isotropy)`](#d2)<br>
 [`layer = Layer(isotropy,orient)`](#d3)<br>
 [`layer = Layer(isotropy,orient,euler_seq)`](#d4)<br>
