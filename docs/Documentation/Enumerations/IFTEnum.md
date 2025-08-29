@@ -14,14 +14,14 @@ Inverse Fourier transform evaluation methods
 
 ## Creation
 
-**Direct construction:**<br>
+### Direct Construction
 `method = IFTEnum.member`
 
-**Conversion from character or string arrays:**<br>
+### Conversion from Character or String Arrays
 `method = IFTEnum('memberName')`<br>
 `method = IFTEnum("memberName")`
 
-**Creating an `IFTEnum` enumeration array:**<br>
+### Creating an `IFTEnum` Enumeration Array
 `methods = [IFTEnum.member1,IFTEnum.member2,...]`<br>
 `methods = IFTEnum({'memberName1','memberName2',...})`<br>
 `methods = IFTEnum(["memberName1","memberName2",...])`
