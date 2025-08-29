@@ -17,37 +17,31 @@ classdef ForwardModel
 
     methods
         % CONSTRUCTOR
-        function this = ForwardModel(c_args)
+        function this = ForwardModel(film, substrate, options)
             % ForwardModel constructor description TODO
             % See also ForwardModel.private.validate_c_args, ForwardModel
             arguments
-                c_args.ift_method (1,1) IFTEnum = IFTEnum.ifft2;
-                c_args.x_max (1,1) double {mustBeReal, mustBePositive};
-                c_args.Nx (1,1) uint32 {mustBeInteger, mustBePositive} = 256;
-                c_args.dx (1,1) double {mustBeReal, mustBePositive};
-                c_args.scale (1,1) double {mustBeReal, mustBePositive} = 1;
-                c_args.film_isotropy (1,1) IsotropyEnum = IsotropyEnum.tensor;
-                c_args.sub_isotropy (1,1) IsotropyEnum = IsotropyEnum.tensor;
-                c_args.film_orient (1,1) OrientEnum = OrientEnum.na;
-                c_args.sub_orient (1,1) OrientEnum = OrientEnum.na;
-                c_args.euler_seq (1,1) SeqEnum = SeqEnum.ZYZ;
-                c_args.inf_sub_thick (1,1) logical = true;
-                c_args.phase_only (1,1) logical = false;
-                c_args.log_args (1,1) logical = false;
-                c_args.force_sym_solve (1,1) logical = false;
+                film      (1,1) Layer = Layer();
+                substrate (1,1) Layer = Layer();
+                options.ift_method (1,1) IFTEnum = IFTEnum.ifft2;
+                options.x_max (1,1) double {mustBeReal,    mustBePositive};
+                options.dx    (1,1) double {mustBeReal,    mustBePositive};
+                options.Nx    (1,1) uint32 {mustBeInteger, mustBePositive};
+                options.scale (1,1) double {mustBeReal,    mustBePositive} = 1;
+                options.inf_sub_thick   (1,1) logical = true;
+                options.phase_only      (1,1) logical = false;
+                options.log_args        (1,1) logical = false;
+                options.force_sym_solve (1,1) logical = false;
             end
-
-            Film = Layer(c_args.film_isotropy, c_args.film_orient, c_args.euler_seq, inf_thick=false, phase_only=c_args.phase_only, log_args=c_args.log_args);
-            Sub  = Layer(c_args.sub_isotropy,  c_args.sub_orient,  c_args.euler_seq, inf_thick=c_args.inf_sub_thick, phase_only=c_args.phase_only, log_args=c_args.log_args);
-
-            c_args = c_args.ift_method.cross_validate(c_args);
-            c_args = c_args.film_orient.cross_validate(c_args.film_isotropy, "film", c_args);
-            c_args = c_args.sub_orient.cross_validate(c_args.sub_isotropy, "sub", c_args);
-            c_args = c_args.euler_seq.cross_validate(c_args);
+            
+            options = options.ift_method.cross_validate(options);
+            options = options.film_orient.cross_validate(options.film_isotropy, "film", options);
+            options = options.sub_orient.cross_validate(options.sub_isotropy, "sub", options);
+            options = options.euler_seq.cross_validate(options);
 
             fprintf("ForwardModel object created with the following constructor arguments:\n\n");
-            disp(c_args);
-            this.c_args = c_args;
+            disp(options);
+            this.c_args = options;
 
             % Get function input structure
             this.fun_inputs = this.get_input_structure();
