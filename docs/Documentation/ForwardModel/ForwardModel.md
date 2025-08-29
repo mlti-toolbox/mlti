@@ -38,13 +38,13 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
 
 ### Syntax
 
-[`fm = ForwardModel(film,substrate,Name,Value)`](#d1)<br>
+[`fm = ForwardModel(film,substrate,ift_solver,Name,Value)`](#d1)<br>
 
 ### Description
 
 <a id="d1"></a>
 
-`fm = ForwardModel(`[`film`](#film-argument)`,`[`substrate`](#substrate-argument)`,`[`Name,Value`](#name-value-arguments)`)` creates a `ForwardModel` object according to user specifications. `film` and `substrate` are [`Layer`](/MLTI/Documentation/Layer) objects that specify how thermal conductivity will be represented in their respective layers. Name-value arguments specify which solving methods and approximations to use.
+`fm = ForwardModel(`[`film`](#film-argument)`,`[`substrate`](#substrate-argument)`,`[`ift_solver`](#ift-solver-argument)`,`[`Name,Value`](#name-value-arguments)`)` creates a `ForwardModel` object according to user specifications. `film` and `substrate` are [`Layer`](/MLTI/Documentation/Layer) objects that specify how thermal conductivity will be represented in their respective layers. `ift_solver` is an [`Layer`](/MLTI/Documentation/IFTSolver) object with specifications for solving the inverse Fourier transform. Name-value arguments specify additional `ForwardModel` options.
 
 ### Input Arguments
 
@@ -86,126 +86,32 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
     </div>
 </details>
 
+<details class="custom-details" id="ift-solver-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>ift_solver</code> - Inverse Fourier transform solver</b>
+            <span class="subline">
+                <a href="{{ '/Documentation/IFTSolver' | relative_url }}"><code>IFTSolver</code></a> object
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            The <code>ift_solver</code> arguments is an <a href="{{ '/Documentation/IFTSolver' | relative_url }}"><code>IFTSolver</code></a> object containing specifications for solving the inverse Fourier transform.
+        </p>
+        <p>
+            <b>Data Types:</b> <a href="{{ '/Documentation/IFTSolver' | relative_url }}"><code>IFTSolver</code></a>
+        </p>
+    </div>
+</details>
+
 ### Name-Value Arguments
 
 Specify name–value pairs as `Name1=Value1, ..., NameN=ValueN`, where each `Name` is an argument name and each `Value` is the corresponding value. The order of the pairs does not matter.  
 
-Argument names are validated using [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html), making them **case-insensitive**. You can also use any unique leading substring of the name. For example, the name `"ift"` matches the option `"ift_method"`.
+Argument names are *case-insensitive*, and you can use any unique leading substring of the name. For example, the name `"Inf"` matches the option `"inf_sub_thick"`.
 
 *Before R2021a, separate each name and value with commas and enclose* `Name` *in quotes.*  
-
-**Example:**  
-```matlab
-fm = ForwardModel(ift_method="ifft2", x_max=25, dx=0.5, scale=1e-6)
-% Equivalent pre-R2021a syntax:
-fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
-```
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
-            <b><code>ift_method</code> - 2-D inverse Fourier transform method</b>
-            <span class="subline"><code>"ifft2"</code> (default) | <code>"integral2"</code></span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            2-D inverse Fourier transform method. When possible, the
-            <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
-            method should be used for its computational efficiency.
-            However, if greater accuracy is needed, the
-            <a href="https://www.mathworks.com/help/matlab/ref/integral2.html"><code>integral2</code></a>
-            method may be used instead.
-        </p>
-        <p>
-            When <code>ift_method = "ifft2"</code>, either
-            <code>x_max</code> or <code>dx</code> must be provided.
-            <code>Nx</code> has a default value, but <code>x_max</code>
-            and <code>dx</code> do not. At least two of the three
-            (<code>x_max</code>, <code>Nx</code>, <code>dx</code>)
-            must be known to compute the third.
-        </p>
-        <p>
-            Input value is validated using
-            <a href="https://www.mathworks.com/help/matlab/ref/validatestring.html"><code>validatestring</code></a>.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>char</code> | <code>string</code>
-        </p>
-    </div>
-</details>
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
-            <b><code>x_max</code> - Maximum spatial distance from pump</b>
-            <span class="subline">positive real scalar</span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            Maximum spatial distance from the pump in the x- and y-directions used in the 2-D inverse fast Fourier transform
-            (<a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>).
-            When specified, the spatial domain for both <code>x_probe</code>
-            and <code>y_probe</code> will be <code>[-x_max, x_max]</code>
-            if <code>dx</code> is also specified or if <code>Nx</code> is odd;
-            otherwise (<code>Nx</code> is even), the domain will be <code>[-x_max, x_max - dx]</code>.
-        </p>
-        <p>
-            The value of <code>x_max</code> is ignored when <code>ift_method = "integral2"</code>.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>double</code> | <code>single</code>
-        </p>
-    </div>
-</details>
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
-            <b><code>Nx</code> - Number of spatial steps</b>
-            <span class="subline"> 256 (default) | positive integer scalar</span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            Number of descrete spatial points to use in the
-            <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
-            transform. I.e., signal length.
-        </p>
-        <p>
-            When possible, the value of <code>Nx</code> should only have small prime factors as this results in significantly faster execution of the
-            <a href="https://www.mathworks.com/help/matlab/ref/ifft2.html"><code>ifft2</code></a>
-            transform.
-        </p>
-        <p>
-            The value of <code>Nx</code> is ignored when <code>ift_method = "integral2"</code> or if all three <code>x_max</code>, <code>Nx</code>, and <code>dx</code> are specified.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>double</code> | <code>single</code> | <code>int8</code> | <code>int16</code> | <code>int32</code> | <code>uint8</code> | <code>uint16</code> | <code>uint32</code>
-        </p>
-    </div>
-</details>
-
-<details class="custom-details">
-    <summary>
-        <span class="summary-text">
-            <b><code>dx</code> - Descrete spatial step size</b>
-            <span class="subline"> positive real scalar</span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            Descrete spatial step size. I.e., sampling period.
-        </p>
-        <p>
-            The value of <code>dx</code> is ignored when <code>ift_method = "integral2"</code>.
-        </p>
-        <p>
-            <b>Data Types:</b> <code>double</code> | <code>single</code>
-        </p>
-    </div>
-</details>
 
 <details class="custom-details">
     <summary>
@@ -320,6 +226,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
     </div>
 </details>
 
+<!--
 <details class="custom-details">
     <summary>
         <span class="summary-text">
@@ -350,6 +257,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
         </p>
     </div>
 </details>
+-->
 
 <details class="custom-details">
     <summary>
@@ -545,6 +453,7 @@ fm = ForwardModel('ift_method', "ifft2", 'x_max', 25, 'dx', 0.5, 'scale', 1e-6)
 [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) |
 [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html) |
 [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html)
+
 
 
 
