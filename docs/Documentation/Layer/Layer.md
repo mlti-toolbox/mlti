@@ -28,7 +28,7 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 
 ### Syntax
 
-[`layer = Layer()`](#d1)<br>
+[```layer = Layer()```](#d1)<br>
 [`layer = Layer(isotropy)`](#d2)<br>
 [`layer = Layer(isotropy,orient)`](#d3)<br>
 [`layer = Layer(isotropy,orient,euler_seq)`](#d4)<br>
@@ -67,7 +67,8 @@ If Euler orientation angles are used, `euler_seq` must also be provided (see nex
         <span class="summary-text">
             <b><code>isotropy</code> - Isotropy type</b>
             <span class="subline">
-              <code>"tensor"</code> (default) | <code>"isotropic"</code> | <code>"uniaxial"</code> | <code>"principal"</code></span> | <a href="{{ '/Documentation/IsotropyEnum' | relative_url }}"><code>IsotropyEnum</code></a> object
+              <code>"tensor"</code> (default) | <code>"isotropic"</code> | <code>"uniaxial"</code> | <code>"principal"</code> | <a href="{{ '/Documentation/IsotropyEnum' | relative_url }}"><code>IsotropyEnum</code></a> object
+            </span>
         </span>
     </summary>
     <div>
