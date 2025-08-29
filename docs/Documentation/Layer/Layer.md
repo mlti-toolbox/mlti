@@ -16,12 +16,12 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 **Supported Representations:**
 * Isotropic conductivity: `k`
 * Transverse and axial conductivities (`k⊥`, `k∥`) with
-    * Azimuthal and polar axis direction angles: `θ_az`, `θ_pol`
-    * Unit vector axis direction: `v1`, `v2`, `v3`
+   * Azimuthal and polar axis direction angles: `θ_az`, `θ_pol`
+   * Unit vector axis direction: `v1`, `v2`, `v3`
 * Principal conductivities (`kp1`, `kp2`, `kp3`) with
-    * Euler orientation angles: `θA1`, `θB2`, `θC3`
-    * Unit quaternion orientation: `q0`, `q1`, `q2`, `q3`
-    * Vectorized rotation matrix orientation: `R11`, `R21`, `R31`, `R12`, `R22`, `R32`, `R13`, `R23`, `R33`
+   * Euler orientation angles: `θA1`, `θB2`, `θC3`
+   * Unit quaternion orientation: `q0`, `q1`, `q2`, `q3`
+   * Vectorized rotation matrix orientation: `R11`, `R21`, `R31`, `R12`, `R22`, `R32`, `R13`, `R23`, `R33`
 * 6-element tensor conductivity: `k11`, `k21`, `k31`, `k22`, `k32`, `k33`
 
 ## Creation
@@ -29,7 +29,8 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 ### Syntax
 
 [```layer = Layer()```](#d1)<br>
-<pre><code><a href=#d2>layer = Layer(isotropy)</a></code></pre>
+<pre><a href=#d2><code>layer = Layer(isotropy)</code></a></pre>
+<a href=#d2><pre><code>layer = Layer(isotropy)</code></pre></a>
 [`layer = Layer(isotropy)`](#d2)<br>
 [`layer = Layer(isotropy,orient)`](#d3)<br>
 [`layer = Layer(isotropy,orient,euler_seq)`](#d4)<br>
