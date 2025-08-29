@@ -31,19 +31,13 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 [`layer = Layer()`](#d1)<br>
 <style>
 code.hang {
-  display: block;              /* so text-indent applies */
-  white-space: pre-wrap;       /* preserve spaces/tabs but allow wrapping */
-  overflow-wrap: anywhere;     /* let long tokens wrap */
-  tab-size: 4;                 /* how wide actual \t renders (optional) */
-
-  /* set your “tab” for wrapped lines */
-  --hang: 4ch;                 /* 4 characters; try 2ch, 8ch, etc. */
-  padding-left: var(--hang);   /* indent all lines by --hang */
-  text-indent: calc(-1 * var(--hang)); /* pull FIRST line back out */
+  display: inline-block;   /* instead of block */
+  white-space: pre-wrap;
+  padding-left: 2ch;
+  text-indent: -2ch;
 }
 </style>
-<a href=#d2><code class="hang">layer = Layer(isotropy) extra long stuff to make sure it will extend past the page.</code></a>
-<a href=#d2><pre><code>layer = Layer(isotropy)</code></pre></a>
+<a href=#d2><code class="hang">layer = Layer(isotropy) extra long stuff to make sure it will extend past the page.</code></a><br>
 [`layer = Layer(isotropy)`](#d2)<br>
 [`layer = Layer(isotropy,orient)`](#d3)<br>
 [`layer = Layer(isotropy,orient,euler_seq)`](#d4)<br>
