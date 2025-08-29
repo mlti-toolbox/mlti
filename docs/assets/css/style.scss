@@ -402,6 +402,7 @@ details.custom-details > div {
 .file-explorer details summary {
   cursor: pointer;
   padding: 0.25em 0.5em;
+  color: 222;
 }
 
 .file-explorer details[open] > ul {
@@ -473,6 +474,7 @@ details.custom-details > div {
 @media print {
   body { padding: 0.4in; font-size: 12pt; color: #444; }
 }
+
 
 
 
