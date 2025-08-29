@@ -51,7 +51,7 @@ See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/ho
 
 ## See Also
 ### MLTI Companion Classes and Methods
-[`IFTSolver`](MLTI/Documentation/IFTSolver)
+[`IFTSolver`](/MLTI/Documentation/IFTSolver)
 
 ### MATLAB Built-in Methods
 [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) | [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html)
