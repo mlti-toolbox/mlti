@@ -1,9 +1,8 @@
 classdef Layer < handle
     properties
         isotropy, orient, euler_seq
-        ko2K
-        ko_str
-        ko_sz
+        toTensor
+        inputStr
 
         %, inf_thick, phase_only, log_args
     end
@@ -38,7 +37,7 @@ classdef Layer < handle
             % end
             % 
             % [obj.getLast4, sz1] = obj.getLast4Handle();
-            [obj.ko2K, obj.ko_str, obj.ko_sz] = obj.getko2K();
+            [obj.toTensor, obj.inputStr] = obj.getko2K();
             % obj.Nin = sz1 + sz2 + 1;
         end
     end

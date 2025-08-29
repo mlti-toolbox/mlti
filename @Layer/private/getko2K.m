@@ -1,4 +1,4 @@
-function [ko2K, str, sz] = getko2K(layer)
+function [ko2K, str] = getko2K(layer)
     switch layer.isotropy
         case IsotropyEnum.isotropic
             ko2K = @iso2K;
@@ -10,12 +10,12 @@ function [ko2K, str, sz] = getko2K(layer)
         case IsotropyEnum.tensor
             ko2K = @K2K;
             [i,j] = ndgrid(1:3,1:3);
-            str = "K" + i + j;
+            str = "k" + i + j;
             str = str(tril(true(size(str))))';
         otherwise
             error("Developer Error: Isotropy type exists in IsotropyEnum, but not supported in getko2K.")
     end
-    sz = length(str);
+    assert(ismember(nargin(ko2K), [length(str) + 1, -1]), "Developer Error: length(str) != narargin - 1.")
 end
 
 function [ko2K, str] = getko2K_helper(layer, funpre, k_str)
@@ -27,8 +27,9 @@ function [ko2K, str] = getko2K_helper(layer, funpre, k_str)
             ko2K = str2func(funpre + "v2K");
             str = [k_str, "v" + (1:3)];
         case OrientEnum.euler
-            ko2K = str2func(funpre + "Euler2K");
             N = length(k_str);
+            if N == 2, ko2K = @layer.uniEuler2K;
+            else, ko2K = @layer.kpEuler2K; end
             seq_str_arr = string(char(layer.euler_seq)')';
             str = [k_str, "θ" + seq_str_arr(1:N) + (1:N)];
         case OrientEnum.uquat
