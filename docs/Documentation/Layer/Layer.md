@@ -40,7 +40,7 @@ code {
   text-indent: -2ch;
 }
 </style>
-<a href="#d2"><code class="hang">layer = Layer(isotropy),<wbr>extra,<wbr>long,<wbr>stuff,<wbr>to,<wbr>make,<wbr>sure,<wbr>it,<wbr>will,<wbr>extend,<wbr>past,<wbr>the,<wbr>page.</code></a><br>
+<a href="#d2"><code class="hang">layer = Layer(isotropy), extra, long, stuff, to, make, sure, it, will, extend, past, the, page.</code></a><br>
 [`layer = Layer(isotropy)`](#d2)<br>
 [`layer = Layer(isotropy,orient)`](#d3)<br>
 [`layer = Layer(isotropy,orient,euler_seq)`](#d4)<br>
