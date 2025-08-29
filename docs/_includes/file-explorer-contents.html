@@ -2,32 +2,18 @@
   <summary>
     Enumerations
   </summary>
-  
   <ul>
-    <li>
-      <a href="{{ '/Documentation/IFTEnum' | relative_url }}"
-         {% if page.url == '/Documentation/IFTEnum' %}style="font-weight:bold;"{% endif %}>
-        <code>IFTEnum</code>
-      </a>
-    </li>
-    <li>
-      <a href="{{ '/Documentation/ForwardModel/solve' | relative_url }}"
-         {% if page.url == '/Documentation/ForwardModel/solve' %}style="font-weight:bold;"{% endif %}>
-        <code>ForwardModel.solve</code>
-      </a>
-    </li>
+    <li> {% include file_explorer_link.html name="IFTEnum" %} </li>
+    <li> {% include file_explorer_link.html name="IsotropyEnum" %} </li>
+    <li> {% include file_explorer_link.html name="OrientEnum" %} </li>
+    <li> {% include file_explorer_link.html name="SeqEnum" %} </li>
   </ul>
-  
 </details>
 
 <details {% if page.url contains '/Documentation/ForwardModel' %}open{% endif %}>
-  <summary>
-    <a href="{{ '/Documentation/ForwardModel' | relative_url }}"
-       {% if page.url == '/Documentation/ForwardModel' %}style="font-weight:bold;"{% endif %}>
-      <code>ForwardModel</code>
-    </a>
-  </summary>
+  <summary>{% include file_explorer_link.html name="ForwardModel" %}</summary>
   <ul>
+    <li> {% include file_explorer_link.html name="IFTEnum" %} </li>
     <li>
       <a href="{{ '/Documentation/ForwardModel/plot' | relative_url }}"
          {% if page.url == '/Documentation/ForwardModel/plot' %}style="font-weight:bold;"{% endif %}>
@@ -65,4 +51,5 @@
     </li>
   </ul>
 </details>
+
 
