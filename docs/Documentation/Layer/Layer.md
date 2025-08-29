@@ -15,56 +15,38 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 `
 **Supported Representations:**
 * Isotropic conductivity: `k`
-* Transverse and axial conductivities (`k⊥,<wbr>k∥`) with
-   * Azimuthal and polar axis direction angles: `θ_az,<wbr>θ_pol`
-   * Unit vector axis direction: `v1,<wbr>v2,<wbr>v3`
-* Principal conductivities (`kp1,<wbr>kp2,<wbr>kp3`) with
-   * Euler orientation angles: `θA1,<wbr>θB2,<wbr>θC3`
-   * Unit quaternion orientation: `q0,<wbr>q1,<wbr>q2,<wbr>q3`
-   * Vectorized rotation matrix orientation: `R11,<wbr>R21,<wbr>R31,<wbr>R12,<wbr>R22,<wbr>R32,<wbr>R13,<wbr>R23,<wbr>R33`
-* 6-element tensor conductivity: `k11, k21, k31, k22, k32, k33`
+* Transverse and axial conductivities (`k⊥`, `k∥`) with
+   * Azimuthal and polar axis direction angles: `θ_az`, `θ_pol`
+   * Unit vector axis direction: `v1`, `v2`, `v3`
+* Principal conductivities (`kp1`, `kp2`, `kp3`) with
+   * Euler orientation angles: `θA1`, `θB2`, `θC3`
+   * Unit quaternion orientation: `q0`, `q1`, `q2`, `q3`
+   * Vectorized rotation matrix orientation: `R11`, `R21`, `R31`, `R12`, `R22`, `R32`, `R13`, `R23`, `R33`
+* 6-element tensor conductivity: `k11`, `k21`, `k31`, `k22`, `k32`, `k33`
 
 ## Creation
 
 ### Syntax
 
 [`layer = Layer()`](#d1)<br>
-<style>
-/* hanging-indent code blocks that wrap */
-
-</style>
-<a href="#d2"><code class="hang">layer = Layer(isotropy), extra, long, stuff, to, make, sure, it, will, extend, past, the, page.</code></a><br>
 [`layer = Layer(isotropy)`](#d2)<br>
 [`layer = Layer(isotropy,orient)`](#d3)<br>
 [`layer = Layer(isotropy,orient,euler_seq)`](#d4)<br>
 
-testing a sentence that will have `a line of code that will hand break and see what` it does to the rest of the text.
-
 ### Description
-
 <a id="d1"></a>
-
 `layer = Layer()` creates a `Layer` object using the default tensor representation of thermal conductivity.
 
-<a id="d2"></a>
-
-<hr>
-
+<a id="d2"></a><hr>
 `layer = Layer(`[`isotropy`](#isotropy-argument)`)` creates a `Layer` object with a user-specified isotropy type.
 Valid only for `"isotropic"` and `"tensor"` conductivity representations, since `orient` must also be specified for `"uniaxial"` and `"principal"` cases.
 
-<a id="d3"></a>
-
-<hr>
-
+<a id="d3"></a><hr>
 `layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`)` creates a `Layer` object with a user-specified isotropy type and orientation.
 Valid only for `"uniaxial"` and `"principal"` representations, since `orient` is not required for `"isotropic"` or `"tensor"`.
 If Euler orientation angles are used, `euler_seq` must also be provided (see next).
 
-<a id="d4"></a>
-
-<hr>
-
+<a id="d4"></a><hr>
 `layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`,`[`euler_seq`](#euler-seq-argument)`)` creates a `Layer` object with a user-specified isotropy type, orientation, and Euler angle sequence. Valid only when `orient` is `"euler"`, since `euler_seq` is not required for other orientations.
 
 
