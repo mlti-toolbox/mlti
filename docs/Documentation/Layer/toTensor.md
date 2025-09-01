@@ -85,90 +85,90 @@ where `transform` is an optional argument.
 <table>
   <tr>
     <td>
-      {{ site.data.nomenclature.k.codeSymbol }}
+      {{ site.data.nomenclature.k.codeSymbol | markdownify }}
     </td>
     <td>
-      {{ site.data.nomenclature.k.description }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.k_perp.codeSymbol }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.k_perp.description }}
+      {{ site.data.nomenclature.k.description | markdownify }}
     </td>
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.k_par.codeSymbol }}
+      {{ site.data.nomenclature.k_perp.codeSymbol | markdownify }}
     </td>
     <td>
-      {{ site.data.nomenclature.k_par.description }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.kpi.codeSymbol }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.kpi.description }}
+      {{ site.data.nomenclature.k_perp.description | markdownify }}
     </td>
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.kij.codeSymbol }}
+      {{ site.data.nomenclature.k_par.codeSymbol | markdownify }}
     </td>
     <td>
-      {{ site.data.nomenclature.kij.description }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.az.codeSymbol }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.az.description }}
+      {{ site.data.nomenclature.k_par.description | markdownify }}
     </td>
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.pol.codeSymbol }}
+      {{ site.data.nomenclature.kpi.codeSymbol | markdownify }}
     </td>
     <td>
-      {{ site.data.nomenclature.pol.description }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.eul.codeSymbol }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.eul.description }}
+      {{ site.data.nomenclature.kpi.description | markdownify }}
     </td>
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.vi.codeSymbol }}
+      {{ site.data.nomenclature.kij.codeSymbol | markdownify }}
     </td>
     <td>
-      {{ site.data.nomenclature.vi.description }}
+      {{ site.data.nomenclature.kij.description | markdownify }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.az.codeSymbol | markdownify }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.az.description | markdownify }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.pol.codeSymbol | markdownify }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.pol.description | markdownify }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.eul.codeSymbol | markdownify }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.eul.description | markdownify }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.vi.codeSymbol | markdownify }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.vi.description | markdownify }}
     </td>
   </tr>
     <tr>
     <td>
-      {{ site.data.nomenclature.qi.codeSymbol }}
+      {{ site.data.nomenclature.qi.codeSymbol | markdownify }}
     </td>
     <td>
-      {{ site.data.nomenclature.qi.description }}
+      {{ site.data.nomenclature.qi.description | markdownify }}
     </td>
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.Rij.codeSymbol }}
+      {{ site.data.nomenclature.Rij.codeSymbol | markdownify }}
     </td>
     <td>
-      {{ site.data.nomenclature.Rij.description }}
+      {{ site.data.nomenclature.Rij.description | markdownify }}
     </td>
   </tr>
 </table>
