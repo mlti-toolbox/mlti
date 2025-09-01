@@ -56,7 +56,7 @@ Supported direction/orientation types
       <code>uquat</code>
     </td>
     <td>
-      For representing the orientation of the principal axes as a unit quaternion <code>q0</code>, <code>q1</code>, <code>q2</code>, <code>q3</code>
+      For representing the orientation of the principal axes as a unit quaternion <code>q1</code>, <code>q2</code>, <code>q3</code>, <code>q4</code>
     </td>
   </tr>
       <tr>
@@ -80,6 +80,7 @@ Supported direction/orientation types
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
