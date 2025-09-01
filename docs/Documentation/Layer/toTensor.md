@@ -112,104 +112,227 @@ Where `layer.inputStr` specifies a variable number of inputs, dependent on `laye
   The number and names of the variables represented by <code>&lt;layer.inputStr&gt;</code> are determined when the <code>layer</code> object is constructed. 
   <code>layer.inputStr</code> is a string array and may include the following variable names:
 </p>
-<table>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.k.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.k.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.k_perp.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.k_perp.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.k_par.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.k_par.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.kpi.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.kpi.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.kij.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.kij.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.az.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.az.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.pol.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.pol.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.eul.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.eul.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.vi.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.vi.description | safe }}
-    </td>
-  </tr>
-    <tr>
-    <td>
-      {{ site.data.nomenclature.qi.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.qi.description | safe }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ site.data.nomenclature.Rij.codeSymbol | safe }}
-    </td>
-    <td>
-      {{ site.data.nomenclature.Rij.description | safe }}
-    </td>
-  </tr>
-</table>
 
-## Output Arguments
-<details class="custom-details" id="layer-argument">
+### Conductivity Arguments:
+
+<details class="custom-details" id="k-argument">
     <summary>
         <span class="summary-text">
-            <b><code>kij</code> - \((i,j)\)-th tensor component</b>a
+            <b><code>k</code> - Isotropic conductivity</b>
             <span class="subline">
-                \(N_T \times N_\mathrm{pump}\) real matrix
+                \(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.k.codeSymbol | safe }} is the {{ site.data.nomenclature.k.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="k_perp-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.k_perp.codeSymbol | safe }}</code> - Transverse conductivity</b>
+            <span class="subline">
+                \(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.k_perp.codeSymbol | safe }} is the {{ site.data.nomenclature.k_perp.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="k_par-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.k_par.codeSymbol | safe }}</code> - Axial conductivity</b>
+            <span class="subline">
+                \(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.k_par.codeSymbol | safe }} is the {{ site.data.nomenclature.k_par.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="kpi-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.kpi.codeSymbol | safe }}</code> - \(i\)-th principal conductivity</b>
+            <span class="subline">
+                \(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.kpi.codeSymbol | safe }} is the {{ site.data.nomenclature.kpi.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="kij-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.kij.codeSymbol | safe }}</code> - \((i,j)\)-th tensor component</b>
+            <span class="subline">
+                \(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.kij.codeSymbol | safe }} is the {{ site.data.nomenclature.kij.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+### Orientation Arguments:
+
+<details class="custom-details" id="az-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.az.codeSymbol | safe }}</code> - Azimuthal angle</b>
+            <span class="subline">
+                \(1 \times N_\mathrm{pump}\) real vector
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.az.codeSymbol | safe }} is the {{ site.data.nomenclature.az.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="pol-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.pol.codeSymbol | safe }}</code> - Polar angle</b>
+            <span class="subline">
+                \(1 \times N_\mathrm{pump}\) real vector
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.pol.codeSymbol | safe }} is the {{ site.data.nomenclature.pol.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="vi-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.vi.codeSymbol | safe }}</code> - \(i\)-th unit vector component angle</b>
+            <span class="subline">
+                \(1 \times N_\mathrm{pump}\) real vector
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.vi.codeSymbol | safe }} is the {{ site.data.nomenclature.vi.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="eul-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.eul.codeSymbol | safe }}</code> - \(i\)-th Euler angle</b>
+            <span class="subline">
+                \(1 \times N_\mathrm{pump}\) real vector
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.eul.codeSymbol | safe }} is the {{ site.data.nomenclature.eul.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="q-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.qi.codeSymbol | safe }}</code> - \(i\)-th quaterionion component</b>
+            <span class="subline">
+                \(1 \times N_\mathrm{pump}\) real vector
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.qi.codeSymbol | safe }} is the {{ site.data.nomenclature.qi.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+<details class="custom-details" id="R-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>{{ site.data.nomenclature.R.codeSymbol | safe }}</code> - \((i,j)\)-th rotation matrix component</b>
+            <span class="subline">
+                \(1 \times N_\mathrm{pump}\) real vector
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            {{ site.data.nomenclature.Rij.codeSymbol | safe }} is the {{ site.data.nomenclature.Rij.description | safe }}
+        </p>
+        <p>
+            <b>Data Types:</b> double | single
+        </p>
+    </div>
+</details>
+
+## Output Arguments
+<details class="custom-details" id="kij-output-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>kij</code> - \((i,j)\)-th tensor component</b>
+            <span class="subline">
+                \(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix
             </span>
         </span>
     </summary>
