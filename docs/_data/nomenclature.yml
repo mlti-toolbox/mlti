@@ -1,48 +1,48 @@
 k:
-  codeSymbol: "<code>k</code>"
-  description: "Isotropic (scalar) thermal conductivity"
+  codeSymbol: | <code>k</code>
+  description: | Isotropic (scalar) thermal conductivity
 k_perp:
-  codeSymbol: "<code>k⊥</code>"
-  description: "Transverse (radial) thermal conductivity (uniaxial anisotropy)"
+  codeSymbol | <code>k⊥</code>
+  description | Transverse (radial) thermal conductivity (uniaxial anisotropy)
 k_par:
-  codeSymbol: "<code>k∥</code>"
-  description: "Axial (longitudinal) thermal conductivity (uniaxial anisotropy)"
+  codeSymbol | <code>k∥</code>
+  description | Axial (longitudinal) thermal conductivity (uniaxial anisotropy)
 kpi:
-  codeSymbol: "<code>kpi</code>"
-  description: "\(i\)-th principal thermal conductivity, with \(i \in \{1,2,3\}\)"
+  codeSymbol | <code>kpi</code>
+  description | \(i\)-th principal thermal conductivity, with \(i \in \{1,2,3\}\)
 kij:
-  codeSymbol: "<code>kij</code>"
-  description: "\((i,j)\)-th component of the thermal conductivity tensor, with \(i,j \in \{1,2,3\}\)"
+  codeSymbol | <code>kij</code>
+  description | \((i,j)\)-th component of the thermal conductivity tensor, with \(i,j \in \{1,2,3\}\)
 C:
-  codeSymbol: "<code>C</code>"
-  description: "Volumetric heat capacity"
+  codeSymbol | <code>C</code>
+  description | Volumetric heat capacity
 alpha:
-  codeSymbol: "<code>α</code>
-  description: "Optical absorption coefficient"
+  codeSymbol | <code>α</code>
+  description | Optical absorption coefficient
 R:
-  codeSymbol: "<code>R</code>"
-  description: "Optical reflectivity"
+  codeSymbol | <code>R</code>
+  description | Optical reflectivity
 h:
-  codeSymbol: "<code>h</code>"
-  description: "Layer thickness in the \(z\)-direction"
+  codeSymbol | <code>h</code>
+  description | Layer thickness in the \(z\)-direction
 Rth:
-  codeSymbol: "<code>Rth</code>"
-  description: "Thermal contact resistance between film and substrate"
+  codeSymbol | <code>Rth</code>
+  description | Thermal contact resistance between film and substrate
 az:
-  codeSymbol: "<code>θ_az</code>"
-  description: "Azimuthal angle of the thermal conductivity axis of rotation (uniaxial anisotropy)"
+  codeSymbol | <code>θ_az</code>
+  description | Azimuthal angle of the thermal conductivity axis of rotation (uniaxial anisotropy)
 pol:
-  codeSymbol: "<code>θ_pol</code>"
-  description: "Polar angle of the thermal conductivity axis of rotation (uniaxial anisotropy)"
+  codeSymbol | <code>θ_pol</code>
+  description | Polar angle of the thermal conductivity axis of rotation (uniaxial anisotropy)
 eul:
-  codeSymbol: "<code>θai</code>"
-  description: "\(i\)-th Euler rotation angle about the \(a\)-axis, defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3\}\), \(a \in \{x,y,z\}\)"
+  codeSymbol | <code>θai</code>
+  description | \(i\)-th Euler rotation angle about the \(a\)-axis, defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3\}\), \(a \in \{x,y,z\}\)
 vi:
-  codeSymbol: "<code>vi</code>"
-  description: "\(i\)-th component of the unit vector along the thermal conductivity axis of rotation (uniaxial anisotropy), with \(i \in \{1,2,3\}\)"
+  codeSymbol | <code>vi</code>
+  description | \(i\)-th component of the unit vector along the thermal conductivity axis of rotation (uniaxial anisotropy), with \(i \in \{1,2,3\}\)
 qi:
-  codeSymbol: "<code>qi</code>"
-  description: "\(i\)-th component of the unit quaternion defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3,4\}\)"
+  codeSymbol | <code>qi</code>
+  description | \(i\)-th component of the unit quaternion defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3,4\}\)
 Rij:
-  codeSymbol: "<code>Rij</code>"
-  description: "\((i,j)\)-th component of the rotation matrix defining the orientation of the principal thermal condcutivity axes, with \(i,j \in \{1,2,3\}\)"
+  codeSymbol | <code>Rij</code>
+  description | \((i,j)\)-th component of the rotation matrix defining the orientation of the principal thermal condcutivity axes, with \(i,j \in \{1,2,3\}\)
