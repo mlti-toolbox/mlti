@@ -14,19 +14,7 @@ Supported thermal conductivity isotropy types
 
 ## Creation
 
-### Direct Construction
-<code class="hang">isotropy = IsotropyEnum.member</code>
-
-### Conversion from Character or String Arrays
-<code class="hang">isotropy = IsotropyEnum('memberName')</code><br>
-<code class="hang">isotropy = IsotropyEnum("memberName")</code>
-
-### Creating an `IFTEnum` Enumeration Array
-<code class="hang">isotropy = [IsotropyEnum.member1,<wbr>IsotropyEnum.member2,...]</code><br>
-<code class="hang">isotropy = IsotropyEnum({'memberName1',<wbr>'memberName2',...})</code><br>
-<code class="hang">isotropy = IsotropyEnum(["memberName1",<wbr>"memberName2",...])</code>
-
-See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)" for more details.
+{% include_relative enum-creation.html enumname="IsotropyEnum" varname="isotropy" arrayname="isotropies" %}
 
 ## Enumeration Members
 
@@ -73,6 +61,7 @@ See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/ho
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
