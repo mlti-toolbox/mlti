@@ -14,19 +14,7 @@ Inverse Fourier transform evaluation methods
 
 ## Creation
 
-### Direct Construction
-<code class="hang">method = IFTEnum.member</code>
-
-### Conversion from Character or String Arrays
-<code class="hang">method = IFTEnum('memberName')</code><br>
-<code class="hang">method = IFTEnum("memberName")</code>
-
-### Creating an `IFTEnum` Enumeration Array
-<code class="hang">methods = [IFTEnum.member1,<wbr>IFTEnum.member2,...]</code><br>
-<code class="hang">methods = IFTEnum({'memberName1',<wbr>'memberName2',...})</code><br>
-<code class="hang">methods = IFTEnum(["memberName1",<wbr>"memberName2",...])</code>
-
-See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)" for more details.
+{% include_relative enum-creation.html enumname="IFTEnum" varname="method" %}
 
 ## Enumeration Members
 
@@ -60,6 +48,7 @@ See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/ho
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
