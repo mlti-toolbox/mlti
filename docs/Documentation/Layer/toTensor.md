@@ -123,6 +123,54 @@ where `transform` is an optional argument.
       {{ site.data.nomenclature.kij.description }}
     </td>
   </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.az.symbol }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.az.description }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.pol.symbol }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.pol.description }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.eul.symbol }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.eul.description }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.vi.symbol }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.vi.description }}
+    </td>
+  </tr>
+    <tr>
+    <td>
+      {{ site.data.nomenclature.qi.symbol }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.qi.description }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ site.data.nomenclature.Rij.symbol }}
+    </td>
+    <td>
+      {{ site.data.nomenclature.Rij.description }}
+    </td>
+  </tr>
 </table>
 
 ### Output Arguments
