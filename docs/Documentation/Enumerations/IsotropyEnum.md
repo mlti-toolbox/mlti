@@ -24,7 +24,7 @@ Supported thermal conductivity isotropy types
       <code>isotropic</code>
     </td>
     <td>
-      For scalar thermal conductivity <code>k</code>
+      {{ site.data.EnumDescriptions.IsotropyEnum.isotropic }}
     </td>
   </tr>
   <tr>
@@ -32,7 +32,7 @@ Supported thermal conductivity isotropy types
       <code>uniaxial</code>
     </td>
     <td>
-      For 2 principal thermal conductivities, transverse (<code>k⊥</code>) and axial (<code>k∥</code>)
+      {{ site.data.EnumDescriptions.IsotropyEnum.uniaxial }}
     </td>
   </tr>
     <tr>
@@ -40,7 +40,7 @@ Supported thermal conductivity isotropy types
       <code>principal</code>
     </td>
     <td>
-      For 3 principal thermal conductivities sorted in descending order, <code>kp1 > kp2 > kp3</code>
+      {{ site.data.EnumDescriptions.IsotropyEnum.principal }}
     </td>
   </tr>
     <tr>
@@ -48,7 +48,7 @@ Supported thermal conductivity isotropy types
       <code>tensor</code>
     </td>
     <td>
-      For 6-element thermal conductivity tensor <code>k11</code>, <code>k21</code>, <code>k31</code>, <code>k22</code>, <code>k32</code>, <code>k33</code>
+      {{ site.data.EnumDescriptions.IsotropyEnum.tensor }}
     </td>
   </tr>
 </table>
@@ -61,6 +61,7 @@ Supported thermal conductivity isotropy types
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
