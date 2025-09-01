@@ -62,7 +62,7 @@ eul:
   codeSymbol: |
     <code>θai</code>
   description: |
-    \(i\)-th Euler rotation angle about the \(a\)-axis, defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3\}\), \(a \in \{x,y,z\}\)
+    \(i\)-th Euler rotation angle about the \(a\)-axis, defining the orientation of the principal thermal conductivity axes, with \(i \in \{1,2,3\}\), \(a \in \{x,y,z\}\)
 vi:
   codeSymbol: |
     <code>vi</code>
@@ -72,9 +72,9 @@ qi:
   codeSymbol: |
     <code>qi</code>
   description: |
-    \(i\)-th component of the unit quaternion defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3,4\}\)
+    \(i\)-th component of the unit quaternion defining the orientation of the principal thermal conductivity axes, with \(i \in \{1,2,3,4\}\)
 Rij:
   codeSymbol: |
     <code>Rij</code>
   description: |
-    \((i,j)\)-th component of the rotation matrix defining the orientation of the principal thermal condcutivity axes, with \(i,j \in \{1,2,3\}\)
+    \((i,j)\)-th component of the rotation matrix defining the orientation of the principal thermal conductivity axes, with \(i,j \in \{1,2,3\}\)
