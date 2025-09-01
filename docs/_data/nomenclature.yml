@@ -1,6 +1,6 @@
 k:
-  codeSymbol:: | <code>k</code>
-  description:: | Isotropic (scalar) thermal conductivity
+  codeSymbol: | <code>k</code>
+  description: | Isotropic (scalar) thermal conductivity
 k_perp:
   codeSymbol: | <code>k⊥</code>
   description: | Transverse (radial) thermal conductivity (uniaxial anisotropy)
