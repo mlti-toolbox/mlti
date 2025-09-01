@@ -84,12 +84,17 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
             Isotropy type specifies the isotropy level of the layer.
         </p>
         <ul>
-            <li><code>"isotropic"</code>: For scalar thermal conductivity <code>k</code></li>
             <li>
-                <code>"uniaxial"</code>: For 2 principal thermal conductivities, transverse (<code>k⊥</code>) and axial (<code>k∥</code>).
+              <code>"isotropic"</code>: {{ site.data.EnumDescriptions.IsotropyEnum.isotropic }}
             </li>
-            <li><code>"principal"</code>: For 3 principal thermal conductivities sorted in descending order, <code>kp1 > kp2 > kp3</code></li>
-            <li><code>"tensor"</code>: For 6-element thermal conductivity tensor <code>k11</code>, <code>k21</code>, <code>k31</code>, <code>k22</code>, <code>k32</code>, <code>k33</code></li>
+                <code>"uniaxial"</code>: {{ site.data.EnumDescriptions.IsotropyEnum.uniaxial }}
+            </li>
+            <li>
+              <code>"principal"</code>: {{ site.data.EnumDescriptions.IsotropyEnum.principal }}
+            </li>
+            <li>
+              <code>"tensor"</code>: {{ site.data.EnumDescriptions.IsotropyEnum.tensor }}
+            </li>
         </ul>
         <p>
             <code>char</code> and <code>string</code> inputs are *case-insensitive* and may be specified as a unique leading substring of any one of the above listed options.
@@ -115,11 +120,24 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
             Required only when <code>isotropy</code> equals either <code>"uniaxial"</code> or <code>"principal"</code>.
         </p>
         <ul>
-            <li><code>"azpol"</code>: For representing the symmetric axis direction as azimuthal <code>θ_az</code> and polar <code>θ_pol</code> angles. Valid only when <code>film_isotropy = "uniaxial"</code>.</li>
-            <li><code>"uvect"</code>: For representing the symmetric axis direction as a unit vector <code>v1</code>, <code>v2</code>, <code>v3</code>. Use only when <code>film_isotropy = "uniaxial"</code>.</li>
-            <li><code>"euler"</code>: For representing the orientation of the principal axes as Euler angles <code>θa1</code>, <code>θb2</code>, <code>θc3</code>, with <code>a</code>, <code>b</code>, <code>c</code> \(\in\) {<code>x</code>, <code>y</code>, <code>z</code>}</li>
-            <li><code>"uquat"</code>: For representing the orientation of the principal axes as a unit quaternion <code>q1</code>, <code>q2</code>, <code>q3</code>, <code>q4</code>.</li>
-            <li><code>"rotmat"</code>: For representing the orientation of the principal axes as a vectorized rotation matrix <code>R11</code>, <code>R21</code>, <code>R31</code>, <code>R12</code>, <code>R22</code>, <code>R32</code>, <code>R13</code>, <code>R23</code>, <code>R33</code>.</li>
+          <li>
+            <code>"na"</code>: {{ site.data.EnumDescriptions.OrientEnum.na }}
+          </li>
+            <li>
+              <code>"azpol"</code>: {{ site.data.EnumDescriptions.OrientEnum.azpol }}. Valid only when <code>film_isotropy = "uniaxial"</code>.
+            </li>
+            <li>
+              <code>"uvect"</code>: {{ site.data.EnumDescriptions.OrientEnum.uvect }}. Valid only when <code>film_isotropy = "uniaxial"</code>.
+            </li>
+            <li>
+              <code>"euler"</code>: {{ site.data.EnumDescriptions.OrientEnum.euler }}
+            </li>
+            <li>
+              <code>"uquat"</code>: {{ site.data.EnumDescriptions.OrientEnum.uquat }}
+            </li>
+            <li>
+              <code>"rotmat"</code>: {{ site.data.EnumDescriptions.OrientEnum.rotmat }}
+            </li>
         </ul>
         <p>
             <code>char</code> and <code>string</code> inputs are *case-insensitive* and may be specified as a unique leading substring of any one of the above listed options.
