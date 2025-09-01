@@ -9,13 +9,21 @@ permalink: /Documentation/Layer/toTensor
 Converts user inputs to tensor representation.
 
 ## Syntax
+When `layer.isotropy` is `isotropic`:<br>
 <a href="#d1"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>k)</code></a><br>
+When `layer.isotropy` is `uniaxial` & `layer.orient` is `azpol`:<br>
 <a href="#d2"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol)</code></a><br>
+When `layer.isotropy` is `uniaxial` & `layer.orient` is `uvect`:<br>
 <a href="#d3"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>v1,<wbr>v2,<wbr>v3)</code></a><br>
+When `layer.isotropy` is `principal` & `layer.orient` is `euler`:<br>
 <a href="#d4"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>kp1,<wbr>kp2,<wbr>kp3,<wbr>θa1,<wbr>θb2,<wbr>θc3)</code></a><br>
+When `layer.isotropy` is `principal` & `layer.orient` is `uquat`:<br>
 <a href="#d5"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>kp1,<wbr>kp2,<wbr>kp3,<wbr>q1,<wbr>q2,<wbr>q3,<wbr>q4)</code></a><br>
+When `layer.isotropy` is `principal` & `layer.orient` is `rotmat`:<br>
 <a href="#d6"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>kp1,<wbr>kp2,<wbr>kp3,<wbr>R11,<wbr>R21,<wbr>R31,<wbr>R12,<wbr>R22,<wbr>R32,<wbr>R13,<wbr>R23,<wbr>R33)</code></a><br>
+When `layer.isotropy` is `tensor`:<br>
 <a href="#d7"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33)</code></a><br>
+When a pre-conversion transformation is required:<br>
 <a href="#d8"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(___,<wbr>transform)</code></a><br>
 
 ## Description
