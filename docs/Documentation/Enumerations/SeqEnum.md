@@ -46,12 +46,13 @@ Supported Euler sequences
 [`IsotropyEnum`](/MLTI/Documentation/IsotropyEnum) | [`OrientEnum`](/MLTI/Documentation/OrientEnum) | [`Layer`](/MLTI/Documentation/Layer)
 
 ### MATLAB Built-in Methods
-[`eul2rotm`](https://www.mathworks.com/help/robotics/ref/eul2rotm.html) | [`quat2rotm`](https://www.mathworks.com/help/robotics/ref/quat2rotm.html)
+[`eul2rotm`](https://www.mathworks.com/help/robotics/ref/eul2rotm.html)
 
 ### MATLAB Topics
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
