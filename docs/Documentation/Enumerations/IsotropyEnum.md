@@ -14,7 +14,7 @@ Supported thermal conductivity isotropy types
 
 ## Creation
 
-{% include_relative enum-creation.html enumname="IsotropyEnum" varname="isotropy" arrayname="isotropies" %}
+{% include_relative _includes/enum-creation.html enumname="IsotropyEnum" varname="isotropy" arrayname="isotropies" %}
 
 ## Enumeration Members
 
@@ -61,6 +61,7 @@ Supported thermal conductivity isotropy types
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
