@@ -14,7 +14,7 @@ Supported Euler sequences
 
 ## Creation
 
-{% include_relative enum-creation.html enumname="SeqEnum" varname="seq" arrayname="seqs" %}
+{% include_relative _includes/enum-creation.html enumname="SeqEnum" varname="seq" arrayname="seqs" %}
 
 ## Enumeration Members
 
@@ -27,18 +27,18 @@ Supported Euler sequences
       No sequence specified
     </td>
   </tr>
-  {% include_relative seq-tr.html seq="xyx" %}
-  {% include_relative seq-tr.html seq="xyz" %}
-  {% include_relative seq-tr.html seq="xzx" %}
-  {% include_relative seq-tr.html seq="xzy" %}
-  {% include_relative seq-tr.html seq="yxy" %}
-  {% include_relative seq-tr.html seq="yxz" %}
-  {% include_relative seq-tr.html seq="yzx" %}
-  {% include_relative seq-tr.html seq="yzy" %}
-  {% include_relative seq-tr.html seq="zxy" %}
-  {% include_relative seq-tr.html seq="zxz" %}
-  {% include_relative seq-tr.html seq="zyx" %}
-  {% include_relative seq-tr.html seq="zyz" %}
+  {% include_relative _includes/seq-tr.html seq="xyx" %}
+  {% include_relative _includes/seq-tr.html seq="xyz" %}
+  {% include_relative _includes/seq-tr.html seq="xzx" %}
+  {% include_relative _includes/seq-tr.html seq="xzy" %}
+  {% include_relative _includes/seq-tr.html seq="yxy" %}
+  {% include_relative _includes/seq-tr.html seq="yxz" %}
+  {% include_relative _includes/seq-tr.html seq="yzx" %}
+  {% include_relative _includes/seq-tr.html seq="yzy" %}
+  {% include_relative _includes/seq-tr.html seq="zxy" %}
+  {% include_relative _includes/seq-tr.html seq="zxz" %}
+  {% include_relative _includes/seq-tr.html seq="zyx" %}
+  {% include_relative _includes/seq-tr.html seq="zyz" %}
 </table>
 
 ## See Also
@@ -52,6 +52,7 @@ Supported Euler sequences
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
