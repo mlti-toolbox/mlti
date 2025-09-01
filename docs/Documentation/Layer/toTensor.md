@@ -30,10 +30,10 @@ where `transform` is an optional argument.
 
 ### Description
 <a id="d1"></a>
-`[`[`k11`](#k11-output)`,`[`k21`](#k21-output)`,`[`k31`](#k31-output)`,`[`k22`](#k22-output)`,`[`k32`](#k32-output)`,`[`k33`](#k33-output)`] = toTensor(`[`layer`](#layer-argument)`,`[`<layer.inputStr>`](#inputStr-arguments)`)` converts user input thermal conductivity and orientation variables to tensor representation.
+`[`[`k11,k21,k31,k22,k32,k33`](#output-arguments)`] = toTensor(`[`layer`](#layer-argument)`,`[`<layer.inputStr>`](#inputStr-arguments)`)` converts user-input thermal conductivity and orientation variables to tensor representation.
 <hr>
 <a id="d2"></a>
-`[___] = toTensor(___, `[`transform`](#transform-argument)`)` applies the function specified by `transform` to strictly-positive thermal conductivity variables (`k`,`k⊥`,`k∥`,`kp1`,`kp2`,`kp3`,`k11`,`k22`,`k33`) provided by the user, and then converts these transformed inputs along with any orientation variables into the full tensor representation.
+`[___] = toTensor(___, `[`transform`](#transform-argument)`)` applies the function specified by `transform` to strictly-positive thermal conductivity variables (`k`, `k⊥`, `k∥`, `kp1`, `kp2`, `kp3`, `k11`, `k22`, `k33`) provided by the user, and then converts these transformed inputs along with any orientation variables into the full tensor representation.
 
 ### Input Arguments
 
@@ -81,7 +81,11 @@ where `transform` is an optional argument.
   </div>
 </details>
 
-<h3 id="inputStr-arguments"><code>inputStr</code> Arguments</h3>
+<h3 id="inputStr-arguments"><code>&lt;layer.inputStr&gt;</code> Arguments</h3>
+<p>
+  The number and names of the variables represented by <code>&lt;layer.inputStr&gt;</code> are determined when the <code>layer</code> object is constructed. 
+  <code>layer.inputStr</code> is a string array and may include the following variable names:
+</p>
 <table>
   <tr>
     <td>
@@ -174,6 +178,24 @@ where `transform` is an optional argument.
 </table>
 
 ### Output Arguments
+<details class="custom-details" id="layer-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>kij</code> - \((i,j)\)-th component of the thermal conductivity tensor</b>
+            <span class="subline">
+                <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a> object
+            </span>
+        </span>
+    </summary>
+    <div>
+        <p>
+            The input layer object defines the thermal conductivity of a material layer—whether isotropic, uniaxially anisotropic, or fully anisotropic—and specifies how conductivity is expressed in user inputs.
+        </p>
+        <p>
+            <b>Data Type:</b> <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a>
+        </p>
+    </div>
+</details>
 
 ## Properties
 
