@@ -1,13 +1,13 @@
 <h3>Direct Construction</h3>
-<code class="hang">{{ varname }} =<wbr> {{ enumname }}.member</code>
+<code class="hang">{{ include.varname }} =<wbr> {{ include.enumname }}.member</code>
 
 <h3>Conversion from Character or String Arrays</h3>
-<code class="hang">{{ varname }} =<wbr> {{ enumname }}(<wbr>'memberName')</code><br>
-<code class="hang">{{ varname }} =<wbr> {{ enumname }}(<wbr>"memberName")</code>
+<code class="hang">{{ include.varname }} =<wbr> {{ include.enumname }}(<wbr>'memberName')</code><br>
+<code class="hang">{{ include.varname }} =<wbr> {{ include.enumname }}(<wbr>"memberName")</code>
 
-<h3>Creating an <code>{{ enumname }}</code> Enumeration Array</h3>
-<code class="hang">{{ arrayname }} =<wbr> [<wbr>{{ enumname }}.member1,<wbr>{{ enumname }}.member2,<wbr>...]</code><br>
-<code class="hang">{{ arrayname }} =<wbr> {{ enumname }}(<wbr>{'memberName1',<wbr>'memberName2',<wbr>...})</code><br>
-<code class="hang">{{ arrayname }} =<wbr> {{ enumname }}(<wbr>["memberName1",<wbr>"memberName2",<wbr>...])</code>
+<h3>Creating an <code>{{ include.enumname }}</code> Enumeration Array</h3>
+<code class="hang">{{ include.arrayname }} =<wbr> [<wbr>{{ include.enumname }}.member1,<wbr>{{ include.enumname }}.member2,<wbr>...]</code><br>
+<code class="hang">{{ include.arrayname }} =<wbr> {{ include.enumname }}(<wbr>{'memberName1',<wbr>'memberName2',<wbr>...})</code><br>
+<code class="hang">{{ include.arrayname }} =<wbr> {{ include.enumname }}(<wbr>["memberName1",<wbr>"memberName2",<wbr>...])</code>
 
 See "<a href="https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html">Refer to Enumerations</a>" for more details.
