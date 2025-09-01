@@ -59,13 +59,13 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 ### Description
 <a id="d1"></a>
 `layer = Layer()` creates a `Layer` object using the default tensor representation of thermal conductivity.
-<hr style="margin: -1em 0 0.5em 0;">
+<hr>
 <a id="d2"></a>
 `layer = Layer(`[`isotropy`](#isotropy-argument)`)` creates a `Layer` object with a user-specified isotropy type. Valid only for `"isotropic"` and `"tensor"` conductivity representations, since `orient` must also be specified for `"uniaxial"` and `"principal"` cases.
-<hr style="margin: -1em 0 0.5em 0;">
+<hr>
 <a id="d3"></a>
 `layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`)` creates a `Layer` object with a user-specified isotropy type and orientation. Valid only for `"uniaxial"` and `"principal"` representations, since `orient` is not required for `"isotropic"` or `"tensor"`. If Euler orientation angles are used, `euler_seq` must also be provided (see next).
-<hr style="margin: -1em 0 0.5em 0;">
+<hr>
 <a id="d4"></a>
 `layer = Layer(`[`isotropy`](#isotropy-argument)`,`[`orient`](#orient-argument)`,`[`euler_seq`](#euler-seq-argument)`)` creates a `Layer` object with a user-specified isotropy type, orientation, and Euler angle sequence. Valid only when `orient` is `"euler"`, since `euler_seq` is not required for other orientations.
 
