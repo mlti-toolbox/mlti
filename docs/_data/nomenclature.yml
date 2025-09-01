@@ -1,80 +1,80 @@
 k:
   codeSymbol: |
-		<code>k</code>
+    <code>k</code>
   description: |
-		Isotropic (scalar) thermal conductivity
+    Isotropic (scalar) thermal conductivity
 k_perp:
   codeSymbol: |
-		<code>k⊥</code>
+    <code>k⊥</code>
   description: |
-		Transverse (radial) thermal conductivity (uniaxial anisotropy)
+    Transverse (radial) thermal conductivity (uniaxial anisotropy)
 k_par:
   codeSymbol: |
-		<code>k∥</code>
+    <code>k∥</code>
   description: |
-		Axial (longitudinal) thermal conductivity (uniaxial anisotropy)
+    Axial (longitudinal) thermal conductivity (uniaxial anisotropy)
 kpi:
   codeSymbol: |
-		<code>kpi</code>
+    <code>kpi</code>
   description: |
-		\(i\)-th principal thermal conductivity, with \(i \in \{1,2,3\}\)
+    \(i\)-th principal thermal conductivity, with \(i \in \{1,2,3\}\)
 kij:
   codeSymbol: |
-		<code>kij</code>
+    <code>kij</code>
   description: |
-		\((i,j)\)-th component of the thermal conductivity tensor, with \(i,j \in \{1,2,3\}\)
+    \((i,j)\)-th component of the thermal conductivity tensor, with \(i,j \in \{1,2,3\}\)
 C:
   codeSymbol: |
-		<code>C</code>
+    <code>C</code>
   description: |
-		Volumetric heat capacity
+    Volumetric heat capacity
 alpha:
   codeSymbol: |
-		<code>α</code>
+    <code>α</code>
   description: |
-		Optical absorption coefficient
+    Optical absorption coefficient
 R:
   codeSymbol: |
-		<code>R</code>
+    <code>R</code>
   description: |
-		Optical reflectivity
+    Optical reflectivity
 h:
   codeSymbol: |
-		<code>h</code>
+    <code>h</code>
   description: |
-		Layer thickness in the \(z\)-direction
+    Layer thickness in the \(z\)-direction
 Rth:
   codeSymbol: |
-		<code>Rth</code>
+    <code>Rth</code>
   description: |
-		Thermal contact resistance between film and substrate
+    Thermal contact resistance between film and substrate
 az:
   codeSymbol: |
-		<code>θ_az</code>
+    <code>θ_az</code>
   description: |
-		Azimuthal angle of the thermal conductivity axis of rotation (uniaxial anisotropy)
+    Azimuthal angle of the thermal conductivity axis of rotation (uniaxial anisotropy)
 pol:
   codeSymbol: |
-		<code>θ_pol</code>
+    <code>θ_pol</code>
   description: |
-		Polar angle of the thermal conductivity axis of rotation (uniaxial anisotropy)
+    Polar angle of the thermal conductivity axis of rotation (uniaxial anisotropy)
 eul:
   codeSymbol: |
-		<code>θai</code>
+    <code>θai</code>
   description: |
-		\(i\)-th Euler rotation angle about the \(a\)-axis, defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3\}\), \(a \in \{x,y,z\}\)
+    \(i\)-th Euler rotation angle about the \(a\)-axis, defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3\}\), \(a \in \{x,y,z\}\)
 vi:
   codeSymbol: |
-		<code>vi</code>
+    <code>vi</code>
   description: |
-		\(i\)-th component of the unit vector along the thermal conductivity axis of rotation (uniaxial anisotropy), with \(i \in \{1,2,3\}\)
+    \(i\)-th component of the unit vector along the thermal conductivity axis of rotation (uniaxial anisotropy), with \(i \in \{1,2,3\}\)
 qi:
   codeSymbol: |
-		<code>qi</code>
+    <code>qi</code>
   description: |
-		\(i\)-th component of the unit quaternion defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3,4\}\)
+    \(i\)-th component of the unit quaternion defining the orientation of the principal thermal condcutivity axes, with \(i \in \{1,2,3,4\}\)
 Rij:
   codeSymbol: |
-		<code>Rij</code>
+    <code>Rij</code>
   description: |
-		\((i,j)\)-th component of the rotation matrix defining the orientation of the principal thermal condcutivity axes, with \(i,j \in \{1,2,3\}\)
+    \((i,j)\)-th component of the rotation matrix defining the orientation of the principal thermal condcutivity axes, with \(i,j \in \{1,2,3\}\)
