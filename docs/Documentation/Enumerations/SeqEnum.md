@@ -10,7 +10,7 @@ Supported Euler sequences
 
 ## Description
 
-`SeqEnum` is an enumeration class that defines the supported Euler rotation sequences, expressed as three consecutive axes (X, Y, or Z) in which no two consecutive axes are identical.
+`SeqEnum` is an enumeration class that defines supported intrinsic Euler rotation sequences, expressed as three consecutive axes (x, y, or z) in which no two consecutive axes are identical.
 
 ## Creation
 
@@ -27,14 +27,18 @@ Supported Euler sequences
       No sequence specified
     </td>
   </tr>
-  <tr>
-    <td>
-      <code>XYZ</code>
-    </td>
-    <td>
-      \(R=R_xR_yR_z\)
-    </td>
-  </tr>
+  {% include_relative seq-tr.html seq="xyx" %}
+  {% include_relative seq-tr.html seq="xyz" %}
+  {% include_relative seq-tr.html seq="xzx" %}
+  {% include_relative seq-tr.html seq="xzy" %}
+  {% include_relative seq-tr.html seq="yxy" %}
+  {% include_relative seq-tr.html seq="yxz" %}
+  {% include_relative seq-tr.html seq="yzx" %}
+  {% include_relative seq-tr.html seq="yzy" %}
+  {% include_relative seq-tr.html seq="zxy" %}
+  {% include_relative seq-tr.html seq="zxz" %}
+  {% include_relative seq-tr.html seq="zyx" %}
+  {% include_relative seq-tr.html seq="zyz" %}
 </table>
 
 ## See Also
@@ -48,6 +52,7 @@ Supported Euler sequences
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
