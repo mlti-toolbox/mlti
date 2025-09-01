@@ -19,7 +19,13 @@ Converts user inputs to tensor representation.
 
 Where `layer.inputStr` specifies a variable number of inputs, dependent on `layer.isotropy` and `layer.orient`.
 
+**Example:**
 
+If <code>layer.inputStr ==<wbr> ["k⊥",<wbr>"k∥",<wbr>"θ_az",<wbr>"θ_pol"]</code>, then the construction syntax would be
+
+<code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol,<wbr>transform)</code>
+
+where `transform` is an optional argument.
 
 ## Description
 <a id="d1"></a>
