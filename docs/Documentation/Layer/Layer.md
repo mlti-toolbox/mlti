@@ -117,7 +117,7 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
         <ul>
             <li><code>"azpol"</code>: For representing the symmetric axis direction as azimuthal <code>θ_az</code> and polar <code>θ_pol</code> angles. Valid only when <code>film_isotropy = "uniaxial"</code>.</li>
             <li><code>"uvect"</code>: For representing the symmetric axis direction as a unit vector <code>v1</code>, <code>v2</code>, <code>v3</code>. Use only when <code>film_isotropy = "uniaxial"</code>.</li>
-            <li><code>"euler"</code>: For representing the orientation of the principal axes as Euler angles <code>θA1</code>, <code>θB2</code>, <code>θC3</code>, with <code>A</code>, <code>B</code>, <code>C</code> \(\in\) {<code>'X'</code>, <code>'Y'</code>, <code>'Z'</code>}</li>
+            <li><code>"euler"</code>: For representing the orientation of the principal axes as Euler angles <code>θa1</code>, <code>θb2</code>, <code>θc3</code>, with <code>a</code>, <code>b</code>, <code>c</code> \(\in\) {<code>x</code>, <code>y</code>, <code>z</code>}</li>
             <li><code>"uquat"</code>: For representing the orientation of the principal axes as a unit quaternion <code>q1</code>, <code>q2</code>, <code>q3</code>, <code>q4</code>.</li>
             <li><code>"rotmat"</code>: For representing the orientation of the principal axes as a vectorized rotation matrix <code>R11</code>, <code>R21</code>, <code>R31</code>, <code>R12</code>, <code>R22</code>, <code>R32</code>, <code>R13</code>, <code>R23</code>, <code>R33</code>.</li>
         </ul>
@@ -180,8 +180,24 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 
 ### Examples
 
-
 ## Properties
+`Layer` properties include validated constructor input arguments as well as the following:
+
+<details class="custom-details" id="orient-argument">
+    <summary>
+        <span class="summary-text">
+            <b><code>inputStr</code> - <code>toTensor</code> input variable names</b>
+            <span class="subline">
+                Read only: string row vector
+            </span>
+        </span>
+    </summary>
+    <div>
+      <p>
+        Because the number of inputs to the <code>toTensor</code> function change according to the input qrguments specified upon creation, <code>inputStr</code> specifies the <code>toTensor</code> input variable names as a string row vector, where the . 
+      </p>
+    </div>
+</details>
 
 ## Object Functions
 
