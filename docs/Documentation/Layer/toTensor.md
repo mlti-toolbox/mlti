@@ -6,17 +6,24 @@ permalink: /Documentation/Layer/toTensor
 
 # toTensor
 
-## Description
+Converts user inputs to tensor representation.
 
-## Creation
+## Syntax
+<a href="#d1"><code class="hang">[___] = <wbr>toTensor(<wbr>layer,<wbr>k)</code></a><br>
+<a href="#d2"><code class="hang">[___] = <wbr>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol)</code></a><br>
+<a href="#d3"><code class="hang">[___] = <wbr>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>v1,<wbr>v2,<wbr>v3)</code></a><br>
+<a href="#d4"><code class="hang">[___] = <wbr>toTensor(<wbr>layer,<wbr>kp1,<wbr>kp2,<wbr>kp3,<wbr>θa1,<wbr>θb2,<wbr>θc3)</code></a><br>
+<a href="#d5"><code class="hang">[___] = <wbr>toTensor(<wbr>layer,<wbr>kp1,<wbr>kp2,<wbr>kp3,<wbr>q1,<wbr>q2,<wbr>q3,<wbr>q4)</code></a><br>
+<a href="#d6"><code class="hang">[___] = <wbr>toTensor(<wbr>layer,<wbr>kp1,<wbr>kp2,<wbr>kp3,<wbr>R11,<wbr>R21,<wbr>R31,<wbr>R12,<wbr>R22,<wbr>R32,<wbr>R13,<wbr>R23,<wbr>R33)</code></a><br>
+<a href="#d7"><code class="hang">[___] = <wbr>toTensor(<wbr>layer,<wbr>k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33)</code></a><br>
+<a href="#d8"><code class="hang">[___] = <wbr>toTensor(___,<wbr>transform)</code></a><br>
+<a href="#d9"><code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(___)</code></a>
 
-### Syntax
-<a href="#d1">
-<code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>&lt;layer.inputStr&gt;)</code>
-</a><br>
-<a href="#d2">
-<code class="hang">[___] = <wbr>toTensor(___,<wbr>transform)</code>
-</a><br>
+
+
+
+
+
 
 Where `<layer.inputStr>` specifies a variable number of inputs, fixed when the `layer` object is constructed.  
 
@@ -28,14 +35,14 @@ If <code>layer.inputStr ==<wbr> ["k⊥",<wbr>"k∥",<wbr>"θ_az",<wbr>"θ_pol"]<
 
 where `transform` is an optional argument.
 
-### Description
+## Description
 <a id="d1"></a>
 `[`[`k11,k21,k31,k22,k32,k33`](#output-arguments)`] = toTensor(`[`layer`](#layer-argument)`,`[`<layer.inputStr>`](#inputStr-arguments)`)` converts user-input thermal conductivity and orientation variables to tensor representation.
 <hr>
 <a id="d2"></a>
 `[___] = toTensor(___, `[`transform`](#transform-argument)`)` applies the function specified by `transform` to strictly-positive thermal conductivity variables (`k`, `k⊥`, `k∥`, `kp1`, `kp2`, `kp3`, `k11`, `k22`, `k33`) provided by the user, and then converts these transformed inputs along with any orientation variables into the full tensor representation.
 
-### Input Arguments
+## Input Arguments
 
 <details class="custom-details" id="layer-argument">
     <summary>
@@ -81,7 +88,7 @@ where `transform` is an optional argument.
   </div>
 </details>
 
-<h3 id="inputStr-arguments"><code>&lt;layer.inputStr&gt;</code> Arguments</h3>
+<h2 id="inputStr-arguments"><code>&lt;layer.inputStr&gt;</code> Arguments</h2>
 <p>
   The number and names of the variables represented by <code>&lt;layer.inputStr&gt;</code> are determined when the <code>layer</code> object is constructed. 
   <code>layer.inputStr</code> is a string array and may include the following variable names:
@@ -177,29 +184,25 @@ where `transform` is an optional argument.
   </tr>
 </table>
 
-### Output Arguments
+## Output Arguments
 <details class="custom-details" id="layer-argument">
     <summary>
         <span class="summary-text">
-            <b><code>kij</code> - \((i,j)\)-th component of the thermal conductivity tensor</b>
+            <b><code>kij</code> - \((i,j)\)-th tensor component</b>a
             <span class="subline">
-                <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a> object
+                \(N_T \times N_\mathrm{pump}\) real matrix
             </span>
         </span>
     </summary>
     <div>
         <p>
-            The input layer object defines the thermal conductivity of a material layer—whether isotropic, uniaxially anisotropic, or fully anisotropic—and specifies how conductivity is expressed in user inputs.
+            kij is the {{ site.data.nomenclature.kij.description | safe }}
         </p>
         <p>
-            <b>Data Type:</b> <a href="{{ '/Documentation/Layer' | relative_url }}"><code>Layer</code></a>
+            <b>Data Types:</b> double | single
         </p>
     </div>
 </details>
-
-## Properties
-
-## Object Functions
 
 ## Examples
 
