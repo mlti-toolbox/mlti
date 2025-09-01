@@ -7,22 +7,45 @@ permalink: /Documentation/Layer
 # Layer
 
 Characterizes the thermal conductivity of a material layer.
-Characterizes a material layer and converts user input into canonical thermal properties.
 
 ## Description
 
 The `Layer` class defines the thermal conductivity of a material layer—whether isotropic, uniaxially anisotropic, or fully anisotropic—and specifies how conductivity is expressed in user inputs. It also handles conversion of user inputs into the tensor representation, which is required by the internal [`ForwardModel`](MLTI/Documentation/ForwardModel) solver.
 
 **Supported Representations:**
-* Isotropic conductivity: `k`
-* Transverse and axial conductivities (`k⊥`, `k∥`) with
-   * Azimuthal and polar axis direction angles: `θ_az`, `θ_pol`
-   * Unit vector axis direction: `v1`, `v2`, `v3`
-* Principal conductivities (`kp1`, `kp2`, `kp3`) with
-   * Euler orientation angles: `θA1`, `θB2`, `θC3`
-   * Unit quaternion orientation: `q0`, `q1`, `q2`, `q3`
-   * Vectorized rotation matrix orientation: `R11`, `R21`, `R31`, `R12`, `R22`, `R32`, `R13`, `R23`, `R33`
-* 6-element tensor conductivity: `k11`, `k21`, `k31`, `k22`, `k32`, `k33`
+<ul>
+  <li>
+    Isotropic conductivity: <code>k</code>
+  </li>
+  <li>
+    Transverse and axial conductivities (<code>k⊥</code>, <code>k∥</code>) with
+  </li>
+  <ul>
+    <li>
+      Azimuthal and polar axis direction angles: <code>θ_az</code>, <code>θ_pol</code>
+    </li>
+    <li>
+      Unit vector axis direction: <code>v1</code>, <code>v2</code>, <code>v3</code>
+    </li>
+  </ul>
+  <li>
+    Principal conductivities (<code>kp1</code>, <code>kp2</code>, <code>kp3</code>) with
+  </li>
+  <ul>
+    <li>
+      Euler orientation angles: <code>θa1</code>, <code>θb2</code>, <code>θc3</code>
+    </li>
+    <li>
+      Unit quaternion orientation: <code>q1</code>, <code>q2</code>, <code>q3</code>, <code>q4</code>
+    </li>
+    <li>
+      Vectorized rotation matrix orientation: <code>R11</code>, <code>R21</code>, <code>R31</code>, <code>R12</code>, <code>R22</code>, <code>R32</code>, <code>R13</code>, <code>R23</code>, <code>R33</code>
+    </li>
+  </ul>
+  <li>
+    6-element tensor conductivity: <code>k11</code>, <code>k21</code>, <code>k31</code>, <code>k22</code>, <code>k32</code>, <code>k33</code>
+  </li>
+</ul>
 
 ## Creation
 
