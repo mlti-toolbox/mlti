@@ -17,7 +17,15 @@ Converts user inputs to tensor representation.
 <code class="hang">[k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33] = <wbr>toTensor(<wbr>layer,<wbr>&lt;layer.inputStr&gt;,<wbr>transform)</code>
 </a>
 
-Where `layer.inputStr` specifies a variable number of inputs, dependent on `layer.isotropy` and `layer.orient`. The following are specific cases.
+Where `layer.inputStr` specifies a variable number of inputs, dependent on `layer.isotropy` and `layer.orient`.
+
+
+
+## Description
+<a id="d1"></a>
+`[`[`k11,k21,k31,k22,k32,k33`](#output-arguments)`] = toTensor(`[`layer`](#layer-argument)`,`[`<layer.inputStr>`](#inputStr-arguments)`)` converts user-input thermal conductivity and orientation variables to tensor representation.
+
+The following are specific cases.
 
 <details>
 <summary>Isotropic</summary>
@@ -53,13 +61,9 @@ Where `layer.inputStr` specifies a variable number of inputs, dependent on `laye
 <summary>Tensor anisotropic</summary>
 <a href="#d9"><code class="hang">toTensor(<wbr>layer,<wbr>k11,<wbr>k21,<wbr>k31,<wbr>k22,<wbr>k32,<wbr>k33)</code></a>
 </details>
-
-## Description
-<a id="d1"></a>
-`[`[`k11,k21,k31,k22,k32,k33`](#output-arguments)`] = toTensor(`[`layer`](#layer-argument)`,`[`<layer.inputStr>`](#inputStr-arguments)`)` converts user-input thermal conductivity and orientation variables to tensor representation.
 <hr>
 <a id="d2"></a>
-`[___] = toTensor(___, `[`transform`](#transform-argument)`)` applies the function specified by `transform` to strictly-positive thermal conductivity variables (`k`, `k⊥`, `k∥`, `kp1`, `kp2`, `kp3`, `k11`, `k22`, `k33`) provided by the user, and then converts these transformed inputs along with any orientation variables into the full tensor representation.
+`toTensor(___, `[`transform`](#transform-argument)`)` applies the function specified by `transform` to strictly-positive thermal conductivity variables (`k`, `k⊥`, `k∥`, `kp1`, `kp2`, `kp3`, `k11`, `k22`, `k33`) provided by the user prior to converting inputs to tensor representation.
 
 ## Input Arguments
 
