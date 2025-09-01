@@ -108,7 +108,7 @@ ul ol,
 ol ul {
   margin-top: 0;    /* remove space above nested list */
   margin-bottom: 0; /* remove space below nested list */
-  padding-left: 1em;  /* or whatever fits your style */
+  padding-left: 1.25rem;  /* or whatever fits your style */
 }
 
 
@@ -485,6 +485,7 @@ details.custom-details > div {
 @media print {
   body { padding: 0.4in; font-size: 12pt; color: #444; }
 }
+
 
 
 
