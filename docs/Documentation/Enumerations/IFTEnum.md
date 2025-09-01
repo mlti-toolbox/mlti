@@ -14,7 +14,7 @@ Inverse Fourier transform evaluation methods
 
 ## Creation
 
-{% include_relative enum-creation.html enumname="IFTEnum" varname="method" %}
+{% include_relative enum-creation.html enumname="IFTEnum" varname="method" arrayname="methods" %}
 
 ## Enumeration Members
 
@@ -48,6 +48,7 @@ Inverse Fourier transform evaluation methods
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
