@@ -85,7 +85,7 @@ where `transform` is an optional argument.
 <table>
   <tr>
     <td>
-      {{ site.data.nomenclature.k.symbol }}
+      {{ site.data.nomenclature.k.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.k.description }}
@@ -93,7 +93,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.k_perp.symbol }}
+      {{ site.data.nomenclature.k_perp.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.k_perp.description }}
@@ -101,7 +101,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.k_par.symbol }}
+      {{ site.data.nomenclature.k_par.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.k_par.description }}
@@ -109,7 +109,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.kpi.symbol }}
+      {{ site.data.nomenclature.kpi.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.kpi.description }}
@@ -117,7 +117,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.kij.symbol }}
+      {{ site.data.nomenclature.kij.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.kij.description }}
@@ -125,7 +125,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.az.symbol }}
+      {{ site.data.nomenclature.az.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.az.description }}
@@ -133,7 +133,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.pol.symbol }}
+      {{ site.data.nomenclature.pol.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.pol.description }}
@@ -141,7 +141,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.eul.symbol }}
+      {{ site.data.nomenclature.eul.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.eul.description }}
@@ -149,7 +149,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.vi.symbol }}
+      {{ site.data.nomenclature.vi.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.vi.description }}
@@ -157,7 +157,7 @@ where `transform` is an optional argument.
   </tr>
     <tr>
     <td>
-      {{ site.data.nomenclature.qi.symbol }}
+      {{ site.data.nomenclature.qi.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.qi.description }}
@@ -165,7 +165,7 @@ where `transform` is an optional argument.
   </tr>
   <tr>
     <td>
-      {{ site.data.nomenclature.Rij.symbol }}
+      {{ site.data.nomenclature.Rij.codeSymbol }}
     </td>
     <td>
       {{ site.data.nomenclature.Rij.description }}
