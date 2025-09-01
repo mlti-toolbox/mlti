@@ -36,7 +36,15 @@
   <li>
     {% include file-explorer-link.html name="IFTSolver" path="/Documentation/IFTSolver" %}
   </li>
-  <li>
-    {% include file-explorer-link.html name="Layer" path="/Documentation/Layer" %}
-  </li>
 </ul>
+
+<details {% if page.url contains '/Documentation/Layer' %}open{% endif %}>
+  <summary>
+    {% include file-explorer-link.html name="Layer" path="/Documentation/Layer" %}
+  </summary>
+  <ul>
+    <li>
+      {% include file-explorer-link.html name="toTensor" path="/Documentation/Layer/toTensor" %}
+    </li>
+  </ul>
+</details>
