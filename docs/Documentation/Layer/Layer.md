@@ -212,12 +212,27 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
     </summary>
     <div>
       <p>
-        Because the number of inputs to the <code>toTensor</code> function change according to the input qrguments specified upon creation, <code>inputStr</code> specifies the <code>toTensor</code> input variable names as a string row vector, where the . 
+        Since the number of inputs to the <code>toTensor</code> function depends on the arguments specified when the object is created, <code>inputStr</code> provides the names of the <code>toTensor</code> input variables as a string row vector.
+      </p>
+        <b>Data Type:</b> <code>string</code>
+      </p>
+      </p>
+        <b>Example:</b> if <code>isotropy == "uniaxial"</code> and <code>orient == "azpol"</code>, then <code>inputStr = ["k⊥", "k∥", "θ_az", "θ_pol"]</code>, indicating what the first 4 input variables of the <code>toTensor</code> method represent.
       </p>
     </div>
 </details>
 
 ## Object Functions
+<table>
+  <tr>
+    <td>
+      <a href="{{ '/Documentation/Layer/toTensor' | relative_url }}"><code>toTensor</code></a>
+    </td>
+    <td>
+      Converts user inputs to tensor representation
+    </td>
+  </tr>
+</table>
 
 ## Examples
 
