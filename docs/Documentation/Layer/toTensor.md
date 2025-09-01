@@ -328,22 +328,7 @@ Where `layer.inputStr` specifies a variable number of inputs, dependent on `laye
 
 ## Output Arguments
 <details class="custom-details" id="kij-output-argument">
-    <summary>
-        <span class="summary-text">
-            <b><code>kij</code> - \((i,j)\)-th tensor component</b>
-            <span class="subline">
-                \(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix
-            </span>
-        </span>
-    </summary>
-    <div>
-        <p>
-            kij is the {{ site.data.nomenclature.kij.description | safe }}
-        </p>
-        <p>
-            <b>Data Types:</b> double | single
-        </p>
-    </div>
+    {% include_relative _includes/inputStr-details.html key="kij" types="\(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix" %}
 </details>
 
 ## Examples
