@@ -217,7 +217,7 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
         <b>Data Type:</b> <code>string</code>
       </p>
       <p>
-        <b>Example:</b> if <code>isotropy == "uniaxial"</code> and <code>orient == "azpol"</code>, then <code>inputStr = ["k⊥", "k∥", "θ_az", "θ_pol"]</code>, and the user can call <code>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol)</code> to convert to tensor conductivity representation.
+        <b>Example:</b> if <code>isotropy == "uniaxial"</code> and <code>orient == "azpol"</code>, then <code>inputStr = ["k⊥", "k∥", "θ_az", "θ_pol"]</code>, and the user can call <code>layer.toTensor(<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol)</code> to convert to tensor conductivity representation.
       </p>
     </div>
 </details>
