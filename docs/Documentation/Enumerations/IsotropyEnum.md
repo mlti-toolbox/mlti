@@ -24,7 +24,7 @@ Supported thermal conductivity isotropy types
       <code>isotropic</code>
     </td>
     <td>
-      For {{ site.data.EnumDescriptions.IsotropyEnum.isotropic }}
+      {{ site.data.EnumDescriptions.IsotropyEnum.isotropic }}
     </td>
   </tr>
   <tr>
@@ -32,7 +32,7 @@ Supported thermal conductivity isotropy types
       <code>uniaxial</code>
     </td>
     <td>
-      For {{ site.data.EnumDescriptions.IsotropyEnum.uniaxial }}
+      {{ site.data.EnumDescriptions.IsotropyEnum.uniaxial }}
     </td>
   </tr>
     <tr>
@@ -40,7 +40,7 @@ Supported thermal conductivity isotropy types
       <code>principal</code>
     </td>
     <td>
-      For {{ site.data.EnumDescriptions.IsotropyEnum.principal }}
+      {{ site.data.EnumDescriptions.IsotropyEnum.principal }}
     </td>
   </tr>
     <tr>
@@ -48,7 +48,7 @@ Supported thermal conductivity isotropy types
       <code>tensor</code>
     </td>
     <td>
-      For {{ site.data.EnumDescriptions.IsotropyEnum.tensor }}
+      {{ site.data.EnumDescriptions.IsotropyEnum.tensor }}
     </td>
   </tr>
 </table>
