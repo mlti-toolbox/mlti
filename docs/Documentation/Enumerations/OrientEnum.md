@@ -10,23 +10,11 @@ Supported direction/orientation types
 
 ## Description
 
-`IsotropyEnum` is an enumeration class that defines the supported axial direction/orientation of principal thermal conductivities.
+`OrientEnum` is an enumeration class that defines the supported axial direction/orientation of principal thermal conductivities.
 
 ## Creation
 
-### Direct Construction
-<code class="hang">orient = OrientEnum.member</code>
-
-### Conversion from Character or String Arrays
-<code class="hang">orient = OrientEnum('memberName')</code><br>
-<code class="hang">orient = OrientEnum("memberName")</code>
-
-### Creating an `OrientEnum` Enumeration Array
-<code class="hang">orient = [OrientEnum.member1,<wbr>IsotropyEnum.member2,...]</code><br>
-<code class="hang">orient = OrientEnum({'memberName1',<wbr>'memberName2',...})</code><br>
-<code class="hang">orient = OrientEnum(["memberName1",<wbr>"memberName2",...])</code>
-
-See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)" for more details.
+{% include_relative enum-creation.html enumname="OrientEnum" varname="orient" arrayname="orients" %}
 
 ## Enumeration Members
 
@@ -92,6 +80,7 @@ See "[Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/ho
 [Enumerations](https://www.mathworks.com/help/matlab/enumeration-classes.html)<br>
 [Refer to Enumerations](https://www.mathworks.com/help/matlab/matlab_oop/how-to-refer-to-enumerations.html)<br>
 [Enumerations for Property Values](https://www.mathworks.com/help/matlab/matlab_oop/restrict-property-values-to-enumerations.html)
+
 
 
 
