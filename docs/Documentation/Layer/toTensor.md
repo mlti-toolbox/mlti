@@ -72,9 +72,9 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
     \(
         \mathbf{K} = \mathbf{R}
         \begin{bmatrix}
-            k_perp & 0 & 0 \\
-            0 & k_perp & 0 \\
-            0 & 0 & k_parallel
+            k_\perp & 0 & 0 \\
+            0 & k_\perp & 0 \\
+            0 & 0 & k_\parallel
         \end{bmatrix}
         \mathbf{R}^\mathsf{T}
     \)
@@ -83,9 +83,11 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
     where
 </p>
 <p>
-    \mathbf{R} = 
-    \mathbf{R}_z \left( \theta_\mathrm{az} \right)
-    \mathbf{R}_y \left( \theta_\mathrm{pol} \right)
+    \(
+        \mathbf{R} = 
+        \mathbf{R}_z \left( \theta_\mathrm{az} \right)
+        \mathbf{R}_y \left( \theta_\mathrm{pol} \right)
+    \)
 </p>
 <hr>
 <a id="d3"></a>
@@ -106,9 +108,9 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
     \(
         \mathbf{K} = \mathbf{R}
         \begin{bmatrix}
-            k_perp & 0 & 0 \\
-            0 & k_perp & 0 \\
-            0 & 0 & k_parallel
+            k_\perp & 0 & 0 \\
+            0 & k_\perp & 0 \\
+            0 & 0 & k_\parallel
         \end{bmatrix}
         \mathbf{R}^\mathsf{T}
     \)
@@ -117,10 +119,12 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
     where
 </p>
 <p>
-    \mathbf{R} = 
-    \mathbf{R}_a \left( \theta_{a1} \right)
-    \mathbf{R}_b \left( \theta_{b2} \right)
-    \quad \mathrm{for} a,b \in \left\{ x, y, z \right\}
+    \(
+        \mathbf{R} = 
+        \mathbf{R}_a \left( \theta_{a1} \right)
+        \mathbf{R}_b \left( \theta_{b2} \right)
+        \quad \mathrm{for} a,b \in \left\{ x, y, z \right\}
+    \)
 </p>
 <hr>
 <a id="d5"></a>
@@ -132,9 +136,9 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
     \(
         \mathbf{K} = \mathbf{R}
         \begin{bmatrix}
-            k_perp & 0 & 0 \\
-            0 & k_perp & 0 \\
-            0 & 0 & k_parallel
+            k_\perp & 0 & 0 \\
+            0 & k_\perp & 0 \\
+            0 & 0 & k_\parallel
         \end{bmatrix}
         \mathbf{R}^\mathsf{T}
     \)
@@ -157,11 +161,13 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
     where
 </p>
 <p>
-    \mathbf{R} = 
-    \mathbf{R}_a \left( \theta_{a1} \right)
-    \mathbf{R}_b \left( \theta_{b2} \right)
-    \mathbf{R}_c \left( \theta_{c3} \right)
-    \quad \mathrm{for} a, b, c \in \left\{ x, y, z \right\}
+    \(
+        \mathbf{R} = 
+        \mathbf{R}_a \left( \theta_{a1} \right)
+        \mathbf{R}_b \left( \theta_{b2} \right)
+        \mathbf{R}_c \left( \theta_{c3} \right)
+        \quad \mathrm{for} a, b, c \in \left\{ x, y, z \right\}
+    \)
 </p>
 <hr>
 <a id="d8"></a>
