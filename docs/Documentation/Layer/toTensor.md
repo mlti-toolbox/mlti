@@ -9,7 +9,7 @@ permalink: /Documentation/Layer/toTensor
 Converts user inputs to tensor representation.
 
 ## Syntax
-The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/Layer#isotropy-argument) and [`orient`](/MLTI/Documentation/Layer#orient-argument) [`Layer`](/MLTI/Documentation/Layer) properties. The [`inputStr`](/MLTI/Documentation/Layer#inputStr-property) [`Layer`](/MLTI/Documentation/Layer) property specifies which base syntax to use.  For eaxmple, if <code>layer.inputStr == <wbr>["k⊥",<wbr>"k∥",<wbr>"θ_az",<wbr>"θ_pol"]</code>, then the user should call <code>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol)</code><br>
+The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/Layer#isotropy-argument) and [`orient`](/MLTI/Documentation/Layer#orient-argument) [`Layer`](/MLTI/Documentation/Layer) properties. The [`inputStr`](/MLTI/Documentation/Layer#inputStr-property) [`Layer`](/MLTI/Documentation/Layer) property specifies which base syntax to use.  For example, if <code>layer.inputStr == <wbr>["k⊥",<wbr>"k∥",<wbr>"θ_az",<wbr>"θ_pol"]</code>, then the user should call <code>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol)</code><br>
 
 **Available syntaxes:**
 
@@ -58,7 +58,7 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
 <a id="d1"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k`](#k-argument)`)`
 <p>
-    \(K=
+    \(\mathbf{K} =
     \begin{bmatrix}
         k & 0 & 0 \\ 
         0 & k & 0 \\ 
@@ -68,6 +68,15 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
 <hr>
 <a id="d2"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`θ_az`](#az-argument)`,`<wbr>[`θ_pol`](#pol-argument)`)`
+<p>
+    \(
+        \mathbf{K} = k_\perp
+        \left(
+            \mathbf{I} - \mathbf{v} \mathbf{v}^\mathsf{T}    
+        \right)
+        + k_\parallel \mathbf{v} \mathbf{v}^\mathsf{T}
+    \)
+</p>
 <hr>
 <a id="d3"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`v1`](#vi-argument)`,`<wbr>[`v2`](#vi-argument)`,`<wbr>[`v3`](#vi-argument)`)`
