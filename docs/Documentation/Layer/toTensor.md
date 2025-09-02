@@ -52,40 +52,40 @@ Converts user inputs to tensor representation.
 
 ## Description
 <a id="d1"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`k`](#k-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k`](#k-argument)`)`
 <hr>
 <a id="d2"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`k⊥`](#k_perp-argument)`,`[`k∥`](#k_par-argument)`,`[`θ_az`](#az-argument)`,`[`θ_pol`](#pol-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`θ_az`](#az-argument)`,`<wbr>[`θ_pol`](#pol-argument)`)`
 <hr>
 <a id="d3"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`k⊥`](#k_perp-argument)`,`[`k∥`](#k_par-argument)`,`[`v1`](#vi-argument)`,`[`v2`](#vi-argument)`,`[`v3`](#vi-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`v1`](#vi-argument)`,`<wbr>[`v2`](#vi-argument)`,`<wbr>[`v3`](#vi-argument)`)`
 <hr>
 <a id="d4"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`k⊥`](#k_perp-argument)`,`[`k∥`](#k_par-argument)`,`[`θa1`](#eul-argument)`,`[`θb2`](#eul-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`θa1`](#eul-argument)`,`<wbr>[`θb2`](#eul-argument)`)`
 <hr>
 <a id="d5"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`k⊥`](#k_perp-argument)`,`[`k∥`](#k_par-argument)`,`[`q1`](#qi-argument)`,`[`q2`](#qi-argument)`,`[`q3`](#qi-argument)`,`[`q4`](#qi-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`q1`](#qi-argument)`,`<wbr>[`q2`](#qi-argument)`,`<wbr>[`q3`](#qi-argument)`,`<wbr>[`q4`](#qi-argument)`)`
 <hr>
 <a id="d6"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`k⊥`](#k_perp-argument)`,`[`k∥`](#k_par-argument)`,`[`R11`](#Rij-argument)`,`[`R21`](#Rij-argument)`,`[`R31`](#Rij-argument)`,`[`R12`](#Rij-argument)`,`[`R22`](#Rij-argument)`,`[`R32`](#Rij-argument)`,`[`R13`](#Rij-argument)`,`[`R23`](#Rij-argument)`,`[`R33`](#Rij-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`R11`](#Rij-argument)`,`<wbr>[`R21`](#Rij-argument)`,`<wbr>[`R31`](#Rij-argument)`,`<wbr>[`R12`](#Rij-argument)`,`<wbr>[`R22`](#Rij-argument)`,`<wbr>[`R32`](#Rij-argument)`,`<wbr>[`R13`](#Rij-argument)`,`<wbr>[`R23`](#Rij-argument)`,`<wbr>[`R33`](#Rij-argument)`)`
 <hr>
 <a id="d7"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`kp1`](#kpi-argument)`,`[`kp2`](#kpi-argument)`,`[`kp3`](#kpi-argument)`,`[`θa1`](#eul-argument)`,`[`θb2`](#eul-argument)`,`[`θc3`](#eul-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`kp1`](#kpi-argument)`,`<wbr>[`kp2`](#kpi-argument)`,`<wbr>[`kp3`](#kpi-argument)`,`<wbr>[`θa1`](#eul-argument)`,`<wbr>[`θb2`](#eul-argument)`,`<wbr>[`θc3`](#eul-argument)`)`
 <hr>
 <a id="d8"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`kp1`](#kpi-argument)`,`[`kp2`](#kpi-argument)`,`[`kp3`](#kpi-argument)`,`[`q1`](#qi-argument)`,`[`q2`](#qi-argument)`,`[`q3`](#qi-argument)`,`[`q4`](#qi-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`kp1`](#kpi-argument)`,`<wbr>[`kp2`](#kpi-argument)`,`<wbr>[`kp3`](#kpi-argument)`,`<wbr>[`q1`](#qi-argument)`,`<wbr>[`q2`](#qi-argument)`,`<wbr>[`q3`](#qi-argument)`,`<wbr>[`q4`](#qi-argument)`)`
 <hr>
 <a id="d9"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`kp1`](#kpi-argument)`,`[`kp2`](#kpi-argument)`,`[`kp3`](#kpi-argument)`,`[`R11`](#Rij-argument)`,`[`R21`](#Rij-argument)`,`[`R31`](#Rij-argument)`,`[`R12`](#Rij-argument)`,`[`R22`](#Rij-argument)`,`[`R32`](#Rij-argument)`,`[`R13`](#Rij-argument)`,`[`R23`](#Rij-argument)`,`<wbr>[`R33`](#Rij-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`kp1`](#kpi-argument)`,`<wbr>[`kp2`](#kpi-argument)`,`<wbr>[`kp3`](#kpi-argument)`,`<wbr>[`R11`](#Rij-argument)`,`<wbr>[`R21`](#Rij-argument)`,`<wbr>[`R31`](#Rij-argument)`,`<wbr>[`R12`](#Rij-argument)`,`<wbr>[`R22`](#Rij-argument)`,`<wbr>[`R32`](#Rij-argument)`,`<wbr>[`R13`](#Rij-argument)`,`<wbr>[`R23`](#Rij-argument)`,`<wbr>[`R33`](#Rij-argument)`)`
 <hr>
 <a id="d10"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`k11`](#kij-argument)`,`[`k21`](#kij-argument)`,`[`k31`](#kij-argument)`,`[`k22`](#kij-argument)`,`[`k32`](#kij-argument)`,`[`k33`](#kij-argument)`)`
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k11`](#kij-argument)`,`<wbr>[`k21`](#kij-argument)`,`<wbr>[`k31`](#kij-argument)`,`<wbr>[`k22`](#kij-argument)`,`<wbr>[`k32`](#kij-argument)`,`<wbr>[`k33`](#kij-argument)`)`
 <hr>
 <a id="d11"></a>
-`toTensor(___,`[`transform`](#transform-argument)`)` applies the function specified by `transform` to strictly-positive thermal conductivity variables (`k`, `k⊥`, `k∥`, `kp1`, `kp2`, `kp3`, `k11`, `k22`, `k33`) provided by the user prior to converting inputs to tensor representation.
+`toTensor(___,`<wbr>[`transform`](#transform-argument)`)` applies the function specified by `transform` to strictly-positive thermal conductivity variables (`k`, `k⊥`, `k∥`, `kp1`, `kp2`, `kp3`, `k11`, `k22`, `k33`) provided by the user prior to converting inputs to tensor representation.
 <hr>
 <a id="d12"></a>
-`[`[`k11`](#kij-output-argument)`,`[`k21`](#kij-output-argument)`,`[`k31`](#kij-output-argument)`,`[`k22`](#kij-output-argument)`,`[`k32`](#kij-output-argument)`,`[`k33`](#kij-output-argument)`] = toTensor(___)` returns the 6 unique elements of the symmetric thermal conductivity tensor.
+`[`[`k11`](#kij-output-argument)`,`<wbr>[`k21`](#kij-output-argument)`,`<wbr>[`k31`](#kij-output-argument)`,`<wbr>[`k22`](#kij-output-argument)`,`<wbr>[`k32`](#kij-output-argument)`,`<wbr>[`k33`](#kij-output-argument)`] = `<wbr>`toTensor(___)` returns the 6 unique elements of the symmetric thermal conductivity tensor.
 
 ## Input Arguments
 
