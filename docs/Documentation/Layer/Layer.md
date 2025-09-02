@@ -201,7 +201,7 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 ## Properties
 `Layer` properties include validated constructor input arguments as well as the following:
 
-<details class="custom-details" id="orient-argument">
+<details class="custom-details" id="inputStr-property">
     <summary>
         <span class="summary-text">
             <b><code>inputStr</code> - <code>toTensor</code> input variable names</b>
