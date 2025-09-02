@@ -70,6 +70,28 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`θ_az`](#az-argument)`,`<wbr>[`θ_pol`](#pol-argument)`)`
 <p>
     \(
+        \mathbf{K} = \mathbf{R}
+        \begin{bmatrix}
+            k_perp & 0 & 0 \\
+            0 & k_perp & 0 \\
+            0 & 0 & k_parallel
+        \end{bmatrix}
+        \mathbf{R}^\mathsf{T}
+    \)
+</p>
+<p>
+    where
+</p>
+<p>
+    \mathbf{R} = 
+    \mathbf{R}_z \left( \theta_\mathrm{az} \right)
+    \mathbf{R}_y \left( \theta_\mathrm{pol} \right)
+</p>
+<hr>
+<a id="d3"></a>
+`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`v1`](#vi-argument)`,`<wbr>[`v2`](#vi-argument)`,`<wbr>[`v3`](#vi-argument)`)`
+<p>
+    \(
         \mathbf{K} = k_\perp
         \left(
             \mathbf{I} - \mathbf{v} \mathbf{v}^\mathsf{T}    
@@ -78,26 +100,86 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
     \)
 </p>
 <hr>
-<a id="d3"></a>
-`toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`v1`](#vi-argument)`,`<wbr>[`v2`](#vi-argument)`,`<wbr>[`v3`](#vi-argument)`)`
-<hr>
 <a id="d4"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`θa1`](#eul-argument)`,`<wbr>[`θb2`](#eul-argument)`)`
+<p>
+    \(
+        \mathbf{K} = \mathbf{R}
+        \begin{bmatrix}
+            k_perp & 0 & 0 \\
+            0 & k_perp & 0 \\
+            0 & 0 & k_parallel
+        \end{bmatrix}
+        \mathbf{R}^\mathsf{T}
+    \)
+</p>
+<p>
+    where
+</p>
+<p>
+    \mathbf{R} = 
+    \mathbf{R}_a \left( \theta_{a1} \right)
+    \mathbf{R}_b \left( \theta_{b2} \right)
+    \quad \mathrm{for} a,b \in \left\{ x, y, z \right\}
+</p>
 <hr>
 <a id="d5"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`q1`](#qi-argument)`,`<wbr>[`q2`](#qi-argument)`,`<wbr>[`q3`](#qi-argument)`,`<wbr>[`q4`](#qi-argument)`)`
 <hr>
 <a id="d6"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`R11`](#Rij-argument)`,`<wbr>[`R21`](#Rij-argument)`,`<wbr>[`R31`](#Rij-argument)`,`<wbr>[`R12`](#Rij-argument)`,`<wbr>[`R22`](#Rij-argument)`,`<wbr>[`R32`](#Rij-argument)`,`<wbr>[`R13`](#Rij-argument)`,`<wbr>[`R23`](#Rij-argument)`,`<wbr>[`R33`](#Rij-argument)`)`
+<p>
+    \(
+        \mathbf{K} = \mathbf{R}
+        \begin{bmatrix}
+            k_perp & 0 & 0 \\
+            0 & k_perp & 0 \\
+            0 & 0 & k_parallel
+        \end{bmatrix}
+        \mathbf{R}^\mathsf{T}
+    \)
+</p>
 <hr>
 <a id="d7"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`kp1`](#kpi-argument)`,`<wbr>[`kp2`](#kpi-argument)`,`<wbr>[`kp3`](#kpi-argument)`,`<wbr>[`θa1`](#eul-argument)`,`<wbr>[`θb2`](#eul-argument)`,`<wbr>[`θc3`](#eul-argument)`)`
+<p>
+    \(
+        \mathbf{K} = \mathbf{R}
+        \begin{bmatrix}
+            k_p^1 & 0 & 0 \\
+            0 & k_p^2 & 0 \\
+            0 & 0 & k_p^3
+        \end{bmatrix}
+        \mathbf{R}^\mathsf{T}
+    \)
+</p>
+<p>
+    where
+</p>
+<p>
+    \mathbf{R} = 
+    \mathbf{R}_a \left( \theta_{a1} \right)
+    \mathbf{R}_b \left( \theta_{b2} \right)
+    \mathbf{R}_c \left( \theta_{c3} \right)
+    \quad \mathrm{for} a, b, c \in \left\{ x, y, z \right\}
+</p>
 <hr>
 <a id="d8"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`kp1`](#kpi-argument)`,`<wbr>[`kp2`](#kpi-argument)`,`<wbr>[`kp3`](#kpi-argument)`,`<wbr>[`q1`](#qi-argument)`,`<wbr>[`q2`](#qi-argument)`,`<wbr>[`q3`](#qi-argument)`,`<wbr>[`q4`](#qi-argument)`)`
 <hr>
 <a id="d9"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`kp1`](#kpi-argument)`,`<wbr>[`kp2`](#kpi-argument)`,`<wbr>[`kp3`](#kpi-argument)`,`<wbr>[`R11`](#Rij-argument)`,`<wbr>[`R21`](#Rij-argument)`,`<wbr>[`R31`](#Rij-argument)`,`<wbr>[`R12`](#Rij-argument)`,`<wbr>[`R22`](#Rij-argument)`,`<wbr>[`R32`](#Rij-argument)`,`<wbr>[`R13`](#Rij-argument)`,`<wbr>[`R23`](#Rij-argument)`,`<wbr>[`R33`](#Rij-argument)`)`
+<p>
+    \(
+        \mathbf{K} = \mathbf{R}
+        \begin{bmatrix}
+            k_p^1 & 0 & 0 \\
+            0 & k_p^2 & 0 \\
+            0 & 0 & k_p^3
+        \end{bmatrix}
+        \mathbf{R}^\mathsf{T}
+    \)
+</p>
 <hr>
 <a id="d10"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k11`](#kij-argument)`,`<wbr>[`k21`](#kij-argument)`,`<wbr>[`k31`](#kij-argument)`,`<wbr>[`k22`](#kij-argument)`,`<wbr>[`k32`](#kij-argument)`,`<wbr>[`k33`](#kij-argument)`)`
