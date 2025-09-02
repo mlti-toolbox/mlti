@@ -121,9 +121,9 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
 <p>
     \(
         \mathbf{R} = 
-        \mathbf{R}_a \left( \theta_{a1} \right)
-        \mathbf{R}_b \left( \theta_{b2} \right)
-        \quad \mathrm{for} a,b \in \left\{ x, y, z \right\}
+        \mathbf{R}_a \left( \theta_a^1 \right)
+        \mathbf{R}_b \left( \theta_b^2 \right)
+        \quad \mathrm{for} \quad a, b \in \left\{ x, y, z \right\}
     \)
 </p>
 <hr>
@@ -163,10 +163,10 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
 <p>
     \(
         \mathbf{R} = 
-        \mathbf{R}_a \left( \theta_{a1} \right)
-        \mathbf{R}_b \left( \theta_{b2} \right)
-        \mathbf{R}_c \left( \theta_{c3} \right)
-        \quad \mathrm{for} a, b, c \in \left\{ x, y, z \right\}
+        \mathbf{R}_a \left( \theta_a^1 \right)
+        \mathbf{R}_b \left( \theta_b^2 \right)
+        \mathbf{R}_c \left( \theta_c^3 \right)
+        \quad \mathrm{for} \quad a, b, c \in \left\{ x, y, z \right\}
     \)
 </p>
 <hr>
