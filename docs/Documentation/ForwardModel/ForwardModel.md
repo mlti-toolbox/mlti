@@ -44,7 +44,7 @@ The sample is expected to consist of a substrate layer and a thin film layer, mo
 
 <a id="d1"></a>
 
-`fm = ForwardModel(`[`film`](#film-argument)`,`[`substrate`](#substrate-argument)`,`[`ift_solver`](#ift-solver-argument)`,`[`Name,Value`](#name-value-arguments)`)` creates a `ForwardModel` object according to user specifications. `film` and `substrate` are [`Layer`](/MLTI/Documentation/Layer) objects that specify how thermal conductivity will be represented in their respective layers. `ift_solver` is an [`Layer`](/MLTI/Documentation/IFTSolver) object with specifications for solving the inverse Fourier transform. Name-value arguments specify additional `ForwardModel` options.
+`fm = ForwardModel(`[`film`](#film-argument)`,`[`substrate`](#substrate-argument)`,`[`ift_solver`](#ift-solver-argument)`,`[`Name,Value`](#name-value-arguments)`)` creates a `ForwardModel` object according to user specifications. `film` and `substrate` are [`Layer`](/MLTI/Documentation/Layer) objects that specify how thermal conductivity will be represented in their respective layers. `ift_solver` is an [`IFTSolver`](/MLTI/Documentation/IFTSolver) object with specifications for solving the inverse Fourier transform. Name-value arguments specify additional `ForwardModel` options.
 
 ### Input Arguments
 
@@ -453,6 +453,7 @@ Argument names are *case-insensitive*, and you can use any unique leading substr
 [`integral2`](https://www.mathworks.com/help/matlab/ref/integral2.html) |
 [`ndgrid`](https://www.mathworks.com/help/matlab/ref/ndgrid.html) |
 [`validatestring`](https://www.mathworks.com/help/matlab/ref/validatestring.html)
+
 
 
 
