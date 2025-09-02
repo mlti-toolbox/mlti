@@ -242,12 +242,6 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
   </div>
 </details>
 
-<h2 id="inputStr-arguments"><code>&lt;layer.inputStr&gt;</code> Arguments</h2>
-<p>
-  The number and names of the variables represented by <code>&lt;layer.inputStr&gt;</code> are determined when the <code>layer</code> object is constructed. 
-  <code>layer.inputStr</code> is a string array and may include the following variable names:
-</p>
-
 ### Conductivity Arguments:
 <details class="custom-details" id="k-argument">
     {% include_relative _includes/inputStr-details.html key="k" types="\(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix" %}
