@@ -291,7 +291,7 @@ The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/La
 
 ## Output Arguments
 <details class="custom-details" id="kij-output-argument">
-    {% include_relative _includes/inputStr-details.html key="kij" types="\(N_T \times 1\) real vector | \(N_T \times N_\mathrm{pump}\) real matrix" %}
+    {% include_relative _includes/inputStr-details.html key="kij" types="\(N_T \times N_\mathrm{pump}\) real matrix" %}
 </details>
 
 ## Examples
