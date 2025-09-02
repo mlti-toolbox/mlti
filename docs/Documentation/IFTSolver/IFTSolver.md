@@ -12,12 +12,7 @@ permalink: /Documentation/IFTSolver
 
 ### Syntax
 <a href="#d1"><code class="hang">solver = IFTSolver(<wbr>"integral2")</code></a>
-
-<a href="#d2"><code class="hang">solver = IFTSolver(<wbr>"ifft2",<wbr>"x_max",<wbr>x_max)</code></a><br>
-<a href="#d3"><code class="hang">solver = IFTSolver(<wbr>"ifft2",<wbr>"x_max",<wbr>x_max,<wbr>"dx",<wbr>dx)</code></a><br>
-<a href="#d4"><code class="hang">solver = IFTSolver(<wbr>"ifft2",<wbr>"x_max",<wbr>x_max,<wbr>"Nx",<wbr>Nx)</code></a><br>
-<a href="#d5"><code class="hang">solver = IFTSolver(<wbr>"ifft2",<wbr>"dx",<wbr>dx)</code></a><br>
-<a href="#d6"><code class="hang">solver = IFTSolver(<wbr>"ifft2",<wbr>"dx",<wbr>dx,<wbr>"Nx",<wbr>Nx)</code></a>
+<a href="#d2"><code class="hang">solver = IFTSolver(<wbr>"ifft2",<wbr>Name,<wbr>Value)</code></a><br>
 
 ### Description
 <a id="d1"></a>
@@ -32,18 +27,7 @@ permalink: /Documentation/IFTSolver
 </p>
 <hr>
 <a id="d2"></a>
-
-<hr>
-<a id="d3"></a>
-
-<hr>
-<a id="d4"></a>
-
-<hr>
-<a id="d5"></a>
-
-<hr>
-<a id="d6"></a>
+`solver = IFTSolver(`<wbr>`"ifft2",`<wbr>[`Name,Value`](#name-value-arguments)`)` creates an `IFTSolver` object that uses MATLAB's built-in [`ifft2`](https://www.mathworks.com/help/matlab/ref/ifft2.html) method—with options specified as name-value arguments—to solve the 2-D inverse Fourier transform.
 
 ### Input Arguments
 
@@ -56,3 +40,4 @@ permalink: /Documentation/IFTSolver
 ## Examples
 
 ## See Also
+
