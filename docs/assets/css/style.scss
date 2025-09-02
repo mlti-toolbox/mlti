@@ -8,7 +8,7 @@
   --bg: #FFFFFF;
   --bg_accent_light: #F8F8F8;
   --bg_accent_bold: #D9D9D9;
-  --boarder: #CCCCCC;
+  --border: #CCCCCC;
   
   --text: #212121;
   --text_muted: #555555;
@@ -24,7 +24,7 @@
     --bg: #121212;
     --bg_accent_light: #1E1E1E;
     --bg_accent_bold: #2C2C2C;
-    --boarder: #333333;
+    --border: #333333;
     
     --text: #EAEAEA;
     --text_muted: #AAAAAA;
@@ -102,10 +102,12 @@ body {
   word-wrap: break-word;
 }
 
+b { color: var(--text); }
+
 h1, h2, h3, h4, h5, h6 { margin: 0, 0, 20px; }
 
 .docs-content h1, .docs-content h2 { 
-  border-bottom: 1px solid var(--boarder);  /* light gray line */
+  border-bottom: 1px solid var(--border);  /* light gray line */
   padding-bottom: 0.25em;        /* space between text and line */
 }
 
@@ -176,7 +178,7 @@ details.custom-details a:hover code {
 
 /* ===== Content Elements ===== */
 blockquote {
-  border-left: 1px solid var(--boarder);
+  border-left: 1px solid var(--border);
   padding-left: 20px;
   font-style: italic;
 }
@@ -189,7 +191,7 @@ pre {
   padding: 8px 15px;
   background: var(--bg_accent_light);
   border-radius: 5px;
-  border: 1px solid var(--boarder);
+  border: 1px solid var(--border);
   overflow-x: auto;
 }
 code.hang {
@@ -217,19 +219,22 @@ td:first-child {
 th, td {
   text-align: left;
   padding: 5px 10px;
-  border-bottom: 1px solid var(--boarder);
+  border-bottom: 1px solid var(--border);
 }
 th { color: var(--text); }
 dt { color: var(--text); font-weight: 700; }
 
 img { max-width: 100%; }
 
-hr { margin: -1em 0 0.5em 0; }
+hr { 
+  margin: -1em 0 0.5em 0; 
+  color: var(--border); 
+}
 
 kbd {
   background-color: var(--bg);
   border: 1px solid #c6cbd1;
-  border-bottom-color: var(--boarder);
+  border-bottom-color: var(--border);
   border-radius: 3px;
   box-shadow: inset 0 -1px 0 #959da5;
   color: var(--text);
@@ -293,7 +298,7 @@ ul.downloads {
 /* ===== Custom Details Dropdowns ===== */
 /* Container styling for details */
 details.custom-details {
-  border: 1px solid var(--boarder);
+  border: 1px solid var(--border);
   border-radius: 6px;
   margin: 0.75em 0;
   width: 100%;               /* span full width */
@@ -358,7 +363,7 @@ details.custom-details[open] summary::before {
 details.custom-details > div {
   padding: 1em;
   background: var(--bg);
-  border-top: 1px solid var(--boarder);
+  border-top: 1px solid var(--border);
   border-radius: 0 0 6px 6px;
 }
 
@@ -372,7 +377,7 @@ details.custom-details > div {
   height: 4em;
   padding: 0 20px;
   background-color: var(--bg_accent_bold);
-  border-bottom: 1px solid var(--boarder);
+  border-bottom: 1px solid var(--border);
 }
 
 .nav-logo {
@@ -426,7 +431,7 @@ details.custom-details > div {
   width: 250px;
   min-width: 250px;   /* prevents shrinking below 250px */
   flex-shrink: 0;     /* prevents flexbox from shrinking it */
-  border-right: 1px solid var(--boarder);
+  border-right: 1px solid var(--border);
   padding: 2em 20px;
   background: var(--bg_accent_light);
   height: calc(100vh - 4em);
@@ -472,7 +477,7 @@ details.custom-details > div {
     box-sizing: border-box;
     height: auto;
     border-right: none;
-    border-bottom: 1px solid var(--boarder);
+    border-bottom: 1px solid var(--border);
     position: static;
   }
   
@@ -484,7 +489,7 @@ details.custom-details > div {
     top: 60px;
     right: 20px;
     padding: 1em;
-    border: 1px solid var(--boarder);
+    border: 1px solid var(--border);
     border-radius: 6px;
   }
 
@@ -503,7 +508,7 @@ details.custom-details > div {
     top: 60px; right: 0;
     width: 200px;
     background: var(--bg_accent_light);
-    border: 1px solid var(--boarder);
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 1em;
   }
@@ -517,6 +522,7 @@ details.custom-details > div {
 @media print {
   body { padding: 0.4in; font-size: 12pt; }
 }
+
 
 
 
