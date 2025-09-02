@@ -76,7 +76,7 @@ Converts user inputs to tensor representation.
 `toTensor(`[`layer`](#layer-argument)`,`[`kp1`](#kpi-argument)`,`[`kp2`](#kpi-argument)`,`[`kp3`](#kpi-argument)`,`[`q1`](#qi-argument)`,`[`q2`](#qi-argument)`,`[`q3`](#qi-argument)`,`[`q4`](#qi-argument)`)`
 <hr>
 <a id="d9"></a>
-`toTensor(`[`layer`](#layer-argument)`,`[`kp1`](#kpi-argument)`,`[`kp2`](#kpi-argument)`,`[`kp3`](#kpi-argument)`,`[`R11`](#Rij-argument)`,`[`R21`](#Rij-argument)`,`[`R31`](#Rij-argument)`,`[`R12`](#Rij-argument)`,`[`R22`](#Rij-argument)`,`[`R32`](#Rij-argument)`,`[`R13`](#Rij-argument)`,`[`R23`](#Rij-argument)`,`[`R33`](#Rij-argument)`)`
+`toTensor(`[`layer`](#layer-argument)`,`[`kp1`](#kpi-argument)`,`[`kp2`](#kpi-argument)`,`[`kp3`](#kpi-argument)`,`[`R11`](#Rij-argument)`,`[`R21`](#Rij-argument)`,`[`R31`](#Rij-argument)`,`[`R12`](#Rij-argument)`,`[`R22`](#Rij-argument)`,`[`R32`](#Rij-argument)`,`[`R13`](#Rij-argument)`,`[`R23`](#Rij-argument)`,&#8203;`[`R33`](#Rij-argument)`)`
 <hr>
 <a id="d10"></a>
 `toTensor(`[`layer`](#layer-argument)`,`[`k11`](#kij-argument)`,`[`k21`](#kij-argument)`,`[`k31`](#kij-argument)`,`[`k22`](#kij-argument)`,`[`k32`](#kij-argument)`,`[`k33`](#kij-argument)`)`
