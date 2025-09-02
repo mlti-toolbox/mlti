@@ -9,8 +9,7 @@ permalink: /Documentation/Layer/toTensor
 Converts user inputs to tensor representation.
 
 ## Syntax
-The appropriate syntax to use depends on `layer.isotropy` and `layer.orient`. `layer.inputStr` specifies which base syntax to use.  For eaxmple, if <code>layer.inputStr == <wbr>["k⊥",<wbr>"k∥",<wbr>"θ_az",<wbr>"θ_pol"]</code>, then the user should call:<br>
-<code class="hang">toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol)</code><br>
+The appropriate syntax to use depends on the [`isotropy`](/MLTI/Documentation/Layer#isotropy-argument) and [`orient`](/MLTI/Documentation/Layer#orient-argument) [`Layer`](/MLTI/Documentation/Layer) properties. The [`inputStr`](/MLTI/Documentation/Layer#inputStr-property) [`Layer`](/MLTI/Documentation/Layer) property specifies which base syntax to use.  For eaxmple, if <code>layer.inputStr == <wbr>["k⊥",<wbr>"k∥",<wbr>"θ_az",<wbr>"θ_pol"]</code>, then the user should call <code>toTensor(<wbr>layer,<wbr>k⊥,<wbr>k∥,<wbr>θ_az,<wbr>θ_pol)</code><br>
 
 **Available syntaxes:**
 
@@ -58,7 +57,14 @@ The appropriate syntax to use depends on `layer.isotropy` and `layer.orient`. `l
 ## Description
 <a id="d1"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k`](#k-argument)`)`
-\[K=\begin{bmatrix}k & 0 & 0 \\ 0 & k & 0 \\ 0 & 0 & k \end{bmatrix}\]
+<p>
+    \(K=
+    \begin{bmatrix}
+        k & 0 & 0 \\ 
+        0 & k & 0 \\ 
+        0 & 0 & k 
+    \end{bmatrix}\)
+</p>
 <hr>
 <a id="d2"></a>
 `toTensor(`<wbr>[`layer`](#layer-argument)`,`<wbr>[`k⊥`](#k_perp-argument)`,`<wbr>[`k∥`](#k_par-argument)`,`<wbr>[`θ_az`](#az-argument)`,`<wbr>[`θ_pol`](#pol-argument)`)`
