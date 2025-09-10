@@ -198,6 +198,15 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 
 ### Examples
 
+<details class="custom-details" id="inputStr-property">
+    <summary>
+        <span class="summary-text">
+            <b>Constructing a Uniaxially Symmetric Thermal Conductivity Tensor</b>
+        </span>
+    </summary>
+    {% include "examples/UniaxialLayerCreation.html" %}
+</details>
+
 ## Properties
 `Layer` properties include validated constructor input arguments as well as the following:
 
