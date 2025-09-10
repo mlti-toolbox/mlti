@@ -1,10 +1,11 @@
 classdef IFTSolver
-    properties
+    properties (SetAccess = private)
         method
         x (:,1) double {mustBeReal}
         y (:,1) double {mustBeReal}
-        u (:,1) double {mustBeReal}
+        u (1,:) double {mustBeReal}
         v (:,1) double {mustBeReal}
+        solve (1,1) function_handle = @(x) x;
     end
     methods
         function solver = IFTSolver(method, options)
@@ -30,17 +31,21 @@ classdef IFTSolver
                 options.Nx    (1,2) double {mustBeInteger, mustBeNonnegative, IFTSolver.need_opts(method, options.Nx)}    = 0;
             end
             solver.method = method;
-            [solver.x,solver.u] = IFTSolver.buildXU(options.x_max(1), options.dx(1), options.Nx(1));
-            [solver.y,solver.v] = IFTSolver.buildXU(options.x_max(2), options.dx(2), options.Nx(2));
-            
+            if method == IFTEnum.ifft2
+                [solver.x,solver.u] = IFTSolver.buildXU(options.x_max(1), options.dx(1), options.Nx(1));
+                [solver.y,solver.v] = IFTSolver.buildXU(options.x_max(2), options.dx(2), options.Nx(2));
+            end
+            disp("end")
         end
         function disp(solver)
             fprintf('<a href = "https://k-joshua-kelley.github.io/MLTI/IFTSolver">IFTSolver</a> with properties:\n\n');
             fprintf("  method = '%s'\n", string(solver.method));
-            fprintf("  x %s\n", IFTSolver.vector_display(solver.x));
-            fprintf("  y %s\n", IFTSolver.vector_display(solver.y));
-            fprintf("  u %s\n", IFTSolver.vector_display(solver.u));
-            fprintf("  v %s\n\n", IFTSolver.vector_display(solver.v));
+            if solver.method == IFTEnum.ifft2
+                fprintf("  x %s\n", IFTSolver.vector_display(solver.x));
+                fprintf("  y %s\n", IFTSolver.vector_display(solver.y));
+                fprintf("  u %s\n", IFTSolver.vector_display(solver.u));
+                fprintf("  v %s\n\n", IFTSolver.vector_display(solver.v));
+            end
         end
     end
     methods (Static, Access = private)

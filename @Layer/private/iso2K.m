@@ -3,7 +3,6 @@ arguments
     kiso (:,:) double
     exp_if_log (1,1) function_handle = @(x) x;
 end
-nargin
 
 kiso = exp_if_log(kiso);
 z = zeros(size(kiso));

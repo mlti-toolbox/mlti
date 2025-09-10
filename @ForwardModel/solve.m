@@ -1,36 +1,34 @@
-function [phi, A, DC] = solve(fm, M, O, chi, f0, X_probe)
-% M N_T-by-N_pump-by-Nm
-% O N_pump-by-No
-% chi 1-by-N_chi
-% f0 Nf-by-1
-% SOLVE Summary of this function goes here
-%   Detailed explanation goes here
-% m = [k-vars, o-vars, C, a, R, h]
-length_kof = fm.c_args.film_isotropy.Nk + fm.c_args.film_orient.No;
-kof2Kf = fm.c_args.film_isotropy.ko2K(fm.c_args.film_orient);
-[Kf{1:6}] = kof2Kf(varargin{1:length_kof});
-if fm.c_args.phase_only
-    film_cell = {Kf{:}, varargin{length_kof+1:length_kof+3}}
-    length_R = 0;
-else
-    length_R = 1;
-end
+function [phi, A] = solve(fm, film_args, sub_args, Rth, ex_args, f0, X_probe)
+    [kf{1:6}] = fm.film.toTensor(film_args{1:length(fm.film.inputStr)}, fm.exp_if_log);
+    Cf = fm.exp_if_log(film_args{length(fm.film.inputStr)+1});
+    af = fm.exp_if_log(film_args{length(fm.film.inputStr)+2});
+    Rf = fm.getRf(film_args);
+    hf = fm.exp_if_log(film_args{end});
 
-length_film = length_kof + length_R + 3;
+    [ks{1:6}] = fm.substrate.toTensor(sub_args{1:length(fm.substrate.inputStr)}, fm.exp_if_log);
+    Cs = fm.exp_if_log(sub_args{length(fm.film.inputStr)+1});
+    as = fm.exp_if_log(sub_args{length(fm.film.inputStr)+2});
+    Rs = fm.getRs(sub_args);
+    % if fm.inf_sub_thick
+    %     hs = {};
+    % else
+    %     hs = fm.exp_if_log(sub_args{end});
+    % end
+    hs = {};
 
+    Rth = fm.exp_if_log(Rth);
 
+    sx = fm.exp_if_log(ex_args{1});
+    sy = fm.exp_if_log(ex_args{2});
+    P  = fm.getP(ex_args);
 
-film_cell = 
-length_kos = fm.c_args.sub_isotropy.Nk + fm.c_args.sub_orient.No;
+    T0_hat = fm.T0_hat(kf{:},Cf,af,Rf,hf,ks{:},Cs,as,Rs,hs{:},Rth,sx,sy,P,f0,fm.ift_solver.u,fm.ift_solver.v);
+    % T0 = fm.ift_sover.solve(T0_hat);
+    T0 = ifftshift(ifft2(fftshift(T0_hat))) / (fm.ift_solver.x(2)-fm.ift_solver.x(1)) / (fm.ift_solver.y(2)-fm.ift_solver.y(1));  % Perform the inverse FFT
+    phi = angle(T0);  % Convert temperature data to phase lag
+    A = 2*abs(T0);
 
-kos2Ks = fm.c_args.sub_isotropy.ko2K(fm.c_args.sub_orient);
-[Ks{1:6}] = kos2Ks(varargin{length_film+1:length_film+length_kos});
-
-if fm.c_args.inf_sub_thick, length_hs = 0;
-else, length_hs = 1; end
-assert(isequal(length(varargin), length_kof + length_kos + 3 * length_R + length_hs + 10));
-
-phi = NaN;
-A = NaN;
-DC = NaN;
+    if nargin > 6
+        % interpolate with X_probe
+    end
 end

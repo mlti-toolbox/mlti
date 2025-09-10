@@ -9,4 +9,8 @@ end
 
 z = zeros(size(t_az));
 
-[K11, K21, K31, K22, K32, K33] = kpEuler2K(k_perp, k_perp, k_par, t_az, t_pol, z, SeqEnum.ZYZ, exp_if_log);
+R = angle2dcm(t_az, t_pol, z, "ZYZ");  % 3-by-3-by-N
+R = pagetranspose(R);  % Because quat2dcm returns rotation for row vectors.
+R = num2cell(R, 3);
+
+[K11, K21, K31, K22, K32, K33] = kpR2K(k_perp, k_perp, k_par, R{:}, exp_if_log);
