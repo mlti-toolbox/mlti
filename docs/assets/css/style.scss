@@ -367,6 +367,7 @@ details.custom-details[open] summary::before {
 }
 
 /* Content inside details */
+details.custom-details,
 details.custom-details > div {
   padding: 1em;
   background: var(--bg);
@@ -530,6 +531,7 @@ details.custom-details > div {
   body { padding: 0.4in; font-size: 12pt; }
   details { display: block; }
 }
+
 
 
 
