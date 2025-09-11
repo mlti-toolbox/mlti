@@ -23,9 +23,9 @@ layer =
 ```
 
 
-Here, the `inputStr` property tells us that the function toTensor will require 4 arguments: `k⊥`, `k∥`, `θ_az`, and `θ_pol`.
+Here, the `inputStr` property tells us that the function `toTensor` will require four arguments: `k⊥`, `k∥`, `θ_az`, and `θ_pol`.
 
-### Conversion to tensor w/ axis aligned with the z\-axis:
+### Conversion to Tensor with Axis Aligned with the z\-axis:
 ```matlab
 k_perp = 20; % Transverse conductivity
 k_par  = 50; % Axial conductivity
@@ -48,7 +48,6 @@ K = 3x3
      0     0    50
 
 ```
-
 
 
 Since the symmetry axis aligns with the z\-axis, the tensor reduces to a diagonal form:
@@ -82,7 +81,7 @@ K = 3x3
 
 ```
 
-### Conversion to tensor w/ axis oriented arbitrarily:
+### Conversion to Tensor w/ Axis Oriented Arbitrarily:
 ```matlab
 az  = deg2rad(30); % Azimuthal Angle
 pol = deg2rad(45); % Polar Angle

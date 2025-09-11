@@ -3,11 +3,11 @@ function [K11, K21, K31, K22, K32, K33] = univ2K(k_perp, k_par, v1, v2, v3, exp_
 % v1, v2, v3 (N_pump-by-1) -> (1-by-N_pump)
 % k11, k21, k31, k22, k32, k33 (NT-by-N_pump)
 arguments
-    k_perp (:,:) double
-    k_par (:,:) double
-    v1 (1,:) double
-    v2 (1,:) double
-    v3 (1,:) double
+    k_perp (:,1) double
+    k_par  (:,1) double
+    v1     (1,:) double
+    v2     (1,:) double
+    v3     (1,:) double
     exp_if_log (1,1) function_handle = @(x) x;
 end
 

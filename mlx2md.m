@@ -25,5 +25,3 @@ for k = 1:length(mlxFiles)
     
     fprintf('Converted %s -> %s\n', mlxFile, mdFile);
 end
-
-!git add docs\_includes\examples\
