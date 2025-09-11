@@ -240,10 +240,9 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
       <b>Constructing a Uniaxially Symmetric Thermal Conductivity Tensor</b>
     </span>
   </summary>
-
-  <div class="md-ex-include">
-    {% include examples/UniaxialLayerCreation.md %}
-  </div>
+  
+  {% include examples/UniaxialLayerCreation.md %}
+  
 </details>
 
 ## See Also
