@@ -54,54 +54,54 @@
   }
 }
 
-.highlight,
-.highlight * {
-  background-color: var(--bg_accent_light);
-  color: var(--text);
-}
+// .highlight,
+// .highlight * {
+//   background-color: var(--bg_accent_light);
+//   color: var(--text);
+// }
 
-.highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
+// .highlight table td { padding: 5px; }
+// .highlight table pre { margin: 0; }
 
-/* Keywords */
-.highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kd {
-  color: var(--code_keywords);
-}
+// /* Keywords */
+// .highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kd {
+//   color: var(--code_keywords);
+// }
 
-/* Strings */
-.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .s1 {
-  color: var(--code_strings);
-}
+// /* Strings */
+// .highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .s1 {
+//   color: var(--code_strings);
+// }
 
-/* System commands */
-.highlight .nb {
-  color: var(--code_system_commands);
-}
+// /* System commands */
+// .highlight .nb {
+//   color: var(--code_system_commands);
+// }
 
-/* Comments */
-.highlight .cm, .highlight .c1, .highlight .c, .highlight .cd {
-  color: var(--code_comments);
-}
+// /* Comments */
+// .highlight .cm, .highlight .c1, .highlight .c, .highlight .cd {
+//   color: var(--code_comments);
+// }
 
-/* Validation sections */
-.highlight .validation {
-  color: var(--code_validation_sections);
-}
+// /* Validation sections */
+// .highlight .validation {
+//   color: var(--code_validation_sections);
+// }
 
-/* Unterminated strings */
-.highlight .us {
-  color: var(--code_unterminated_strings);
-}
+// /* Unterminated strings */
+// .highlight .us {
+//   color: var(--code_unterminated_strings);
+// }
 
-/* Errors */
-.highlight .err {
-  color: var(--code_errors);
-}
+// /* Errors */
+// .highlight .err {
+//   color: var(--code_errors);
+// }
 
-/* Warnings */
-.highlight .w, .highlight .warning {
-  color: var(--code_warnings);
-}
+// /* Warnings */
+// .highlight .w, .highlight .warning {
+//   color: var(--code_warnings);
+// }
 
 code, pre {
   font-family: Monaco, Consolas, "Courier New", monospace;
@@ -544,6 +544,7 @@ details.custom-details > div {
   body { padding: 0.4in; font-size: 12pt; }
   details { display: block; }
 }
+
 
 
 
