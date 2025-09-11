@@ -3,7 +3,7 @@
 
 Suppose we have a uniaxially thermally symmetric layer, characterized by:
 
--  Transverse conductivity (`k⊥`�): conductivity in the plane orthogonal to the axis of symmetry. 
+-  Transverse conductivity (`k⊥`): conductivity in the plane orthogonal to the axis of symmetry. 
 -  Axial conductivity (`k∥`): conductivity along the axis of symmetry. 
 
 To orient the axis of symmetry in 3D space, we use azimuthal (`θ_az`) and polar (`θ_pol`) angles.
@@ -50,11 +50,11 @@ K = 3x3
 ```
 
 
-Since the symmetry axis aligns with the z\-axis, the tensor reduces to a diagonal form:�
+Since the symmetry axis aligns with the z\-axis, the tensor reduces to a diagonal form:
 
 -  `Kxx = K(1,1) = k⊥` 
 -  `Kyy = K(2,2) = k⊥` 
--  `Kzz = K(3,3) = k∥`� 
+-  `Kzz = K(3,3) = k∥` 
 
 This matches intuition: axial conductivity in the z\-direction, transverse conductivity in x– and y\-directions.
 
