@@ -28,18 +28,13 @@
   --code_errors: #e11b14;
   --code_warnings: #b36205;
   --code_numbers: #e96916;
-  --code_operators: #005cc5;
-  --code_punctuation: #666666;
   --code_builtin_name: #035c7a;
   --code_builtin_property: #ab7a00;
-  --code_identifier: #005587;
   --code_namespace: #c18401;
   --code_tag: #22863a;
-  --code_variable: #cf7e00;
   --code_function: #6f42c1;
   --code_class_var: #d73a49;
   --code_global_var: #e36209;
-  --code_instance_var: #005cc5;
 
   /* Mission colors */
   --mission-primary: #0057b7;
@@ -72,19 +67,14 @@
     --code_errors: #ff7a74;
     --code_warnings: #fe9043;
     --code_numbers: #ffb86c;
-    --code_operators: #7ec3e6;
-    --code_punctuation: #c0c0c0;
     --code_builtin_name: #34aadc;
     --code_builtin_property: #ffe066;
-    --code_identifier: #7ec3e6;
     --code_namespace: #e1aa4b;
     --code_tag: #6ecf68;
-    --code_variable: #f3d99b;
     --code_function: #d3aaff;
     --code_class_var: #ffb6b6;
     --code_global_var: #ffbf6e;
-    --code_instance_var: #7ec3e6;
-
+     
     /* Mission colors */
     --mission-primary: #00cfff;
     --mission-secondary: #ffd700;
@@ -171,12 +161,12 @@
 
 /* Operators */
 .highlight .o {
-  color: var(--code_operators) !important;
+  color: var(--text) !important;
 }
 
 /* Punctuation */
 .highlight .p {
-  color: var(--code_punctuation) !important;
+  color: var(--text) !important;
 }
 
 /* Errors & Illegal tokens */
@@ -197,7 +187,7 @@
 
 /* Identifiers */
 .highlight .n {
-  color: var(--code_identifier) !important;
+  color: var(--text) !important;
 }
 
 /* Namespaces */
@@ -212,7 +202,7 @@
 
 /* Variables */
 .highlight .nv {
-  color: var(--code_variable) !important;
+  color: var(--text) !important;
 }
 
 /* Functions/methods */
@@ -233,7 +223,7 @@
 
 /* Instance variables */
 .highlight .vi {
-  color: var(--code_instance_var) !important;
+  color: var(--text) !important;
 }
 
 /* Line Number Styling */
@@ -692,6 +682,7 @@ details.custom-details > div {
   body { padding: 0.4in; font-size: 12pt; }
   details { display: block; }
 }
+
 
 
 
