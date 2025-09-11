@@ -234,7 +234,7 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
 
 ## Examples
 
-<details class="custom-details" id="inputStr-property">
+<details class="custom-details" id="UniaxialLayerCreation">
   <summary>
     <span class="summary-text">
       <b>Constructing a Uniaxially Symmetric Thermal Conductivity Tensor</b>
@@ -242,6 +242,28 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
   </summary>
   <div>
     {% include md-include.html file="examples/UniaxialLayerCreation.md" %}
+  </div>
+</details>
+
+<details class="custom-details" id="PrincipalLayerCreation">
+  <summary>
+    <span class="summary-text">
+      <b>Constructing the Tensor from Principal Conductivities and Euler Angles</b>
+    </span>
+  </summary>
+  <div>
+    {% include md-include.html file="examples/PrincipalLayerCreation.md" %}
+  </div>
+</details>
+
+<details class="custom-details" id="variableTempAndOrient">
+  <summary>
+    <span class="summary-text">
+      <b>Constructing Multiple Tensors w.r.t. Temperature and Orientation</b>
+    </span>
+  </summary>
+  <div>
+    {% include md-include.html file="examples/variableTempAndOrient.md" %}
   </div>
 </details>
 
