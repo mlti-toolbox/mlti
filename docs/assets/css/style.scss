@@ -3,57 +3,98 @@
 
 @import "{{ site.theme }}";
 
-/* —— CSS Variables —— */
-:root{
+/* ===========================
+   -- CSS Variables --
+   =========================== */
+:root {
   --bg: #FFFFFF;
   --bg_accent_light: #F8F8F8;
   --bg_accent_bold: #D9D9D9;
   --border: #CCCCCC;
-  
+
   --text: #212121;
   --text_muted: #555555;
-  
+
   --link: #0366d6;
   --link_hover: #005a99;
 
+  /* Syntax Highlighting */
   --code_keywords: #0e00ff;
   --code_strings: #a709f5;
   --code_system_commands: #8b6606;
   --code_validation_sections: #a0522d;
   --code_comments: #008013;
   --code_unterminated_strings: #902622;
-  
   --code_errors: #e11b14;
   --code_warnings: #b36205;
-  
+  --code_numbers: #e96916;
+  --code_operators: #005cc5;
+  --code_punctuation: #666666;
+  --code_builtin_name: #035c7a;
+  --code_builtin_property: #ab7a00;
+  --code_identifier: #005587;
+  --code_namespace: #c18401;
+  --code_tag: #22863a;
+  --code_variable: #cf7e00;
+  --code_function: #6f42c1;
+  --code_class_var: #d73a49;
+  --code_global_var: #e36209;
+  --code_instance_var: #005cc5;
+
+  /* Mission colors */
+  --mission-primary: #0057b7;
+  --mission-secondary: #ffb400;
+  --mission-accent: #d7263d;
+
   --blue: #4682B4;
   --red: #FF3131;
 }
 @media (prefers-color-scheme: dark) {
-  :root{
+  :root {
     --bg: #121212;
     --bg_accent_light: #1E1E1E;
     --bg_accent_bold: #2C2C2C;
     --border: #333333;
-    
+
     --text: #F0F6FC;
     --text_muted: #9198A1;
-    
+
     --link: #4EA3F1;
     --link_hover: #70B7F9;
 
+    /* Syntax Highlighting */
     --code_keywords: #7da9ff;
     --code_strings: #d694ff;
     --code_system_commands: #ffd60a;
     --code_validation_sections: #cb845d;
     --code_comments: #94ef84;
     --code_unterminated_strings: #ff9d9a;
-    
     --code_errors: #ff7a74;
     --code_warnings: #fe9043;
+    --code_numbers: #ffb86c;
+    --code_operators: #7ec3e6;
+    --code_punctuation: #c0c0c0;
+    --code_builtin_name: #34aadc;
+    --code_builtin_property: #ffe066;
+    --code_identifier: #7ec3e6;
+    --code_namespace: #e1aa4b;
+    --code_tag: #6ecf68;
+    --code_variable: #f3d99b;
+    --code_function: #d3aaff;
+    --code_class_var: #ffb6b6;
+    --code_global_var: #ffbf6e;
+    --code_instance_var: #7ec3e6;
+
+    /* Mission colors */
+    --mission-primary: #00cfff;
+    --mission-secondary: #ffd700;
+    --mission-accent: #ff4c6a;
   }
 }
 
+/* ===========================
+   -- Base Highlight Styling --
+   =========================== */
 .highlight,
 .highlight pre,
 .highlight code,
@@ -85,48 +126,130 @@
   text-decoration: none;
 }
 
-.highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
+/* ===========================
+   -- Token-specific Colors --
+   =========================== */
 
 /* Keywords */
-.highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt {
-  color: var(--code_keywords);
+.highlight .k, .highlight .kc, .highlight .kd,
+.highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt {
+  color: var(--code_keywords) !important;
 }
 
 /* Strings */
-.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .s1 {
-  color: var(--code_strings);
+.highlight .s, .highlight .sb, .highlight .sc,
+.highlight .sd, .highlight .s2, .highlight .se,
+.highlight .sh, .highlight .si, .highlight .sx, .highlight .s1 {
+  color: var(--code_strings) !important;
 }
 
-/* System commands */
+/* System commands (built-in names) */
 .highlight .nb {
-  color: var(--code_system_commands);
-}
-
-/* Comments */
-.highlight .c, .highlight .cm, .highlight .c1, .highlight .cd {
-  color: var(--code_comments);
+  color: var(--code_system_commands) !important;
 }
 
 /* Validation sections */
 .highlight .validation {
-  color: var(--code_validation_sections);
+  color: var(--code_validation_sections) !important;
+}
+
+/* Comments */
+.highlight .c, .highlight .cm, .highlight .c1, .highlight .cd {
+  color: var(--code_comments) !important;
+  font-style: italic;
 }
 
 /* Unterminated strings */
 .highlight .us {
-  color: var(--code_unterminated_strings);
+  color: var(--code_unterminated_strings) !important;
 }
 
-/* Errors */
-.highlight .err .highlight .il{
-  color: var(--code_errors);
+/* Numbers */
+.highlight .m, .highlight .mi, .highlight .mf {
+  color: var(--code_numbers) !important;
+}
+
+/* Operators */
+.highlight .o {
+  color: var(--code_operators) !important;
+}
+
+/* Punctuation */
+.highlight .p {
+  color: var(--code_punctuation) !important;
+}
+
+/* Errors & Illegal tokens */
+.highlight .err, .highlight .il {
+  color: var(--code_errors) !important;
+  text-decoration: underline wavy;
 }
 
 /* Warnings */
 .highlight .w, .highlight .warning {
-  color: var(--code_warnings);
+  color: var(--code_warnings) !important;
 }
+
+/* Built-in property */
+.highlight .bp {
+  color: var(--code_builtin_property) !important;
+}
+
+/* Identifiers */
+.highlight .n {
+  color: var(--code_identifier) !important;
+}
+
+/* Namespaces */
+.highlight .nn {
+  color: var(--code_namespace) !important;
+}
+
+/* Tags */
+.highlight .nt {
+  color: var(--code_tag) !important;
+}
+
+/* Variables */
+.highlight .nv {
+  color: var(--code_variable) !important;
+}
+
+/* Functions/methods */
+.highlight .fm {
+  color: var(--code_function) !important;
+  font-weight: bold;
+}
+
+/* Class variables */
+.highlight .vc {
+  color: var(--code_class_var) !important;
+}
+
+/* Global variables */
+.highlight .vg {
+  color: var(--code_global_var) !important;
+}
+
+/* Instance variables */
+.highlight .vi {
+  color: var(--code_instance_var) !important;
+}
+
+/* Line Number Styling */
+.highlight .lineno, .highlight .gutter, .highlight .code {
+  color: var(--text_muted) !important;
+  background: none !important;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+/* ===========================
+   -- Miscellaneous Styling --
+   =========================== */
+.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
 
 code, pre {
   font-family: Monaco, Consolas, "Courier New", monospace;
@@ -569,6 +692,7 @@ details.custom-details > div {
   body { padding: 0.4in; font-size: 12pt; }
   details { display: block; }
 }
+
 
 
 
