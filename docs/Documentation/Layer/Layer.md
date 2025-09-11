@@ -241,7 +241,9 @@ The `Layer` class defines the thermal conductivity of a material layer—whether
     </span>
   </summary>
 
-  {% include examples/UniaxialLayerCreation.md %}
+  <div class="md-ex-include">
+    {% include examples/UniaxialLayerCreation.md %}
+  </div>
 </details>
 
 ## See Also
