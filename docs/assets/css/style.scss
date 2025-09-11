@@ -34,11 +34,6 @@
   }
 }
 
-.md-ex-include {
-  margin-left: 2em;   /* adjust as needed */
-  margin-right: 2em;  /* adjust as needed */
-}
-
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 
@@ -367,7 +362,6 @@ details.custom-details[open] summary::before {
 }
 
 /* Content inside details */
-details.custom-details,
 details.custom-details > div {
   padding: 1em;
   background: var(--bg);
@@ -531,6 +525,7 @@ details.custom-details > div {
   body { padding: 0.4in; font-size: 12pt; }
   details { display: block; }
 }
+
 
 
 
