@@ -15,6 +15,16 @@
   
   --link: #0366d6;
   --link_hover: #005a99;
+
+  --code_keywords: #0e00ff;
+  --code_strings: #a709f5;
+  --code_system_commands: #8b6606;
+  --code_validation_sections: #a0522d;
+  --code_comments: #008013;
+  --code_unterminated_strings: #902622;
+  
+  --code_error: #e11b14;
+  --code_warning: #b36205;
   
   --blue: #4682B4;
   --red: #FF3131;
@@ -31,64 +41,123 @@
     
     --link: #4EA3F1;
     --link_hover: #70B7F9;
+
+    --code_keywords: #7da9ff;
+    --code_strings: #d694ff;
+    --code_system_commands: #ffd60a;
+    --code_validation_sections: #cb845d;
+    --code_comments: #94ef84;
+    --code_unterminated_strings: #ff9d9a;
+    
+    --code_error: #ff7a74;
+    --code_warning: #fe9043;
   }
 }
 
+/* ----------------------------
+   Common Base Styling
+   ---------------------------- */
+
+/* Table styling inside code blocks */
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 
-.highlight .nb {
-  color: #333333;
+/* Base code block background and text */
+.highlight,
+.highlight.matlab,
+.highlight.matlabTextOutput,
+pre code {
+  background-color: var(--bg_accent_light);
+  color: var(--text); /* default color for anything not explicitly set */
+  border: 1px solid var(--border);
+  padding: 1em;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.95em;
+  line-height: 1.5;
 }
+
+/* ----------------------------
+   MATLAB Code (`matlab`)
+   ---------------------------- */
+
 /* Comments */
-.highlight .cm, .highlight .c1, .highlight .c, .highlight .cd {
-  color: #008000;  /* green */
+.highlight.matlab .cm, .highlight.matlab .c1, .highlight.matlab .c, .highlight.matlab .cd {
+  color: var(--code_comments);
   font-style: italic;
 }
 
 /* Keywords */
-.highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kd {
-  color: #0000FF;  /* blue */
+.highlight.matlab .k, .highlight.matlab .kc, .highlight.matlab .kd, .highlight.matlab .kn, 
+.highlight.matlab .kp, .highlight.matlab .kr, .highlight.matlab .kt {
+  color: var(--code_keywords);
   font-weight: bold;
 }
 
 /* Strings */
-.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .s1 {
-  color: #A2142F;  /* MATLAB dark red */
+.highlight.matlab .s, .highlight.matlab .sb, .highlight.matlab .sc, .highlight.matlab .sd, 
+.highlight.matlab .s2, .highlight.matlab .se, .highlight.matlab .sh, .highlight.matlab .si, 
+.highlight.matlab .sx, .highlight.matlab .s1 {
+  color: var(--code_strings);
 }
 
-/* Numbers */
-.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .mb, .highlight .mx, .highlight .il {
-  color: #008080;  /* teal / cyan */
+/* Errors / Syntax Errors */
+.highlight.matlab .err {
+  color: var(--code_error);
 }
 
-/* Functions */
-.highlight .nf, .highlight .nl, .highlight .nd {
-  color: #000000;
-  font-weight: bold;
+/* Unterminated strings */
+.highlight.matlab .us {
+  color: var(--code_unterminated_strings);
 }
 
-/* Operators */
-.highlight .o, .highlight .ow {
-  color: #000000;
-  font-weight: bold;
+/* Warnings */
+.highlight.matlab .w, .highlight.matlab .warning {
+  color: var(--code_warning);
 }
 
-/* Built-ins / Classes / Types */
-.highlight .nc, .highlight .no, .highlight .nd, .highlight .ni {
-  color: #000000; /* slightly lighter blue */
-  font-weight: bold;
+/* System commands (lines starting with !) */
+.highlight.matlab .nb {
+  color: var(--code_system_commands);
 }
 
-/* Errors */
-.highlight .err {
-  color: #a61717;
-  background-color: #e3d2d2;
+/* Validation sections (arguments / property rules) */
+.highlight.matlab .validation {
+  color: var(--code_validation_sections);
 }
 
-/* Background */
-.highlight {
-  background-color: #f8f8f8;
+/* Anything else defaults to --text */
+.highlight.matlab * {
+  color: inherit;
+}
+
+/* ----------------------------
+   MATLAB Text Output (`matlabTextOutput`)
+   ---------------------------- */
+
+/* Use same colors as MATLAB input */
+.highlight.matlabTextOutput,
+.highlight.matlabTextOutput * {
+  background-color: var(--bg_accent_light);
+  color: var(--text);
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+/* Optionally highlight numbers or errors in output */
+.highlight.matlabTextOutput .m { color: var(--code_system_commands); }
+.highlight.matlabTextOutput .err { color: var(--code_error); }
+
+/* ----------------------------
+   Pre/code blocks outside fenced code
+   ---------------------------- */
+
+/* Make all <pre><code> look like matlab blocks */
+pre code {
+  background-color: var(--bg_accent_light);
+  color: var(--text);
 }
 
 /* ===== Base Typography & Body ===== */
@@ -183,17 +252,6 @@ blockquote {
   font-style: italic;
 }
 
-code, pre {
-  font-family: Monaco, Consolas, "Courier New", monospace;
-  color: var(--text);
-}
-pre {
-  padding: 8px 15px;
-  background: var(--bg_accent_light);
-  border-radius: 5px;
-  border: 1px solid var(--border);
-  overflow-x: auto;
-}
 code.hang {
   display: inline-block; /* or inline-block */
   white-space: pre-wrap; /* preserve spaces, allow wrapping */
@@ -530,6 +588,7 @@ details.custom-details > div {
   body { padding: 0.4in; font-size: 12pt; }
   details { display: block; }
 }
+
 
 
 
