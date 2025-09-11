@@ -54,51 +54,73 @@
   }
 }
 
-/* ----------------------------
-   Common Base Styling
-   ---------------------------- */
+/* ---------------------------------------------------
+   Reset table borders inside Rouge-highlighted blocks
+   --------------------------------------------------- */
+.highlight table,
+.highlight tr,
+.highlight td {
+  border: none !important;
+  background: none;
+}
 
-/* Table styling inside code blocks */
-.highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
-
-/* Base code block background and text */
+/* ---------------------------------------------------
+   Only outer code block gets the border
+   --------------------------------------------------- */
 .highlight,
 .highlight.matlab,
-.highlight.matlabTextOutput,
-pre code {
+.highlight.matlabTextOutput {
   background-color: var(--bg_accent_light);
-  color: var(--text); /* default color for anything not explicitly set */
+  color: var(--text);
   border: 1px solid var(--border);
-  padding: 1em;
   border-radius: 5px;
+  padding: 1em;
   overflow-x: auto;
   font-family: 'Fira Code', 'Courier New', monospace;
   font-size: 0.95em;
   line-height: 1.5;
 }
 
-/* ----------------------------
-   MATLAB Code (`matlab`)
-   ---------------------------- */
+/* Reset inner table padding/margin for neatness */
+.highlight table td { padding: 0 0.5em; }
+.highlight table pre { margin: 0; background: none; }
+
+/* ---------------------------------------------------
+   MATLAB Syntax Highlighting
+   --------------------------------------------------- */
 
 /* Comments */
-.highlight.matlab .cm, .highlight.matlab .c1, .highlight.matlab .c, .highlight.matlab .cd {
+.highlight.matlab .cm,
+.highlight.matlab .c1,
+.highlight.matlab .c,
+.highlight.matlab .cd {
   color: var(--code_comments);
   font-style: italic;
 }
 
 /* Keywords */
-.highlight.matlab .k, .highlight.matlab .kc, .highlight.matlab .kd, .highlight.matlab .kn, 
-.highlight.matlab .kp, .highlight.matlab .kr, .highlight.matlab .kt {
+.highlight.matlab .k,
+.highlight.matlab .kc,
+.highlight.matlab .kd,
+.highlight.matlab .kn,
+.highlight.matlab .kp,
+.highlight.matlab .kr,
+.highlight.matlab .kt {
   color: var(--code_keywords);
   font-weight: bold;
 }
 
 /* Strings */
-.highlight.matlab .s, .highlight.matlab .sb, .highlight.matlab .sc, .highlight.matlab .sd, 
-.highlight.matlab .s2, .highlight.matlab .se, .highlight.matlab .sh, .highlight.matlab .si, 
-.highlight.matlab .sx, .highlight.matlab .s1 {
+.highlight.matlab .s,
+.highlight.matlab .sb,
+.highlight.matlab .sc,
+.highlight.matlab .sd,
+.highlight.matlab .s2,
+.highlight.matlab .se,
+.highlight.matlab .sh,
+.highlight.matlab .si,
+.highlight.matlab .sx,
+.highlight.matlab .s1 {
   color: var(--code_strings);
 }
 
@@ -113,30 +135,24 @@ pre code {
 }
 
 /* Warnings */
-.highlight.matlab .w, .highlight.matlab .warning {
+.highlight.matlab .w,
+.highlight.matlab .warning {
   color: var(--code_warning);
 }
 
-/* System commands (lines starting with !) */
+/* System commands */
 .highlight.matlab .nb {
   color: var(--code_system_commands);
 }
 
-/* Validation sections (arguments / property rules) */
+/* Validation sections */
 .highlight.matlab .validation {
   color: var(--code_validation_sections);
 }
 
-/* Anything else defaults to --text */
-.highlight.matlab * {
-  color: inherit;
-}
-
-/* ----------------------------
-   MATLAB Text Output (`matlabTextOutput`)
-   ---------------------------- */
-
-/* Use same colors as MATLAB input */
+/* ---------------------------------------------------
+   MATLAB Text Output Styling
+   --------------------------------------------------- */
 .highlight.matlabTextOutput,
 .highlight.matlabTextOutput * {
   background-color: var(--bg_accent_light);
@@ -150,14 +166,17 @@ pre code {
 .highlight.matlabTextOutput .m { color: var(--code_system_commands); }
 .highlight.matlabTextOutput .err { color: var(--code_error); }
 
-/* ----------------------------
+/* ---------------------------------------------------
    Pre/code blocks outside fenced code
-   ---------------------------- */
-
-/* Make all <pre><code> look like matlab blocks */
+   --------------------------------------------------- */
 pre code {
   background-color: var(--bg_accent_light);
   color: var(--text);
+  border-radius: 5px;
+  padding: 1em;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.95em;
+  line-height: 1.5;
 }
 
 /* ===== Base Typography & Body ===== */
@@ -588,6 +607,7 @@ details.custom-details > div {
   body { padding: 0.4in; font-size: 12pt; }
   details { display: block; }
 }
+
 
 
 
