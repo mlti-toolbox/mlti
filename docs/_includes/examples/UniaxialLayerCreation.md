@@ -27,11 +27,11 @@ Here, the `inputStr` property tells us that the function toTensor will require 4
 
 ### Conversion to tensor w/ axis aligned with the z\-axis:
 ```matlab
-k_perp = 20; % transverse conductivity
-k_par  = 50; % axial conductivity
+k_perp = 20; % Transverse conductivity
+k_par  = 50; % Axial conductivity
 
-az  = 0; % azimuth angle
-pol = 0; % polar angle
+az  = 0; % Azimuthal Angle
+pol = 0; % Polar Angle
 
 % Convert to 6-element tensor
 [k11, k21, k31, k22, k32, k33] = layer.toTensor(k_perp, k_par, az, pol);
@@ -48,6 +48,7 @@ K = 3x3
      0     0    50
 
 ```
+
 
 
 Since the symmetry axis aligns with the z\-axis, the tensor reduces to a diagonal form:
