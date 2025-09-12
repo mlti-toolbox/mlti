@@ -11,7 +11,7 @@ permalink: /Documentation/IFTSolver
 ## Creation
 
 ### Syntax
-<a href="#d1"><code class="hang">solver = IFTSolver(<wbr>"integral2")</code></a>
+<a href="#d1"><code class="hang">solver = IFTSolver(<wbr>"integral2")</code></a><br>
 <a href="#d2"><code class="hang">solver = IFTSolver(<wbr>"ifft2",<wbr>Name,<wbr>Value)</code></a><br>
 
 ### Description
@@ -236,5 +236,6 @@ In addition to storing the [`method`](#method-argument) argument as a property, 
 ## Examples
 
 ## See Also
+
 
 
