@@ -19,7 +19,7 @@ Solves the 2-D inverse Fourier transform
 <details class="custom-details" id="solver-argument">
     <summary>
         <span class="summary-text">
-            <b><code>solver</code> - Input <code>IFTSolver</code>code> object</b>
+            <b><code>solver</code> - Input <code>IFTSolver</code> object</b>
             <span class="subline">
               <a href="{{ '/Documentation/IFTSolver' | relative_url }}"><code>IFTSolver</code></a> object
             </span>
@@ -30,7 +30,7 @@ Solves the 2-D inverse Fourier transform
             The input <code>IFTSolver</code> object specifies the 2-D inverse Fourier transform method and defines the spatial (<code>x</code>,<code>y</code>) and spatial-frequency (<code>u</code>,<code>v</code>) arguments.
         </p>
         <p>
-            <b>Data Type:</b> <a href="{{ '/Documentation/IFTSolver' | relative_url }}"><code>IFTSolver</code></a> object
+            <b>Data Type:</b> <a href="{{ '/Documentation/IFTSolver' | relative_url }}"><code>IFTSolver</code></a>
         </p>
     </div>
 </details>
@@ -50,12 +50,12 @@ Solves the 2-D inverse Fourier transform
       </p>
       <p>
         \(
-          \hat{T} \right(
+          \hat{T} \left(
             u,v,0,f
-          \left)
+          \right)
           = \left.
             \mathcal{F}_{x,y,t} \left\{
-              T\left(
+              T \left(
                 x,y,z,t
               \right)
             \right\}
