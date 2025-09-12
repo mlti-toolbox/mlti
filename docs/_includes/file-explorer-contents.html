@@ -32,11 +32,16 @@
   </ul>
 </details>
 
-<ul>
-  <li>
+<details {% if page.url contains '/Documentation/IFTSolver' %}open{% endif %}>
+  <summary>
     {% include file-explorer-link.html name="IFTSolver" path="/Documentation/IFTSolver" %}
-  </li>
-</ul>
+  </summary>
+  <ul>
+    <li>
+      {% include file-explorer-link.html name="solve" path="/Documentation/IFTSolver/solve" %}
+    </li>
+  </ul>
+</details>
 
 <details {% if page.url contains '/Documentation/Layer' %}open{% endif %}>
   <summary>
