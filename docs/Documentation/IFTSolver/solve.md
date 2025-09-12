@@ -136,14 +136,14 @@ Solves the 2-D inverse Fourier transform
                         <code>solver.method = "ifft2"</code>; then, <code>T0tilde</code> is an \(N_x \times N_y \times N_T \times N_\mathrm{pump} \times N_f\) matrix and is the exact output of <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/fftshift.html">fftshift</a>(<wbr><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifft2.html">ifft2</a>(<wbr><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifftshift.html">ifftshift</a>(<wbr>T0hat)))</code>.
                     </li>
                     <li>
-                        <code>solver.method = "integral2"</code>; then, <code>T0tilde</code> is a function handle of arguments <code>x_probe</code> amd <code>y_probe</code> (the two columns of <code>X_probe</code>).
+                        <code>solver.method = "integral2"</code>; then, <code>T0tilde</code> is a function handle of arguments <code>x_probe</code> and <code>y_probe</code> (the two columns of <code>X_probe</code>).
                     </li>
                 </ul>
             </li>
+            <li>
+                If <code>X_probe</code> is provided, <code>T0tilde</code> is an \(N_T \times N_\mathrm{pump} \times N_f \times N_\mathrm{probe}\) matrix, obtained either directly (if <code>solver.method = "integral2"</code>) or via interpolation of the <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifft2.html">ifft2</a></code> result.
+            </li>
         </ul>
-        <p>
-            if <code>X_probe</code> is provided, <code>T0tilde</code> is an \(N_T \times N_\mathrm{pump} \times N_f \times N_\mathrm{probe}\) matrix, obtained either directly (if <code>solver.method = "integral2"</code>) or via interpolation if the <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifft2.html">ifft2</a></code> result.
-        </p>
         <p>
             <b>Data Type:</b> <code>double</code>
         </p>
