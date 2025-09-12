@@ -46,7 +46,7 @@ Solves the 2-D inverse Fourier transform
     </summary>
     <div>
       <p>
-        The 3D Fourier-domain surface temperature---<code>T0hat</code> or \(\hat{T}_0(u,v,f)\)--is obtained by applying a 2D spatial Fourier transform over \(x\) and \(y\) and a temporal Fourier transform over \(t\).
+        The 3D Fourier-domain surface temperature—<code>T0hat</code> or \(\hat{T}_0(u,v,f)\)—is obtained by applying a 2D spatial Fourier transform over \(x\) and \(y\) and a temporal Fourier transform over \(t\).
       </p>
       <p>
         \(
