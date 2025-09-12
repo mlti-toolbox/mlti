@@ -9,11 +9,11 @@ permalink: /Documentation/IFTSolver/solve
 Solves the 2-D inverse Fourier transform
 
 ## Syntax
-<a href="#d1"><code class="hang">T0 = <wbr>solve(<wbr>solver,<wbr>T0hat)</code></a>
+<a href="#d1"><code class="hang">T0tilde = <wbr>solve(<wbr>solver,<wbr>T0hat)</code></a>
 
 ## Description
 <a id="d1"></a>
-[`T0`](#T0-argument)` = solve(`<wbr>[`solver`](#solver-argument)`,`<wbr>[`T0hat`](#T0hat-argument)`)` transforms `T0hat` using the 2-D inverse Fourier transform method specified by `solver`.
+[`T0tilde`](#T0-argument)` = solve(`<wbr>[`solver`](#solver-argument)`,`<wbr>[`T0hat`](#T0hat-argument)`)` transforms `T0hat` using the 2-D inverse Fourier transform method specified by `solver`.
 
 ## Input Arguments
 <details class="custom-details" id="solver-argument">
@@ -46,7 +46,7 @@ Solves the 2-D inverse Fourier transform
     </summary>
     <div>
       <p>
-        The 3D Fourier-domain surface temperature—<code>T0hat</code> or \(\hat{T}_0(u,v,f)\)—is obtained by applying a 2D spatial Fourier transform over \(x\) and \(y\) and a temporal Fourier transform over \(t\).
+        The 3D Fourier-domain surface temperature—<code>T0hat</code> or \(\hat{T}_0(u,v,f)\)—is obtained by applying a 2D spatial Fourier transform over \(x\) and \(y\) and a temporal Fourier transform over \(t\), as follows.
       </p>
       <p>
         \(
@@ -78,7 +78,7 @@ Solves the 2-D inverse Fourier transform
 <details class="custom-details" id="T0-argument">
     <summary>
         <span class="summary-text">
-            <b><code>T0</code> - Phasor surface temperature</b>
+            <b><code>T0tilde</code> - Phasor surface temperature</b>
             <span class="subline">
               complex matrix
             </span>
@@ -86,7 +86,33 @@ Solves the 2-D inverse Fourier transform
     </summary>
     <div>
         <p>
-            !!!DESCRIPTION!!!
+            The phasor surface temperature—<code>T0tilde</code> or \(\tilde{T}_0(x,y,f)—is the temporal Fourier-transformed temperature evaluated at \(z=0\). It is obtained by performing a 2D inverse Fourier transform on \(\hat{T}_0\) over parameters \(u\) and \(v\), as follows.
+        </p>
+        <p>
+            \(
+                \tilde{T}_0 \left(
+                    x,y,f
+                \right)
+                = \left.
+                    \mathcal{F}_t \left\{
+                        T \left(
+                            x,y,z,t
+                        \right)
+                    \right\}
+                \right|_{z=0}
+                = \mathcal{F}^{-1}_{u,v} \left(
+                    \hat{T}_0(u,v,f)
+                \right)
+            \)
+        </p>
+        <p>
+            If <code>solver.method = "ifft2"</code> and <code>X_probe</code> is not provided, <code>T0tilde</code> is an \(N_x \times N_y \times N_T \times N_\mathrm{pump} \times N_f\) matrix and is the exact output of <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/fftshift.html">fftshift</a>(<wbr>ifft2(<wbr>ifftshift(<wbr>T0hat)))</code>.
+            </code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/fftshift.html"><code>fftshift</code></a><code>
+                </code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifftshift.html"><code>ifftshift</code></a><code>
+                    </code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifft2.html"><code>ifft2</code></a><code>
+        </p>
+        <p>
+            if <code>X_probe</code> is provided, 
         </p>
         <p>
             <b>Data Type:</b> <code>double</code>
