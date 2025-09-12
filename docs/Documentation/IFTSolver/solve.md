@@ -106,13 +106,10 @@ Solves the 2-D inverse Fourier transform
             \)
         </p>
         <p>
-            If <code>solver.method = "ifft2"</code> and <code>X_probe</code> is not provided, <code>T0tilde</code> is an \(N_x \times N_y \times N_T \times N_\mathrm{pump} \times N_f\) matrix and is the exact output of <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/fftshift.html">fftshift</a>(<wbr>ifft2(<wbr>ifftshift(<wbr>T0hat)))</code>.
-            </code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/fftshift.html"><code>fftshift</code></a><code>
-                </code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifftshift.html"><code>ifftshift</code></a><code>
-                    </code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifft2.html"><code>ifft2</code></a><code>
+            If <code>solver.method = "ifft2"</code> and <code>X_probe</code> is not provided, <code>T0tilde</code> is an \(N_x \times N_y \times N_T \times N_\mathrm{pump} \times N_f\) matrix and is the exact output of <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/fftshift.html">fftshift</a>(<wbr><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifft2.html">ifft2</a>(<wbr><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifftshift.html">ifftshift</a>(<wbr>T0hat)))</code>.
         </p>
         <p>
-            if <code>X_probe</code> is provided, 
+            if <code>X_probe</code> is provided, <code>T0tilde</code> is an \(N_T \times N_\mathrm{pump} \times N_f \times N_\mathrm{probe}\) matrix, obtained either directly (<code>solver.method = "integral2"</code>) or via interpolation if the <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifft2.html">ifft2</a></code> result.
         </p>
         <p>
             <b>Data Type:</b> <code>double</code>
@@ -127,5 +124,6 @@ Solves the 2-D inverse Fourier transform
 [`!!!NAME!!!`](!!!PATH!!!)
 
 ### MATLAB Built-in Methods
+<code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifft2.html">ifft2</a></code> | <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/fftshift.html">fftshift</a></code> | <code><a href="https://www.mathworks.com/help/releases/R2025a/matlab/ref/ifftshift.html">ifftshift</a></code>
 
 ### MATLAB Topics
