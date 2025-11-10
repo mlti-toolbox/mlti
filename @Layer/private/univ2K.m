@@ -12,7 +12,7 @@ arguments
 end
 
 k_perp = exp_if_log(k_perp);
-k_perp = exp_if_log(k_perp);
+k_par = exp_if_log(k_par);
 
 kpar_minus_kperp = k_par - k_perp;
 

@@ -1,5 +1,7 @@
-function phi = plot(fm, M, Theta, chi, f0, varargin)
-% PLOT summary TODO
+function phi = plot(fm)
+    % syntaxes:
+    % phi = plot(fm, A, color_scheme)
+    % phi = plot(fm, 
 
     if mod(length(varargin), 2) == 0 % length(varargin) is even
         x_probe = []; % user called plot(fm, M, Theta, chi, f0, varargin)

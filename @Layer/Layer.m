@@ -3,6 +3,7 @@ classdef Layer < handle
         isotropy, orient, euler_seq
         toTensor
         inputStr
+        inputLen
     end
     methods 
         function layer = Layer(isotropy, orient, euler_seq)
@@ -16,6 +17,7 @@ classdef Layer < handle
             layer.euler_seq  = euler_seq;
 
             [layer.toTensor, layer.inputStr] = layer.getko2K();
+            layer.inputLen = length(layer.inputStr);
         end
         function disp(layer)
             fprintf('  <a href = "https://k-joshua-kelley.github.io/MLTI/Documentation/Layer">Layer</a> with properties:\n\n');

@@ -1,50 +1,66 @@
 classdef IFTSolver
     properties (SetAccess = private)
         method
+        args
         x (:,1) double {mustBeReal}
-        y (:,1) double {mustBeReal}
-        u (1,:) double {mustBeReal}
-        v (:,1) double {mustBeReal}
+        y (1,:) double {mustBeReal}
+        dx (1,1) double {mustBeReal}
+        dy (1,1) double {mustBeReal}
+        u (:,1) {mustBeReal}
+        v (1,:) {mustBeReal}
+        interp (1,1) griddedInterpolant
         solve (1,1) function_handle = @(x) x;
     end
     methods
-        function solver = IFTSolver(method, options)
-            % IFTSolver  Inverse Fourier Transform solver
-            %
-            % Syntax:
-            %   solver = IFTSolver(method)
-            %   solver = IFTSolver(method,Name,Value)
-            %
-            %   % Valid syntax when method="integral2"
-            %   solver = IFTSolver("integral2")
-            %
-            %   % Valid syntaxes when method="ifft2"
-            %   solver = IFTSolver("ifft2","x_max",x_max)
-            %   solver = IFTSolver("ifft2","x_max",x_max,"dx",dx)
-            %   solver = IFTSolver("ifft2","x_max",x_max,"Nx",Nx)
-            %   solver = IFTSolver("ifft2","dx",dx)
-            %   solver = IFTSolver("ifft2","dx",dx,"Nx",Nx)
+        function solver = IFTSolver(method, args, options)
             arguments
-                method        (1,1) IFTEnum = IFTEnum.ifft2;
+                method        (1,1) IFTEnum;
+                args          (1,:) cell = {};
                 options.x_max (1,2) double {mustBeReal,    mustBeNonnegative, IFTSolver.need_opts(method, options.x_max)} = 0;
                 options.dx    (1,2) double {mustBeReal,    mustBeNonnegative, IFTSolver.need_opts(method, options.dx)}    = 0;
                 options.Nx    (1,2) double {mustBeInteger, mustBeNonnegative, IFTSolver.need_opts(method, options.Nx)}    = 0;
+                options.interp_methods (1,2) string = ["linear", "none"];
             end
             solver.method = method;
-            if method == IFTEnum.ifft2
-                [solver.x,solver.u] = IFTSolver.buildXU(options.x_max(1), options.dx(1), options.Nx(1));
-                [solver.y,solver.v] = IFTSolver.buildXU(options.x_max(2), options.dx(2), options.Nx(2));
+            solver.args = args;
+            syms u v real
+            switch method
+                case IFTEnum.ifft2
+                    [solver.x,solver.dx,solver.u] = buildXU( ...
+                        options.x_max(1), options.dx(1), options.Nx(1) ...
+                    );
+                    [solver.y,solver.dy,solver.v] = buildXU( ...
+                        options.x_max(2), options.dx(2), options.Nx(2) ...
+                    );
+                    solver.interp = griddedInterpolant( ...
+                        {solver.x, solver.y}, ...
+                        zeros(length(solver.x), length(solver.y)), ...
+                        options.interp_methods(1), ...
+                        options.interp_methods(2) ...
+                    );
+                    solver.solve = @solver.solveifft2;
+                case IFTEnum.integral2
+                    solver.solve = @solver.solveintegral2;
+                    solver.u = u;
+                    solver.v = v;
+                case IFTEnum.vpaintegral
+                    solver.solve = @solver.solvevpaintegral;
+                    solver.u = u;
+                    solver.v = v;
             end
-            disp("end")
         end
         function disp(solver)
-            fprintf('<a href = "https://k-joshua-kelley.github.io/MLTI/IFTSolver">IFTSolver</a> with properties:\n\n');
-            fprintf("  method = '%s'\n", string(solver.method));
+            fprintf('<a href = "https://mlti-toolbox.github.io/Documentation/IFTSolver">IFTSolver</a> with properties:\n\n');
             if solver.method == IFTEnum.ifft2
+                l = strlength(strjoin(string(size(solver.x)),","));
+                fprintf("%smethod: %s\n", string(blanks(l)), string(solver.method));
                 fprintf("  x %s\n", IFTSolver.vector_display(solver.x));
                 fprintf("  y %s\n", IFTSolver.vector_display(solver.y));
                 fprintf("  u %s\n", IFTSolver.vector_display(solver.u));
-                fprintf("  v %s\n\n", IFTSolver.vector_display(solver.v));
+                fprintf("  v %s\n", IFTSolver.vector_display(solver.v));
+                fprintf("%sinterp: griddedInterpolant\n\n", string(blanks(l)));
+            else
+                fprintf("  method: %s\n\n", string(solver.method));
             end
         end
     end
@@ -55,37 +71,12 @@ classdef IFTSolver
                 "Not allowed when method is not 'ifft2'" ...
             );
         end
-        function [x, u] = buildXU(x_max, dx, Nx)
-            arguments (Output)
-                x (:,1) double {mustBeReal}
-                u (:,1) double {mustBeReal}
-            end
-
-            if x_max == 0 && dx == 0
-                error("Must provide either 'x_max' or 'dx' when method = 'ifft2'.");
-            end
-            if x_max ~= 0 && dx ~= 0 && Nx ~= 0
-                error("Must not provide all three: 'x_max', 'dx', 'Nx'.")
-            end
-            if Nx == 0
-                if x_max ~= 0 && dx ~= 0
-                    Nx = floor(x_max/dx) * 2 + 1;
-                else
-                    Nx = 256;
-                end
-            end
-            if dx == 0
-                dx = x_max / floor(Nx/2);
-            end
-
-            du = 1 / (Nx * dx);
-            steps = -floor(Nx/2) : ceil(Nx/2) - 1;
-            x = steps * dx;
-            u = steps * du;
-
-        end
         function str = vector_display(x)
-            str = compose("(%s) = %.3g:%.3g:%.3g", strjoin(string(size(x)),","), x(1), x(2)-x(1), x(end));
+            str = compose( ...
+                "(%s): %.3g:%.3g:%.3g", ...
+                strjoin(string(size(x)),"×"), ...
+                x(1), x(2)-x(1), x(end) ...
+            );
         end
     end
 end
