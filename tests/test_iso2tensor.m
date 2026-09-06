@@ -6,6 +6,9 @@ function setupOnce(testCase)
     N = randi([4,7]);
     testCase.TestData.lnk = unifrnd(-5,5,N,1);
     testCase.TestData.options = optimoptions("fminunc", FiniteDifferenceType="central");
+
+    timestamp = string(datetime("now", Format="uuuu-MM-dd_HH-mm-ss.SSS"));
+    testCase.onFailure(@() logFailure(testCase, timestamp));
 end
 
 function teardownOnce(~)

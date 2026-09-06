@@ -8,6 +8,9 @@ function setupOnce(testCase)
     testCase.TestData.lnkperp_par = unifrnd(-5,5,N,2);
     testCase.TestData.v = unifrnd(-1,1,n,3);
     testCase.TestData.options = optimoptions("fminunc", FiniteDifferenceType="central");
+
+    timestamp = string(datetime("now", Format="uuuu-MM-dd_HH-mm-ss.SSS"));
+    testCase.onFailure(@() logFailure(testCase, timestamp));
 end
 
 function teardownOnce(~)

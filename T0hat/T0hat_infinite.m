@@ -1,6 +1,6 @@
 function [T0hat,Jac] = T0hat_infinite( ...
     Kf11i,Kf12i,Kf13i,Kf22i,Kf23i,Kf33i,lnCfi,lnafi,logitRfi,lnhfi, ...
-    Ks11i,Ks12i,Ks13i,Ks22i,Ks23i,Ks33i,lnCsi,lnasi,logitRsi, ...
+    Ks11i,Ks12i,Ks13i,Ks22i,Ks23i,Ks33i,lnCsi,lnasi,logitRsi,lnhsi, ...
     lnRthi,sxi,syi,Pi,fi,ui,vi ...
 )
 % Modified from T0hat_infinite_auto_optimized()
@@ -600,7 +600,6 @@ t623 = t320+t327;
 t632 = 1.0./t631;
 T0hat = t192+t632.*t636+t632.*t637;
 if nargout > 1
-    Jac = [];
     t641 = t172+t174+t225+t227+t348+t367+t373+t378+t569+t571+t575+t577;
     t642 = t173+t175+t226+t228+t350+t360+t374+t377+t570+t572+t576+t578;
     t644 = t202+t203+t294+t296+t511+t527+t615+t617+t618+t619+t621+t622;
@@ -608,6 +607,7 @@ if nargout > 1
     t646 = t194+t198+t254+t267+t427+t429+t431+t437+t445+t447+t467+t473+t602+t604+t606+t610;
     t633 = t632.^2;
 
+    Jac = zeros(numel(T0hat),0);
     Jac = addGradient(Jac, Kf11i,    @get_grad_Kf11);
     Jac = addGradient(Jac, Kf12i,    @get_grad_Kf12);
     Jac = addGradient(Jac, Kf13i,    @get_grad_Kf13);
