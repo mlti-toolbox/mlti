@@ -56,6 +56,10 @@ classdef ForwardModel
             end
             %METHOD1 Summary of this method goes here
             %   Detailed explanation goes here
+
+            if isa(ifft_x_max, "DesignVariable") || isa(ifft_Nx, "DesignVariable") || isa(Xprobe, "DesignVariable")
+                error("ForwardModel does not currently support x_max, Nx, or Xprobe as DesignVariable objects")
+            end
             
             dx = ifft_x_max ./ floor(ifft_Nx/2);
             du = 1 ./ (ifft_Nx * dx);

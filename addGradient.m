@@ -13,27 +13,28 @@ function Jac = addGradient(Jac, x, grad)
         Jac = sparse(Nout, Nin);
     end
 
-    count = 0;
+    indx = 0;
     r = zeros(Nout,1);
     c = zeros(Nout,1);
     v = zeros(numel(g),1,"like",g);
+    ndim = max(ndims(x.value),ndims(g));
     for Jc = 1:numel(x.indx)
-        [i,j,k,l] = ind2sub(size(x.value),Jc);
-        Jisub = [i,j,k,l];
-        gi = cell(4,1);
-        for dim = 1:4
+        [Jisub{1:ndim}] = ind2sub(size(x.value),Jc);
+        gi = cell(ndim,1);
+        for dim = 1:ndim
             if size(x.value,dim) == size(g,dim)
-                gi{dim} = Jisub(dim);
+                gi{dim} = Jisub{dim};
             else
                 gi{dim} = 1:size(g,dim);
             end
         end
         gv = g(gi{:});
-        [A,B,C,D] = ndgrid(gi{:});
-        Jr = sub2ind(size(g), A,B,C,D);
+        [Jrind{1:ndim}] = ndgrid(gi{:});
+        Jr = sub2ind(size(g), Jrind{:});
 
-        subindx = count*numel(gv)+1:(count+1)*numel(gv);
-        count = count + 1;
+        next = indx + numel(gv);
+        subindx = indx+1:next;
+        indx = next;
         c(subindx) = x.indx(Jc);
         r(subindx) = Jr;
         v(subindx) = gv(:);
