@@ -1,4 +1,12 @@
-function [psi, Jac] = nll_phase(phi_obsi, phi_predi, kTi, kDi)
+function [psi, Jac] = nll_phase(phi_obsi, phi_predi, kTi, kDi, doSum)
+arguments
+    phi_obsi 
+    phi_predi 
+    kTi 
+    kDi 
+    doSum = true;
+end
+
 % Note: log(besseli(n,x,0)) = log(besseli(n,x,1))+abs(real(x))
 phi_obs  = get_val(phi_obsi);
 phi_pred = get_val(phi_predi);
@@ -16,6 +24,10 @@ norm_const = log(besseli(0,kT,1)) + kT + log(besseli(0,kD,1)) + kD + log(2*pi);
 
 psi = norm_const - log_I0S;
 
+if doSum
+    psi = sum(psi, "all");
+end
+
 if nargout > 1
     s = sin(diff);
     kTkD_kS = kTkD./kS;
@@ -28,6 +40,10 @@ if nargout > 1
     Jac = addGradient(Jac, phi_predi, @() -grad_x);
     Jac = addGradient(Jac, kTi, @get_grad_kT);
     Jac = addGradient(Jac, kDi, @get_grad_kD);
+
+    if doSum
+        Jac = sum(Jac, 1);
+    end
 end
 function grad_kT = get_grad_kT()
     % ratio I1/I0 at kT (use scaled for stability)

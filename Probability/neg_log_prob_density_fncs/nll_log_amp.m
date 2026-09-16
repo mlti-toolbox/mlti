@@ -1,4 +1,11 @@
-function [psi, Jac] = nll_log_amp(lnA_obsi, lnA_predi, sigmaTi, sigmaDi)
+function [psi, Jac] = nll_log_amp(lnA_obsi, lnA_predi, sigmaTi, sigmaDi, doSum)
+arguments
+    lnA_obsi 
+    lnA_predi 
+    sigmaTi 
+    sigmaDi 
+    doSum = true;
+end
 lnA_obs = get_val(lnA_obsi);
 lnA_pred = get_val(lnA_predi);
 sigmaT = get_val(sigmaTi);
@@ -19,6 +26,10 @@ inv_sigma2 = inv_sigma.^2;
 
 psi = 0.5 * (diff.^2 .* inv_sigma2) + log(sigma) + 0.5*log(2*pi);
 
+
+if doSum
+    psi = sum(psi, "all");
+end
 % --- gradients ---
 if nargout > 1
     grad_x = diff .* inv_sigma2;
@@ -32,5 +43,9 @@ if nargout > 1
     Jac = addGradient(Jac, lnA_predi,     @() -grad_x);
     Jac = addGradient(Jac, sigmaTi, @()  grad_sigma_inv_sigma .* sigmaT);
     Jac = addGradient(Jac, sigmaDi, @()  grad_sigma_inv_sigma .* sigmaD);
+
+    if doSum
+        Jac = sum(Jac, 1);
+    end
 end
 end
