@@ -32,5 +32,10 @@ classdef DesignVariable
             out = DesignVariable(obj.value(indx), obj.indx(indx), obj.rootLen);
         end
 
+        function obj = reshape(obj, varargin)
+            obj.value = reshape(obj.value, varargin{:});
+            obj.indx = reshape(obj.indx, varargin{:});
+        end
+
     end
 end
