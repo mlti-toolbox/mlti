@@ -17,7 +17,7 @@ x  = x(:);
 mu = mu(:);
 
 % --- Symmetrize covariance ---
-Cov = (Cov + Cov.')/2;
+Cov = 0.5*(Cov + Cov.');
 
 % --- Cholesky factorization ---
 [L,p] = chol(Cov,'lower');
