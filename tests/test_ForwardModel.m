@@ -103,6 +103,7 @@ function test_checkGradients_random_design_variables(testCase)
                 disp("in:" + string(filmIsotropy) + ", " + string(subIsotropy) + ", " + string(inf_sub_thick))
                 args = populate_args(testCase, filmIsotropy, subIsotropy);
                 isDesignVariable = logical(randi([0,1],1,length(args)-3));
+                isDesignVariable = true(1,length(args)-3);
                 x0 = x0_assignment(args, isDesignVariable);
                 if ~checkGradients(@(x) obj_fun(args, filmIsotropy, subIsotropy, inf_sub_thick, isDesignVariable, x), x0, testCase.TestData.options, Display="on")
                     testCase.TestData.filmIsotropy = filmIsotropy;

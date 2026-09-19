@@ -29,6 +29,34 @@ sigma_lnhf     = sqrt(0.0345);
 sigma_lnell    = sqrt(0.503);
 sigma_lnkappaT = sqrt(1.806);
 
+lnaf = log(72.4);
+lnas = log(13.2e-6);
+logitRf = -inf;
+logitRs = -inf;
+P = 1000;
+sx = 2;
+sy = 2;
+
+lnRth = -inf;
+
+f = reshape(10.^(-5:0.25:-1),1,1,1,1,[]);
+
+Df = exp(get_val(lnkf)-get_val(lnCf)); % mm^2/s
+Ds = exp(get_val(lnks)-get_val(lnCs)); % mm^2/s
+Lthf = sqrt(Df ./ pi ./ f); % um
+Lths = sqrt(Ds ./ pi ./ f); % um
+x_max = 2*max(Lthf, Lths);
+
+Nx = 384;
+
+dr = [5,10,20];
+vartheta = deg2rad(0:15:90);
+xprobe = dr .* cos(vartheta(:));
+yprobe = dr .* sin(vartheta(:));
+Xprobe = [xprobe(:), yprobe(:)];
+
+
+
 % Ψ(θ)
 psi_lnell = nln(lnell, mu_lnell, sigma_lnell, true);
 
@@ -68,7 +96,10 @@ psi_lnkappaT = nln(lnkappaT, mu_lnkappaT, sigma_lnkappaT);
 
 % Ψ(ϕ|x)
 fm = ForwardModel("iso", "iso", true);
-[] = fm.solve
-psi_phi = nll
+T0tilde = fm.solve( ...
+    {lnkf}, {}, lnCf, lnaf, logitRf, lnhf, ...
+    {lnks},  {},  lnCs, lnas, logitRs, [], ...
+    lnRth, sx, sy, P, f, x_max, Nx, Xprobe ...
+);
 
 end

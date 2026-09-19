@@ -7,8 +7,8 @@ Cov = get_val(Covi);
 % --- Size checks ---
 n = numel(x);
 
-assert(isvector(x) && isvector(mu), ...
-    'x and mu must be vectors.');
+assert(isequal(n, numel(mu)), ...
+    'x and mu must have the same number of elements.');
 
 assert(all(size(Cov) == [n n]), ...
     'Cov must be n-by-n.');
