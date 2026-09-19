@@ -39,7 +39,19 @@ classdef DesignVariable
             obj.rootLen = rootLen;
             obj.Jac = Jac;
         end
-
+        function out = subsref(obj, S)
+            switch S(1).type
+                case '()'
+                    % S(1).subs contains the indices
+                    out = obj.at(S(1).subs{:});
+    
+                case '.'
+                    out = builtin('subsref', obj, S);
+    
+                otherwise
+                    error("Unsupported indexing type.")
+            end
+        end
         function out = at(obj, indx)
             out = DesignVariable(obj.value(indx), obj.indx(indx), obj.rootLen, obj.Jac(indx,:));
         end

@@ -10,7 +10,11 @@ function psi = sum_nl_probs(varargin)
             else
                 Jac = Jac + varargin{i}.Jac;
             end
+        else
+            psi = psi + varargin{i};
         end
     end
-    psi = DesignVariable(psi, [], rootLen, Jac);
+    if ~isempty(Jac)
+        psi = DesignVariable(psi, [], rootLen, Jac);
+    end
 end
