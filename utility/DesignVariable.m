@@ -53,5 +53,9 @@ classdef DesignVariable
             expx = exp(obj.value);
             out = DesignVariable(expx, [], obj.rootLen, expx*obj.Jac);
         end
+
+        function out = size(obj)
+            out = size(obj.value);
+        end
     end
 end

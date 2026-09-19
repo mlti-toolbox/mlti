@@ -21,33 +21,34 @@ options = optimoptions("fminunc", Display="iter-detailed", ...
     StepTolerance=1e-10, FunctionTolerance=1e-10);
 
 %% WARM START
-err_ind = cell(N, 1);
-x_ind = cell(N,1);
-fval_ind = cell(N,1);
-exitflag_ind = cell(N,1);
-output_ind = cell(N,1);
-grad_ind = cell(N,1);
-hessian_ind = cell(N,1);
-for i = 1:N
-    x0 = [lnkf(i), lnCf(i), lnhf, lnks(i), lnCs(i), lnkappaT];
-    data.T = T(i);
-    data.phi_obs = phi_obs(:,i,:,:);
-    data.kappaD = kappaD(:,i,:,:);
-    obj_fun = @(x) format_output_for_checkGradients( ...
-        @(xi) nl_posterior( ...
-            xi.at(1), xi.at(2), xi.at(3), ...
-            xi.at(4), xi.at(5), xi.at(6), ones(4,1), data ...
-        ), DesignVariable(x) ...
-    );
-    [~, err_ind{i}] = checkGradients(obj_fun, x0, options, "Display","on");
-    [ ...
-        x_ind{i}, fval_ind{i}, exitflag_ind{i}, ...
-        output_ind{i}, grad_ind{i}, hessian_ind{i} ...
-    ] = fminunc(obj_fun, x0, options);
-end
+% err_ind = cell(N, 1);
+% x_ind = cell(N,1);
+% fval_ind = cell(N,1);
+% exitflag_ind = cell(N,1);
+% output_ind = cell(N,1);
+% grad_ind = cell(N,1);
+% hessian_ind = cell(N,1);
+% for i = 1:N
+%     x0 = [lnkf(i), lnCf(i), lnhf, lnks(i), lnCs(i), lnkappaT];
+%     data.T = T(i);
+%     data.phi_obs = phi_obs(:,i,:,:);
+%     data.kappaD = kappaD(:,i,:,:);
+%     obj_fun = @(x) format_output_for_checkGradients( ...
+%         @(xi) nl_posterior( ...
+%             xi.at(1), xi.at(2), xi.at(3), ...
+%             xi.at(4), xi.at(5), xi.at(6), ones(4,1), data ...
+%         ), DesignVariable(x) ...
+%     );
+%     [~, err_ind{i}] = checkGradients(obj_fun, x0, options, "Display","on");
+%     [ ...
+%         x_ind{i}, fval_ind{i}, exitflag_ind{i}, ...
+%         output_ind{i}, grad_ind{i}, hessian_ind{i} ...
+%     ] = fminunc(obj_fun, x0, options);
+% end
 
 %% FULL OPTIMIZATION
-x0 = horzcat(x_ind{:});
+% x0 = horzcat(x_ind{:});
+x0 = [lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell];
 data.T = T;
 data.phi_obs = phi_obs;
 data.kappaD = kappaD;
@@ -97,19 +98,19 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
 
     % Ψ(lnkf|θ1)
     psi_lnkf = nl_mvn_cov(lnkf, mu_lnkf, ...
-        RBFKernel(T,T,lnsigma_lnkf,lnsigma_lnkf,lnell(1)));
+        RBFKernel(T,T,lnsigma_lnkf,lnsigma_lnkf,lnell.at(1)));
     
     % Ψ(lnCf|θ2)
     psi_lnCf = nl_mvn_cov(lnCf, mu_lnCf, ...
-        RBFKernel(T,T,lnsigma_lnCf,lnsigma_lnCf,lnell(2)));
+        RBFKernel(T,T,lnsigma_lnCf,lnsigma_lnCf,lnell.at(2)));
     
     % Ψ(lnks|θ3)
     psi_lnks = nl_mvn_cov(lnks, mu_lnks, ...
-        RBFKernel(T,T,lnsigma_lnks,lnsigma_lnks,lnell(3)));
+        RBFKernel(T,T,lnsigma_lnks,lnsigma_lnks,lnell.at(3)));
     
     % Ψ(lnCs|θ4)
     psi_lnCs = nl_mvn_cov(lnCs, mu_lnCs, ...
-        RBFKernel(T,T,lnsigma_lnCs,lnsigma_lnCs,lnell(4)));
+        RBFKernel(T,T,lnsigma_lnCs,lnsigma_lnCs,lnell.at(4)));
     
     % Ψ(lnhf)
     psi_lnhf = nln(lnhf, mu_lnhf, sigma_lnhf);
