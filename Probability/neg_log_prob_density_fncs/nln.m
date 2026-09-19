@@ -27,16 +27,18 @@ if doSum
 end
 
 % --- gradients ---
-if nargout > 1
-    grad_x = diff .* inv_sigma2;
+grad_x = diff .* inv_sigma2;
 
-    Jac = zeros(numel(psi), 0);
-    Jac = addGradient(Jac, xi, @() grad_x);
-    Jac = addGradient(Jac, mui, @() -grad_x);
-    Jac = addGradient(Jac, sigmai, @() inv_sigma - (diff.^2) .* (inv_sigma.^3));
+Jac = zeros(numel(psi), 0);
+Jac = addGradient(Jac, xi, @() grad_x);
+Jac = addGradient(Jac, mui, @() -grad_x);
+Jac = addGradient(Jac, sigmai, @() inv_sigma - (diff.^2) .* (inv_sigma.^3));
 
-    if doSum
-        Jac = sum(Jac, 1);
-    end
+if doSum
+    Jac = sum(Jac, 1);
+end
+
+if ~isempty(Jac)
+    psi = DesignVariable(psi, [], size(Jac,2), Jac);
 end
 end

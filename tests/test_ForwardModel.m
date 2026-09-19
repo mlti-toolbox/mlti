@@ -304,8 +304,8 @@ function [T0tilde, Jac] = obj_fun(args, filmIsotropy, subIsotropy, inf_sub_thick
     args = design_variable_assignment(args, isDesignVariable, x);
     args = format_args(args, filmIsotropy, subIsotropy);
     if nargout < 2
-        T0tilde = fm.solve(args{:});
+        T0tilde = format_output_for_checkGradients(@fm.solve, args{:});
     else
-        [T0tilde, Jac] = fm.solve(args{:});
+        [T0tilde, Jac] = format_output_for_checkGradients(@fm.solve, args{:});
     end
 end

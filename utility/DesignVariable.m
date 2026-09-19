@@ -41,7 +41,6 @@ classdef DesignVariable
         end
 
         function out = at(obj, indx)
-            
             out = DesignVariable(obj.value(indx), obj.indx(indx), obj.rootLen, obj.Jac(indx,:));
         end
 
@@ -49,6 +48,5 @@ classdef DesignVariable
             obj.value = reshape(obj.value, varargin{:});
             obj.indx  = reshape(obj.indx, varargin{:});
         end
-
     end
 end
