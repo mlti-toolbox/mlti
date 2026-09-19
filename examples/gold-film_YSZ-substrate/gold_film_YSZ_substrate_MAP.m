@@ -1,14 +1,7 @@
 clear; clc;
 
-rehash
-
-x = DesignVariable(1:7,1:7,8);
-newRootLen(x, 20)
-mu = 4;
-T = (3:9).';
-sigma = 1;
-ell = DesignVariable(1, 9, 10);
-[psi, Jac] = nl_GP_prior(x, mu, T, sigma, ell);
+x = DesignVariable(500*ones(34,1));
+nl_prior(x)
 
 function [psi, Jac] = nl_prior(x)
 arguments
@@ -24,30 +17,26 @@ lnell = reshape(x.at(31:34), [], 1);
 
 T = (300:100:900).';
 
-[psi_lnell, Jac_lnell] = nln(lnell, 5.957, 0.503);
-psi_lnell = sum(psi_lnell); Jac_lnell = sum(Jac_lnell, 1);
+mu_lnkf   = 4.14;      mu_lnks = mu_lnkf;
+mu_lnCf   = 0.9962;     mu_LnCs = mu_lnCf;
+mu_lnhf   = -1.93;
+mu_lnell  = 5.957;
+mu_kappaT = 6.466;
 
-[K_lnkf, Jac_K_lnkf] = RBFKernel(T,T,1.197,1.197,lnell.at(1))
-[psi_lnkf, Jac_lnkf] = nl_mvn_cov(lnkf, 4.14, RBFKernel())
-end
+lnsigma_lnkf  = 0.5*log(1.197);  lnsigma_lnks = lnsigma_lnkf;
+sigma2_lnCf   = 0.4305; sigma2_LnCs = sigma2_lnCf;
+sigma2_lnhf   = 0.0345;
+sigma2_lnell  = 0.503;
+sigma2_kappaT = 1.806;
 
-function [psi, Jac] = nl_GP_prior(x, mu, T, sigma, ell)
-    if nargout < 2
-        K = RBFKernel(T,T,sigma,sigma,ell);
-        psi = nl_mvn_cov(x, mu, K);
-    else
-        [K, Jac1] = RBFKernel(T,T,sigma,sigma,ell);
-        if isempty(Jac1)
-            [psi, Jac] = nl_mvn_cov(x, mu, K);
-        else
-            [N2, Nz] = size(Jac1);
-            inputs = { ...
-                newRootLen(x, Nz+N2), ...
-                newRootLen(mu, Nz+N2), ...
-                DesignVariable(K, reshape(Nz+1:Nz+N2, size(K)), Nz+N2) ...
-            };
-            [psi, Jac2] = nl_mvn_cov(inputs{:});
-            Jac = Jac2 * [eye(Nz);Jac1];
-        end
-    end
+% Ψ(θ)
+[psi_lnell, jac_lnell] = nln(lnell, mu_lnell, sqrt(sigma2_lnell), true);
+
+% Ψ(M|θ)
+[psi_lnkf, jac_lnkf] = nl_mvn_cov( ...
+    lnkf, ...
+    mu_lnkf*ones(size(T)), ...
+    RBFKernel(T,T,lnsigma_lnkf,lnsigma_lnkf,lnell.at(1)) ...
+);
+ 
 end

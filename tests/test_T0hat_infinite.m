@@ -39,8 +39,8 @@ function setupOnce(testCase)
     testCase.TestData.sy      = unifrnd(1e-2,1e2);
     testCase.TestData.P       = unifrnd(100,1000);
     testCase.TestData.f       = unifrnd(1e-5,1e-1,1,1,Nf);
-    testCase.TestData.u       = (randi([0 1],1,1,1,Nx)*2 - 1) .* unifrnd(0.01,1,1,1,1,Nx);
-    testCase.TestData.v       = (randi([0 1],1,1,1,Nx)*2 - 1) .* unifrnd(0.01,1,1,1,1,Nx);
+    testCase.TestData.u       = (randi([0 1],1,1,1,Nx)*2 - 1) .* unifrnd(0.01,10,1,1,1,Nx);
+    testCase.TestData.v       = (randi([0 1],1,1,1,Nx)*2 - 1) .* unifrnd(0.01,10,1,1,1,Nx);
     
     testCase.TestData.options = optimoptions("fminunc", FiniteDifferenceType="central");
 

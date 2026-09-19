@@ -6,11 +6,10 @@ function Jac = addGradient(Jac, x, grad)
     end
 
     g = grad();
-    Nin = x.rootLen;
     Nout = numel(g);
 
     if isempty(Jac)
-        Jac = sparse(Nout, Nin);
+        Jac = sparse(Nout, x.rootLen);
     end
 
     indx = 0;
@@ -18,7 +17,7 @@ function Jac = addGradient(Jac, x, grad)
     c = zeros(Nout,1);
     v = zeros(numel(g),1,"like",g);
     ndim = max(ndims(x.value),ndims(g));
-    for Jc = 1:numel(x.indx)
+    for Jc = 1:numel(x.value)
         [Jisub{1:ndim}] = ind2sub(size(x.value),Jc);
         gi = cell(ndim,1);
         for dim = 1:ndim
@@ -35,9 +34,9 @@ function Jac = addGradient(Jac, x, grad)
         next = indx + numel(gv);
         subindx = indx+1:next;
         indx = next;
-        c(subindx) = x.indx(Jc);
+        c(subindx) = Jc;
         r(subindx) = Jr;
         v(subindx) = gv(:);
     end
-    Jac = Jac + sparse(r,c,v,Nout, Nin);
+    Jac = Jac + sparse(r,c,v,Nout,size(x.Jac,1)) * x.Jac;
 end

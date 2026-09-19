@@ -1,4 +1,4 @@
-function [psi, Jac] = nl_mvn_cov(xi, mui, Covi)
+function psi = nl_mvn_cov(xi, mui, Covi)
 
 x   = get_val(xi);
 mu  = get_val(mui);
@@ -41,12 +41,15 @@ logdetCov = 2 * sum(log(diag(L)));
 
 % --- Negative log density ---
 psi = 0.5 * (mahal + logdetCov + n*log(2*pi));
-if nargout > 1
-    Jac = zeros(numel(psi),0);
-    Jac = combineJacobians(Jac, xi, @() sparse(1, xi.indx, alpha(:).', 1, xi.rootLen));
-    Jac = combineJacobians(Jac, mui, @() sparse(1, mui.indx, -alpha(:).', 1, mui.rootLen));
-    Jac = combineJacobians(Jac, Covi, @get_jac_C);
+
+Jac = zeros(numel(psi),0);
+Jac = combineJacobians(Jac, xi, @() sparse(1, 1:numel(xi.value), alpha(:).')*xi.Jac);
+Jac = combineJacobians(Jac, mui, @() sparse(1, 1:numel(mui.value), -alpha(:).')*mui.Jac);
+Jac = combineJacobians(Jac, Covi, @get_jac_C);
+if ~isempty(Jac)
+    psi = DesignVariable(psi, [], size(Jac,2), Jac);
 end
+
 function JCov = get_jac_C()
     % Cov^{-1}, computed through Cholesky solves
     CovInv = L.' \ (L \ eye(n));
@@ -56,6 +59,6 @@ function JCov = get_jac_C()
     % Numerical symmetry
     JCov = (JCov + JCov.')/2;
 
-    JCov = sparse(1, Covi.indx, JCov(:).', 1, Covi.rootLen);
+    JCov = sparse(1, 1:numel(Covi.value), JCov(:).')*Covi.Jac;
 end
 end

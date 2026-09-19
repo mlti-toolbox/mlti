@@ -1,4 +1,4 @@
-function [K, Jac] = RBFKernel(X, Xp, lnsigmai, lnsigmapi, lnli)
+function K = RBFKernel(X, Xp, lnsigmai, lnsigmapi, lnli)
 
 if isa(X, "DesignVariable") || isa(Xp, "DesignVariable")
     error("Current implementation does not support DesignVariable type for X nor Xp.")
@@ -32,17 +32,18 @@ lnK = lnsigma + lnsigmap - r2/(2*l2);
 K = exp(lnK);
 
 % --- Jacobian ---
-if nargout > 1
-    Jac = zeros(numel(K), 0);
+Jac = zeros(numel(K), 0);
 
-    % dK / d(ln sigma)
-    Jac = addGradient(Jac, lnsigmai, @() K);
+% dK / d(ln sigma)
+Jac = addGradient(Jac, lnsigmai, @() K);
 
-    % dK / d(ln sigma')
-    Jac = addGradient(Jac, lnsigmapi, @() K);
+% dK / d(ln sigma')
+Jac = addGradient(Jac, lnsigmapi, @() K);
 
-    % dK / d(ln l)
-    Jac = addGradient(Jac, lnli, @() K .* (r2/l2));
+% dK / d(ln l)
+Jac = addGradient(Jac, lnli, @() K .* (r2/l2));
+
+if ~isempty(Jac)
+    K = DesignVariable(K, [], size(Jac,2), Jac);
 end
-
 end
