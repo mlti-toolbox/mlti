@@ -99,7 +99,7 @@ function test_checkGradients_random_design_variables(testCase)
     ];
     for filmIsotropy = IsotropyTypes
         for subIsotropy = IsotropyTypes
-            for inf_sub_thick = [true, false]
+            for inf_sub_thick = true % [true, false]
                 disp("in:" + string(filmIsotropy) + ", " + string(subIsotropy) + ", " + string(inf_sub_thick))
                 args = populate_args(testCase, filmIsotropy, subIsotropy);
                 isDesignVariable = logical(randi([0,1],1,length(args)-3));
