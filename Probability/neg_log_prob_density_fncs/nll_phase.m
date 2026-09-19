@@ -1,4 +1,4 @@
-function [psi, Jac] = nll_phase(phi_obsi, phi_predi, kTi, kDi, doSum)
+function psi = nll_phase(phi_obsi, phi_predi, kTi, kDi, doSum)
 arguments
     phi_obsi 
     phi_predi 
@@ -28,23 +28,26 @@ if doSum
     psi = sum(psi, "all");
 end
 
-if nargout > 1
-    s = sin(diff);
-    kTkD_kS = kTkD./kS;
-    I1I0S = besseli(1,kS,1) ./ I0Stilde;
+s = sin(diff);
+kTkD_kS = kTkD./kS;
+I1I0S = besseli(1,kS,1) ./ I0Stilde;
 
-    grad_x = I1I0S .* kTkD_kS .* s;
+grad_x = I1I0S .* kTkD_kS .* s;
 
-    Jac = zeros(numel(psi), 0);
-    Jac = addGradient(Jac, phi_obsi, @() grad_x);
-    Jac = addGradient(Jac, phi_predi, @() -grad_x);
-    Jac = addGradient(Jac, kTi, @get_grad_kT);
-    Jac = addGradient(Jac, kDi, @get_grad_kD);
+Jac = zeros(numel(psi), 0);
+Jac = addGradient(Jac, phi_obsi, @() grad_x);
+Jac = addGradient(Jac, phi_predi, @() -grad_x);
+Jac = addGradient(Jac, kTi, @get_grad_kT);
+Jac = addGradient(Jac, kDi, @get_grad_kD);
 
-    if doSum
-        Jac = sum(Jac, 1);
-    end
+if doSum
+    Jac = sum(Jac, 1);
 end
+
+if ~isempty(Jac)
+    psi = DesignVariable(psi, [], size(Jac,2), Jac);
+end
+
 function grad_kT = get_grad_kT()
     % ratio I1/I0 at kT (use scaled for stability)
     I1I0T = besseli(1,kT,1) ./ besseli(0,kT,1);

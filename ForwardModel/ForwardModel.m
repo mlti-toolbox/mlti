@@ -56,6 +56,28 @@ classdef ForwardModel
             end
             %METHOD1 Summary of this method goes here
             %   Detailed explanation goes here
+            for i = 1:numel(film_cond)
+                film_cond{i} = reshape(film_cond{i}, 1, 1, []);
+            end
+            for i = 1:numel(film_orient)
+                film_orient{i} = reshape(film_orient{i}, 1, 1, 1, []);
+            end
+            lnCf = reshape(lnCf, 1, 1, []);
+            lnaf = reshape(lnaf, 1, 1, []);
+            logitRf = reshape(logitRf, 1, 1, []);
+            lnhf = reshape(lnhf, 1, 1, []);
+            for i = 1:numel(sub_cond)
+                sub_cond{i} = reshape(sub_cond{i}, 1, 1, []);
+            end
+            for i = 1:numel(sub_orient)
+                sub_orient{i} = reshape(sub_orient{i}, 1, 1, 1, []);
+            end
+            lnCs = reshape(lnCs, 1, 1, []);
+            lnas = reshape(lnas, 1, 1, []);
+            logitRs = reshape(logitRs, 1, 1, []);
+            lnhs = reshape(lnhs, 1, 1, []);
+            lnRth = reshape(lnRth, 1, 1, []);
+            f = reshape(f, 1, 1, 1, 1, []);
 
             if isa(ifft_x_max, "DesignVariable") || isa(ifft_Nx, "DesignVariable") || isa(Xprobe, "DesignVariable")
                 error("ForwardModel does not currently support x_max, Nx, or Xprobe as DesignVariable objects")
