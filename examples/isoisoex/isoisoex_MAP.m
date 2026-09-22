@@ -21,34 +21,33 @@ options = optimoptions("fminunc", Display="iter-detailed", ...
     StepTolerance=1e-10, FunctionTolerance=1e-10);
 
 %% WARM START
-% err_ind = cell(N, 1);
-% x_ind = cell(N,1);
-% fval_ind = cell(N,1);
-% exitflag_ind = cell(N,1);
-% output_ind = cell(N,1);
-% grad_ind = cell(N,1);
-% hessian_ind = cell(N,1);
-% for i = 1:N
-%     x0 = [lnkf(i), lnCf(i), lnhf, lnks(i), lnCs(i), lnkappaT];
-%     data.T = T(i);
-%     data.phi_obs = phi_obs(:,i,:,:);
-%     data.kappaD = kappaD(:,i,:,:);
-%     obj_fun = @(x) format4optim( ...
-%         @(xi) nl_posterior( ...
-%             xi(1), xi(2), xi(3), ...
-%             xi(4), xi(5), xi(6), ones(4,1), data ...
-%         ), x ...
-%     );
-%     [~, err_ind{i}] = checkGradients(obj_fun, x0, options, "Display","on");
-%     [ ...
-%         x_ind{i}, fval_ind{i}, exitflag_ind{i}, ...
-%         output_ind{i}, grad_ind{i}, hessian_ind{i} ...
-%     ] = fminunc(obj_fun, x0, options);
-% end
+err_ind = cell(N, 1);
+x_ind = cell(N,1);
+fval_ind = cell(N,1);
+exitflag_ind = cell(N,1);
+output_ind = cell(N,1);
+grad_ind = cell(N,1);
+hessian_ind = cell(N,1);
+for i = 1:N
+    x0 = [lnkf(i), lnCf(i), lnhf, lnks(i), lnCs(i), lnkappaT];
+    data.T = T(i);
+    data.phi_obs = phi_obs(:,i,:,:);
+    data.kappaD = kappaD(:,i,:,:);
+    obj_fun = @(x) format4optim( ...
+        @(xi) nl_posterior( ...
+            xi(1), xi(2), xi(3), ...
+            xi(4), xi(5), xi(6), ones(4,1), data ...
+        ), x ...
+    );
+    [~, err_ind{i}] = checkGradients(obj_fun, x0, options, "Display","on");
+    [ ...
+        x_ind{i}, fval_ind{i}, exitflag_ind{i}, ...
+        output_ind{i}, grad_ind{i}, hessian_ind{i} ...
+    ] = fminunc(obj_fun, x0, options);
+end
 
 %% FULL OPTIMIZATION
-% x0 = [horzcat(x_ind{:}), lnell]
-x0 = [lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell];
+x0 = [horzcat(x_ind{:}), lnell]
 data.T = T;
 data.phi_obs = phi_obs;
 data.kappaD = kappaD;
