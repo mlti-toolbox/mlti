@@ -19,3 +19,4 @@ if nargout > 1
     Jac = addGradient(Jac, mui, @() - ks);
     Jac = addGradient(Jac, ki, @() besseli(1,k,1) ./ I0tilde - c);
 end
+end
