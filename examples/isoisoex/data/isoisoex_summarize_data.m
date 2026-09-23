@@ -2,54 +2,37 @@ clear; clc;
 
 load isoisoex_data_corrupted.mat
 Ntrials = numel(phi_obs);
-mu     = cell(Ntrials,1);
-kappaD = cell(Ntrials,1);
+mu       = cell(Ntrials,1);
+Rbar     = cell(Ntrials,1);
+kappa    = cell(Ntrials,1);
+kappa_mu = cell(Ntrials,1);
 for a = 1:Ntrials
     [Nprobe, N, n, Nf, Nrep] = size(phi_obs{a});
     mu{a} = circular_mean(phi_obs{a}, ndims(phi_obs{a}));
-    nl_vM(phi_obs{a}, mu{a}, 100), ndims(phi_obs{a});
-    kappa = fminunc(@(x) nl_vM(phi_obs{a}, mu{a}))
-
-    kappaD{a} = zeros(Nprobe,N,n,Nf);
-    for i = 1:N
-        for j = 1:n
-            for k = 1:Nf
-                for l = 1:Nprobe
-                    % x = fmincon(@(x) format4optim(@(xi) sum(nl_vM(phi_obs{:}(i,j,k,l,:), x(1), x(2))), [0, 100], [],[],[],[],[-pi,0],[pi,inf]);
-                    mu{a}(i,j,k,l) = x(1);
-                    kappaD{a}(i,j,k,l) = x(2);
-                end
-            end
-        end
-    end
-    
-    for i = randperm(N,3)
-        j = 1;
-        for k = randperm(Nf,3)
-            for l = randperm(Nprobe,3)
-                clf
-                histogram(iso_phi_noisy(i,j,k,l,:), Normalization="pdf")
-                hold on;
-                x = linspace(min(iso_phi_noisy(i,j,k,l,:)), max(iso_phi_noisy(i,j,k,l,:)), 201);
-                plot(x, exp(-vM(x,mu(i,j,k,l), kappaD(i,j,k,l))), LineWidth=2)
-                drawnow;
-                pause(1)
-            end
-        end
-    end
+    Rbar{a} = R(phi_obs{a}, ndims(phi_obs{a}))./Nrep;
+    kappa{a} = get_kappa(Rbar{a});
+    kappa_mu{a} = Nrep.*Rbar{a}.*kappa{a};
+    disp("Progress: " + a + "/" + Ntrials)
 end
 
-save("isoisoex_data_stats.mat", "phi_obs", "kappaD", "T", "f", "Xprobe")
+save("isoisoex_data_stats.mat", "mu", "Rbar", "kappa", "kappa_mu", "T", "f", "Xprobe")
 
-function mu = circular_mean(x, dim)
+function out = circular_mean(x, dim)
+    s = sin(x);
+    c = cos(x);
+    out = atan2(sum(s, dim), sum(c, dim));
+end
 
-    if nargin < 2
-        dim = find(size(x) ~= 1, 1);
-        if isempty(dim)
-            dim = 1;
-        end
+function out = R(x, dim)
+    s = sum(sin(x), dim);
+    c = sum(cos(x), dim);
+    out = sqrt(c.^2+s.^2);
+end
+
+function kappas = get_kappa(Rbar)
+    kappas = zeros(numel(Rbar), 1);
+    for i = 1:numel(Rbar) 
+        kappas(i) = fzero(@(x) besseli(1, x, 1)./besseli(0, x, 1) - Rbar(i), 100);
     end
-
-    mu = atan2(sum(sin(x), dim), sum(cos(x), dim));
-
+    kappas = reshape(kappas, size(Rbar));
 end
