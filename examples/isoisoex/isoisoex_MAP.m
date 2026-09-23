@@ -1,24 +1,28 @@
-clear; clc;
-
+function isoisoex_MAP(trialNum)
+rng("shuffle");
 %% LOAD DATA
-load("iso_data_stats.mat");
-data.f = f;
-data.Xprobe = Xprobe;
-N = length(T);
+data = load("isoisoex_data_stats.mat");
+data.kappa_mu = data.kappa_mu{trialNum};
+data.mu = data.mu{trialNum};
+data_ws.f = data.f;
+data_ws.Xprobe = data.Xprobe;
+N = length(data.T);
 
-%% Initial Guess: x0
-lnkf = [4.6606, 4.6407, 4.6199, 4.5980, 4.5751, 4.5510, 4.5257];
-lnCf = [0.9133, 0.9223, 0.9344, 0.9490, 0.9653, 0.9828, 1.0007];
-lnhf = log(0.15);
-lnks = [0.6625, 0.6689, 0.6797, 0.6940, 0.7112, 0.7304, 0.7510];
-lnCs = [1.0217, 1.1174, 1.1847, 1.2319, 1.2645, 1.2865, 1.3008];
-lnkappaT = log(3000);
-lnell = log(600)*ones(1,4);
+%% Initial Guess: x0 - Sample from Prior
+consts = load("isoisoex_constants.mat");
+lnkf = normrnd(consts.mu_lnkf, consts.sigma_lnkf, 7, 1);
+lnCf = normrnd(consts.mu_lnCf, consts.sigma_lnCf, 7, 1);
+lnhf = normrnd(consts.mu_lnhf, consts.sigma_lnhf, 1, 1);
+lnks = normrnd(consts.mu_lnks, consts.sigma_lnks, 7, 1);
+lnCs = normrnd(consts.mu_lnCs, consts.sigma_lnCs, 7, 1);
+lnkappaT = normrnd(consts.mu_lnkappaT, consts.sigma_lnkappaT, 1, 1);
+lnell = normrnd(consts.mu_lnell, consts.sigma_lnell, 4, 1);
 
 options = optimoptions("fminunc", Display="iter-detailed", ...
     SpecifyObjectiveGradient=true, ...
     FiniteDifferenceType="central", ...
-    StepTolerance=1e-10, FunctionTolerance=1e-10);
+    StepTolerance=1e-10, FunctionTolerance=1e-10, ...
+    MaxFunctionEvaluations=1e4);
 
 %% WARM START
 err_ind = cell(N, 1);
@@ -29,14 +33,14 @@ output_ind = cell(N,1);
 grad_ind = cell(N,1);
 hessian_ind = cell(N,1);
 for i = 1:N
-    x0 = [lnkf(i), lnCf(i), lnhf, lnks(i), lnCs(i), lnkappaT];
-    data.T = T(i);
-    data.phi_obs = phi_obs(:,i,:,:);
-    data.kappaD = kappaD(:,i,:,:);
+    x0 = [lnkf(i); lnCf(i); lnhf; lnks(i); lnCs(i); lnkappaT];
+    data_ws.T = data.T(i);
+    data_ws.mu = data.mu(:,i,:,:);
+    data_ws.kappa_mu = data.kappa_mu(:,i,:,:);
     obj_fun = @(x) format4optim( ...
         @(xi) nl_posterior( ...
             xi(1), xi(2), xi(3), ...
-            xi(4), xi(5), xi(6), lnell, data ...
+            xi(4), xi(5), xi(6), lnell, data_ws ...
         ), x ...
     );
     [~, err_ind{i}] = checkGradients(obj_fun, x0, options, "Display","on");
@@ -48,10 +52,8 @@ end
 
 %% FULL OPTIMIZATION
 x0 = horzcat(x_ind{:});
-x0 = [x0(1,:), x0(2,:), mean(x0(3,:)), x0(4,:), x0(5,:); mean(x0(6,:)); lnell]
-data.T = T;
-data.phi_obs = phi_obs;
-data.kappaD = kappaD;
+x0 = x0.';
+x0 = [x0(:,1); x0(:,2); mean(x0(:,3)); x0(:,4); x0(:,5); mean(x0(:,6)); lnell]
 obj_fun = @(x) format4optim( ...
     @(xi) nl_posterior( ...
         xi(1:7), ...
@@ -67,16 +69,15 @@ obj_fun = @(x) format4optim( ...
 [~, err] = checkGradients(obj_fun, x0, options, "Display","on");
 [x,fval,exitflag,output,grad,hessian] = fminunc(obj_fun, x0, options);
 
-save("examples\isoisoex\isoisoex_MAP_results.mat", ...
+save("isoisoex_MAP_results"+sprintf('%03d', trialNum)+".mat", ...
     "err", "x", "fval", "exitflag", "output", "grad", "hessian", ...
     "err_ind", "x_ind", "fval_ind", "exitflag_ind", "output_ind", "grad_ind", "hessian_ind");
+end
 
 function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
     %% DATA
     T = data.T;
     f = data.f;
-    phi_obs = data.phi_obs;
-    kappaD = data.kappaD;
     Xprobe = data.Xprobe;    
 
     %% PRIOR PARAMS
@@ -143,7 +144,7 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
         {lnks},  {},  lnCs, lnas, logitRs, [], ...
         lnRth, sx, sy, P, f, x_max, Nx, Xprobe ...
     );
-    psi_nll = nll_phase(phi_obs, phase(T0tilde), exp(lnkappaT), kappaD, true);
+    psi_nll = nll_phase(data.mu, phase(T0tilde), exp(lnkappaT), data.kappa_mu, true);
     
     %% POSTERIOR
     psi = sum_nl_probs( ...
