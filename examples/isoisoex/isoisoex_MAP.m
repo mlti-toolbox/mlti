@@ -117,20 +117,25 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
     %% DATA
     T = data.T;
     f = data.f;
-    Xprobe = data.Xprobe;    
+    Xprobe = data.Xprobe; 
+    Nx = 160;
 
     %% PRIOR PARAMS
-    mu_lnkf     = 4.14*ones(size(lnkf));      mu_lnks = 4.14*ones(size(lnks));
-    mu_lnCf     = 0.9962*ones(size(lnCf));    mu_lnCs = 0.9962*ones(size(lnCs));
-    mu_lnhf     = -1.93*ones(size(lnhf));
-    mu_lnell    = 5.957*ones(size(lnell));
-    mu_lnkappaT = 6.466*ones(size(lnkappaT));
-    
-    lnsigma_lnkf   = 0.5*log(1.197);  lnsigma_lnks = lnsigma_lnkf;
-    lnsigma_lnCf   = 0.5*log(0.4305); lnsigma_lnCs = lnsigma_lnCf;
-    sigma_lnhf     = sqrt(0.0345);
-    sigma_lnell    = sqrt(0.503);
-    sigma_lnkappaT = sqrt(1.806);
+    consts = load("isoisoex_constants.mat");
+    mu_lnkf        = consts.mu_lnkf        * ones(size(lnkf));
+    sigma_lnkf     = consts.sigma_lnkf     * ones(size(lnkf));
+    mu_lnCf        = consts.mu_lnCf        * ones(size(lnCf));
+    sigma_lnCf     = consts.sigma_lnCf     * ones(size(lnCf));
+    mu_lnhf        = consts.mu_lnhf        * ones(size(lnhf));
+    sigma_lnhf     = consts.sigma_lnhf     * ones(size(lnhf));
+    mu_lnks        = consts.mu_lnks        * ones(size(lnks));
+    sigma_lnks     = consts.sigma_lnks     * ones(size(lnks));
+    mu_lnCs        = consts.mu_lnCs        * ones(size(lnCs));
+    sigma_lnCs     = consts.sigma_lnCs     * ones(size(lnCs));
+    mu_lnkappaT    = consts.mu_lnkappaT    * ones(size(lnkappaT));
+    sigma_lnkappaT = consts.sigma_lnkappaT * ones(size(lnkappaT));
+    mu_lnell       = consts.mu_lnell       * ones(size(lnell));
+    sigma_lnell    = consts.sigma_lnell    * ones(size(lnell));
 
     %% PRIOR FUNCTIONS
     % Ψ(θ)
@@ -138,19 +143,19 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
 
     % Ψ(lnkf|θ1)
     psi_lnkf = nl_mvn_cov(lnkf, mu_lnkf, ...
-        RBFKernel(T,T,lnsigma_lnkf,lnsigma_lnkf,lnell(1)));
+        RBFKernel(T,T,log(sigma_lnkf),log(sigma_lnkf),lnell(1)));
     
     % Ψ(lnCf|θ2)
     psi_lnCf = nl_mvn_cov(lnCf, mu_lnCf, ...
-        RBFKernel(T,T,lnsigma_lnCf,lnsigma_lnCf,lnell(2)));
+        RBFKernel(T,T,log(sigma_lnCf),log(sigma_lnCf),lnell(2)));
     
     % Ψ(lnks|θ3)
     psi_lnks = nl_mvn_cov(lnks, mu_lnks, ...
-        RBFKernel(T,T,lnsigma_lnks,lnsigma_lnks,lnell(3)));
+        RBFKernel(T,T,log(sigma_lnks),log(sigma_lnks),lnell(3)));
     
     % Ψ(lnCs|θ4)
     psi_lnCs = nl_mvn_cov(lnCs, mu_lnCs, ...
-        RBFKernel(T,T,lnsigma_lnCs,lnsigma_lnCs,lnell(4)));
+        RBFKernel(T,T,log(sigma_lnCs),log(sigma_lnCs),lnell(4)));
     
     % Ψ(lnhf)
     psi_lnhf = nln(lnhf, mu_lnhf, sigma_lnhf);
@@ -159,15 +164,15 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
     psi_lnkappaT = nln(lnkappaT, mu_lnkappaT, sigma_lnkappaT);
     
     %% OTHER DETERMINISTIC PARAMS
-    lnaf = log(72.4);
-    lnas = log(13.2e-6);
-    logitRf = -inf;
-    logitRs = -inf;
-    P = 1000;
-    sx = 2;
-    sy = 2;
-    lnRth = -inf;
-    Nx = 160;
+    lnaf = consts.lnaf;
+    lnas = consts.lnas;
+    logitRf = consts.logitRf;
+    logitRs = consts.logitRs;
+    lnRth = consts.lnRth;
+
+    sx = consts.sx;
+    sy = consts.sy;
+    P = consts.P;
 
     %% CALCULATE X_MAX
     Df = exp(get_val(lnkf)-get_val(lnCf)); % mm^2/s

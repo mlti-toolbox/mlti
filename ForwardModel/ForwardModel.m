@@ -176,11 +176,11 @@ classdef ForwardModel
                     yvec = y(1,:,yi,yj,yk);
                     V    = T0tilde(:,:,i,j,k);
                 
-                    F = griddedInterpolant({xvec, yvec}, V, 'linear', 'none');
+                    F = griddedInterpolant({xvec, yvec}, V, 'spline', 'none');
                     T0tilde_interp(:,i,j,k) = F(Xprobe(:,1), Xprobe(:,2));
 
                     if ~isempty(T0tilde_jac)
-                        F_jac = griddedInterpolant({xvec, yvec}, zeros(numel(xvec), numel(yvec)), 'linear', 'none');
+                        F_jac = griddedInterpolant({xvec, yvec}, zeros(numel(xvec), numel(yvec)), 'spline', 'none');
                         F_jac.Values = T0tilde_jac(:,:,i,j,k,:);
                         T0tilde_jac_interp(:,i,j,k,:) = F_jac(Xprobe(:,1), Xprobe(:,2));
                     end

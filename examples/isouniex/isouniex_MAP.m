@@ -8,6 +8,16 @@ data = load("isouniex_data_stats.mat");
 data.kappa_mu = data.kappa_mu{trialNum};
 data.mu = data.mu{trialNum};
 
+checkpointDir = "checkpoints";
+if ~exist(checkpointDir, 'dir')
+    mkdir(checkpointDir);
+end
+
+resultsDir = "results";
+if ~exist(checkpointDir, 'dir')
+    mkdir(checkpointDir);
+end
+
 if nargin < 2
     %% LOAD DATA
     data_ws.f = data.f;
@@ -20,14 +30,16 @@ if nargin < 2
     lnkf = normrnd(consts.mu_lnkf, consts.sigma_lnkf, 7, 1);
     lnCf = normrnd(consts.mu_lnCf, consts.sigma_lnCf, 7, 1);
     lnhf = normrnd(consts.mu_lnhf, consts.sigma_lnhf, 1, 1);
-    lnks_perp = normrnd(consts.mu_lnks, consts.sigma_lnks, 7, 1);
-    lnks_par = normrnd(consts.mu_lnks, consts.sigma_lnks, 7, 1);
-    vs1
-    vs2
-    vs3
+    lnks_perp = normrnd(consts.mu_lnks_perp, consts.sigma_lnks_perp, 7, 1);
+    lnks_par = normrnd(consts.mu_lnks_par, consts.sigma_lnks_par, 7, 1);
+    Os_theta = normrnd(0, deg2rad(20), 5, 1);
+    Os_phi = pi*rand;
+    Os1 = sin(Os_theta) .* cos(Os_phi);
+    Os2 = cos(Os_theta);
+    Os3 = sin(Os_theta) .* sin(Os_phi);
     lnCs = normrnd(consts.mu_lnCs, consts.sigma_lnCs, 7, 1);
     lnkappaT = normrnd(consts.mu_lnkappaT, consts.sigma_lnkappaT, 1, 1);
-    lnell = normrnd(consts.mu_lnell, consts.sigma_lnell, 5, 1);
+    lnell = normrnd(consts.mu_lnell, consts.sigma_lnell, 4, 1);
     
     %% WARM START
     err_ind = cell(N, 1);
@@ -38,14 +50,15 @@ if nargin < 2
     grad_ind = cell(N,1);
     hessian_ind = cell(N,1);
     for i = 1:N
-        x0 = [lnkf(i); lnCf(i); lnhf; lnks_perp(i); lnks_par(i); vs1; vs2; vs3; lnCs(i); lnkappaT];
+        x0 = [lnkf(i); lnCf(i); lnhf; lnks_perp(i); lnks_par(i); lnCs(i); lnkappaT; Os1; Os2; Os3];
         data_ws.T = data.T(i);
         data_ws.mu = data.mu(:,i,:,:);
         data_ws.kappa_mu = data.kappa_mu(:,i,:,:);
         obj_fun = @(x) format4optim( ...
             @(xi) nl_posterior( ...
                 xi(1), xi(2), xi(3), ...
-                xi(4), xi(5), xi(6), lnell, data_ws ...
+                xi(4), xi(5), xi(6), xi(7), lnell, ...
+                xi(8:12), xi(13:17), xi(18:22), data_ws ...
             ), x ...
         );
         [~, err_ind{i}] = checkGradients(obj_fun, x0, options, "Display","on");
@@ -58,15 +71,20 @@ if nargin < 2
     %% FULL OPTIMIZATION
     x = horzcat(x_ind{:});
     x = x.';
-    x = [x(:,1); x(:,2); mean(x(:,3)); x(:,4); x(:,5); mean(x(:,6)); lnell];
+    x = [x(:,1); x(:,2); mean(x(:,3)); x(:,4); x(:,5); x(:,6); mean(x(:,7)); lnell];
 
-    x0 = [lnkf; lnCf; lnhf; lnks_perp; lnks_par; vs1; vs2; vs3; lnCs; lnkappaT; lnell];
+    x0 = [lnkf; lnCf; lnhf; lnks_perp; lnks_par; lnCs; lnkappaT; lnell; Os1; Os2; Os3];
 
-    save("isouniex_MAP_results_warm_start_" ...
+    save(fullfile(checkpointDir, "isouniex_MAP_results_warm_start_" ...
         + sprintf('%03d', trialNum) ...
         + "_" ...
         + string(datetime("now", Format="uuuuMMdd'T'HHmmss")) ...
-        + ".mat", "x0", "x", "err_ind", "x_ind", "fval_ind", ...
+        + ".mat"), "x0", "x", "err_ind", "x_ind", "fval_ind", ...
+        "exitflag_ind", "output_ind", "grad_ind", "hessian_ind" ...
+    );
+    save(fullfile(resultsDir, "isouniex_MAP_results_" ...
+        + sprintf('%03d', trialNum) ...
+        + ".mat"), "x0", "x", "err_ind", "x_ind", "fval_ind", ...
         "exitflag_ind", "output_ind", "grad_ind", "hessian_ind" ...
     );
 
@@ -80,41 +98,59 @@ obj_fun = @(x) format4optim( ...
         xi(15), ...
         xi(16:22), ...
         xi(23:29), ...
-        xi(30), ...
-        xi(31:34), ...
+        xi(30:37), ...
+        xi(38), ...
+        xi(39:43), ...
+        xi(44:48), ...
+        xi(49:53), ...
+        xi(54:58), ...
         data ...
     ), x ...
 );
 [~, err] = checkGradients(obj_fun, x0, options, "Display","on");
 [x,fval,exitflag,output,grad,hessian] = fminunc(obj_fun, x0, options);
 
-save("isouniex_MAP_results_" ...
+save(fullfile(checkpointDir, "isouniex_MAP_results_" ...
     + sprintf('%03d', trialNum) ...
     + "_" ...
     + string(datetime("now", Format="uuuuMMdd'T'HHmmss")) ...
-    + ".mat", "x0", "x", "err", "fval", ...
+    + ".mat"), "x0", "x", "err", "fval", ...
+    "exitflag", "output", "grad", "hessian" ...
+);
+save(fullfile(resultsDir, "isouniex_MAP_results_" ...
+    + sprintf('%03d', trialNum) ...
+    + ".mat"), "x0", "x", "err", "fval", ...
     "exitflag", "output", "grad", "hessian" ...
 );
 end
 
-function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
+function psi = nl_posterior(lnkf, lnCf, lnhf, lnks_perp, lnks_par, lnCs, lnkappaT, lnell, Os1, Os2, Os3, data)
     %% DATA
     T = data.T;
     f = data.f;
-    Xprobe = data.Xprobe;    
+    Xprobe = data.Xprobe;   
+    Nx = 160;
 
     %% PRIOR PARAMS
-    mu_lnkf     = 4.14*ones(size(lnkf));      mu_lnks = 4.14*ones(size(lnks));
-    mu_lnCf     = 0.9962*ones(size(lnCf));    mu_lnCs = 0.9962*ones(size(lnCs));
-    mu_lnhf     = -1.93*ones(size(lnhf));
-    mu_lnell    = 5.957*ones(size(lnell));
-    mu_lnkappaT = 6.466*ones(size(lnkappaT));
-    
-    lnsigma_lnkf   = 0.5*log(1.197);  lnsigma_lnks = lnsigma_lnkf;
-    lnsigma_lnCf   = 0.5*log(0.4305); lnsigma_lnCs = lnsigma_lnCf;
-    sigma_lnhf     = sqrt(0.0345);
-    sigma_lnell    = sqrt(0.503);
-    sigma_lnkappaT = sqrt(1.806);
+    consts = load("isouniex_constants.mat");
+    mu_lnkf         = consts.mu_lnkf         * ones(size(lnkf));
+    sigma_lnkf      = consts.sigma_lnkf      * ones(size(lnkf));
+    mu_lnCf         = consts.mu_lnCf         * ones(size(lnCf));
+    sigma_lnCf      = consts.sigma_lnCf      * ones(size(lnCf));
+    mu_lnhf         = consts.mu_lnhf         * ones(size(lnhf));
+    sigma_lnhf      = consts.sigma_lnhf      * ones(size(lnhf));
+    mu_lnks_perp    = consts.mu_lnks_perp    * ones(size(lnks_perp));
+    sigma_lnks_perp = consts.sigma_lnks_perp * ones(size(lnks_perp));
+    mu_lnks_par     = consts.mu_lnks_par     * ones(size(lnks_par));
+    sigma_lnks_par  = consts.sigma_lnks_par  * ones(size(lnks_par));
+    mu_lnCs         = consts.mu_lnCs         * ones(size(lnCs));
+    sigma_lnCs      = consts.sigma_lnCs      * ones(size(lnCs));
+    mu_lnkappaT     = consts.mu_lnkappaT     * ones(size(lnkappaT));
+    sigma_lnkappaT  = consts.sigma_lnkappaT  * ones(size(lnkappaT));
+    mu_lnell        = consts.mu_lnell        * ones(size(lnell));
+    sigma_lnell     = consts.sigma_lnell     * ones(size(lnell));
+    Qs              = consts.Qs;
+    Okappas         = consts.Okappas;
 
     %% PRIOR FUNCTIONS
     % Ψ(θ)
@@ -122,49 +158,60 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
 
     % Ψ(lnkf|θ1)
     psi_lnkf = nl_mvn_cov(lnkf, mu_lnkf, ...
-        RBFKernel(T,T,lnsigma_lnkf,lnsigma_lnkf,lnell(1)));
+        RBFKernel(T,T,log(sigma_lnkf),log(sigma_lnkf),lnell(1)));
     
     % Ψ(lnCf|θ2)
     psi_lnCf = nl_mvn_cov(lnCf, mu_lnCf, ...
-        RBFKernel(T,T,lnsigma_lnCf,lnsigma_lnCf,lnell(2)));
+        RBFKernel(T,T,log(sigma_lnCf),log(sigma_lnCf),lnell(2)));
     
-    % Ψ(lnks|θ3)
-    psi_lnks = nl_mvn_cov(lnks, mu_lnks, ...
-        RBFKernel(T,T,lnsigma_lnks,lnsigma_lnks,lnell(3)));
+    % Ψ(lnks_perp|θ3)
+    psi_lnks_perp = nl_mvn_cov(lnks_perp, mu_lnks_perp, ...
+        RBFKernel(T,T,log(sigma_lnks_perp),log(sigma_lnks_perp),lnell(3)));
+
+    % Ψ(lnks_par|θ3)
+    psi_lnks_par = nl_mvn_cov(lnks_par, mu_lnks_par, ...
+        RBFKernel(T,T,log(sigma_lnks_par),log(sigma_lnks_par),lnell(4)));
     
     % Ψ(lnCs|θ4)
     psi_lnCs = nl_mvn_cov(lnCs, mu_lnCs, ...
-        RBFKernel(T,T,lnsigma_lnCs,lnsigma_lnCs,lnell(4)));
+        RBFKernel(T,T,log(sigma_lnCs),log(sigma_lnCs),lnell(5)));
     
     % Ψ(lnhf)
     psi_lnhf = nln(lnhf, mu_lnhf, sigma_lnhf);
     
     % Ψ(lnkappaT)
     psi_lnkappaT = nln(lnkappaT, mu_lnkappaT, sigma_lnkappaT);
-    
+
+    % Ψ(O)
+    psi_Os = cell(numel(Os1),1);
+    for i = 1:length(Os1)
+        psi_Os{i} = nl_Bingham_unnormalized([Os1(i);Os2(i);Os3(i)], Qs, Okappas);
+    end
+
     %% OTHER DETERMINISTIC PARAMS
-    lnaf = log(72.4);
-    lnas = log(13.2e-6);
-    logitRf = -inf;
-    logitRs = -inf;
-    P = 1000;
-    sx = 2;
-    sy = 2;
-    lnRth = -inf;
-    Nx = 160;
+    lnaf = consts.lnaf;
+    lnas = consts.lnas;
+    logitRf = consts.logitRf;
+    logitRs = consts.logitRs;
+    lnRth = consts.lnRth;
+
+    sx = consts.sx;
+    sy = consts.sy;
+    P = consts.P;
 
     %% CALCULATE X_MAX
     Df = exp(get_val(lnkf)-get_val(lnCf)); % mm^2/s
-    Ds = exp(get_val(lnks)-get_val(lnCs)); % mm^2/s
+    Ds_perp = exp(get_val(lnks_perp)-get_val(lnCs)); % mm^2/s
+    Ds_par = exp(get_val(lnks_par)-get_val(lnCs)); % mm^2/s
     Lthf = sqrt(reshape(Df,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
-    Lths = sqrt(reshape(Ds,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
+    Lths = sqrt(reshape(max(Ds_perp, Ds_par),1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
     x_max = max(10*max(sqrt(sum(Xprobe.^2, 2))), max(Lthf, Lths));
 
     %% LIKELIHOOD
     % Ψ(ϕ|x)
     T0tilde = ForwardModel("iso", "uni", true).solve( ...
         {lnkf}, {}, lnCf, lnaf, logitRf, lnhf, ...
-        {lnks},  {},  lnCs, lnas, logitRs, [], ...
+        {lnks_perp, lnks_par},  {Os1, Os2, Os3},  lnCs, lnas, logitRs, [], ...
         lnRth, sx, sy, P, f, x_max, Nx, Xprobe ...
     );
     psi_nll = nll_phase(data.mu, phase(T0tilde), exp(lnkappaT), data.kappa_mu, true);
@@ -172,6 +219,7 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
     %% POSTERIOR
     psi = sum_nl_probs( ...
         psi_lnell, psi_lnkf, psi_lnCf, psi_lnhf, ...
-        psi_lnks, psi_lnCs, psi_lnkappaT, psi_nll ...
+        psi_lnks_perp, psi_lnks_par, psi_lnCs, psi_lnkappaT, ...
+        psi_Os{:}, psi_nll ...
     );
 end
