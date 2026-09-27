@@ -14,8 +14,8 @@ if ~exist(checkpointDir, 'dir')
 end
 
 resultsDir = "results";
-if ~exist(checkpointDir, 'dir')
-    mkdir(checkpointDir);
+if ~exist(resultsDir, 'dir')
+    mkdir(resultsDir);
 end
 
 if nargin < 2
