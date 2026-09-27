@@ -52,6 +52,8 @@ classdef DesignVariable
                     error("Unsupported indexing type.")
             end
         end
+
+        % Overloaded operators
         function out = at(obj, indx)
             out = DesignVariable(obj.value(indx), obj.indx(indx), obj.rootLen, obj.Jac(indx,:));
         end
@@ -68,6 +70,24 @@ classdef DesignVariable
 
         function out = size(obj)
             out = size(obj.value);
+        end
+
+        function obj = vertcat(varargin)
+            N = length(varargin);
+            values = cell(N,1);
+            indxes = cell(N,1);
+            Jacs   = cell(N,1);
+            for i = 1:N
+                if i == 1
+                    rtLen = varargin{i}.rootLen;
+                elseif varargin{i}.rootLen ~= rtLen
+                    error('All DesignVariables must have the same rootLen.')
+                end
+                values{i} = varargin{i}.value;
+                indxes{i} = varargin{i}.indx;
+                Jacs{i}   = varargin{i}.Jac;
+            end
+            obj = DesignVariable(vertcat(values{:}), vertcat(indxes{:}), rtLen, vertcat(Jacs{:}));
         end
     end
 end
