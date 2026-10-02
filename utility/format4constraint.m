@@ -17,6 +17,7 @@ function [ineqnonlin,eqnonlin,Gineqnonlin,Geqnonlin] = format4constraint(ineqfn,
             Gineqnonlin = [];
         else
             [ineqnonlin, Gineqnonlin] = format4optim(ineqfn, x);
+            Gineqnonlin = Gineqnonlin.';
         end
     
         if isempty(eqfn)
@@ -24,6 +25,7 @@ function [ineqnonlin,eqnonlin,Gineqnonlin,Geqnonlin] = format4constraint(ineqfn,
             Geqnonlin = [];
         else
             [eqnonlin, Geqnonlin] = format4optim(eqfn, x);
+            Geqnonlin = Geqnonlin.';
         end
     end
 end
