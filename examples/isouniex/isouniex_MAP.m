@@ -62,12 +62,15 @@ if nargin < 2
                 xi(8:12), xi(13:17), xi(18:22), data_ws ...
             ), x ...
         );
+        nonlcon = @(x) format4constraint([], ...
+            @(xi) hyper_sphere(xi(8:12), xi(13:17), xi(18:22)), ...
+            x ...
+        );
         [~, err_ind{i}] = checkGradients(obj_fun, x0, options, "Display","on");
         [ ...
             x_ind{i}, fval_ind{i}, exitflag_ind{i}, ...
             output_ind{i}, grad_ind{i}, hessian_ind{i} ...
-        ] = fmincon(obj_fun, x0, [], [], [], [], [], [], ...
-        @(x) format4constraint(@(xi) hyper_sphere(xi(8:12), xi(13:17), xi(18:22)), x), options);
+        ] = fmincon(obj_fun, x0, [], [], [], [], [], [], nonlcon, options);
     end
     
     %% FULL OPTIMIZATION
@@ -111,9 +114,13 @@ obj_fun = @(x) format4optim( ...
         data ...
     ), x ...
 );
+nonlcon = @(x) format4constraint([], ...
+    @(xi) hyper_sphere(xi(43:47), xi(48:52), xi(53:57)), ...
+    x ...
+);
 [~, err] = checkGradients(obj_fun, x0, options, "Display","on");
-[x,fval,exitflag,output,grad,hessian] = fmincon(obj_fun, x0, [], [], [], [], [], [], ...
-    @(x) format4constraint(@(xi) hyper_sphere(xi(43:47), xi(48:52), xi(53:57)), x), options);
+[x,fval,exitflag,output,grad,hessian] = fmincon( ...
+    obj_fun, x0, [], [], [], [], [], [], nonlcon, options);
 
 save(fullfile(checkpointDir, "isouniex_MAP_results_" ...
     + sprintf('%03d', trialNum) ...
@@ -227,45 +234,4 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks_perp, lnks_par, lnCs, lnkappa
         psi_lnks_perp, psi_lnks_par, psi_lnCs, psi_lnkappaT, ...
         psi_Os{:}, psi_nll ...
     );
-end
-function out = hyper_sphere(varargin)
-    eqnonlin = 0;
-    Geqnonlin = 0;
-
-    for i = 1:numel(varargin)
-        v = get_val(varargin{i});
-
-        eqnonlin = eqnonlin + v.^2;
-        if isa(varargin{i}, "DesignVariable")
-            Geqnonlin = Geqnonlin + 2 .* v .* varargin{i}.Jac;
-        else
-            Geqnonlin = Geqnonlin + 2 .* v;
-        end
-    end
-
-    eqnonlin = eqnonlin - 1;
-
-    out = DesignVariable(eqnonlin, [], size(Geqnonlin,2), Geqnonlin);
-end
-
-function [ineqnonlin,eqnonlin,Gineqnonlin,Geqnonlin] = format4constraint(fn, x)
-arguments
-    fn (1,1) function_handle
-    x (:,1) double
-end
-    ineqnonlin = [];
-    Gineqnonlin = [];
-    if nargout < 3
-        eqnonlin = fn(x);
-    else
-        out = fn(DesignVariable(x));
-        if isa(out, "DesignVariable")
-            eqnonlin = out.value;
-            Geqnonlin = out.Jac;
-        else
-            eqnonlin = out;
-            Geqnonlin = zeros(numel(out), 0);
-        end
-    end
-    Geqnonlin = Geqnonlin.';
 end
