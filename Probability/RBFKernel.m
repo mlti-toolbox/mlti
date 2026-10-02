@@ -31,6 +31,14 @@ lnK = lnsigma + lnsigmap - r2/(2*l2);
 % Kernel
 K = exp(lnK);
 
+% --- Numerical stabilization ---
+%
+% X == Xp indicates that K is a covariance matrix. Add jitter to
+% the diagonal for numerical positive-definiteness.
+if isequal(X, Xp)
+    K = 0.5*(K+K.') + 1e-8 * eye(size(K));
+end
+
 % --- Jacobian ---
 Jac = zeros(numel(K), 0);
 
