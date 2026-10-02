@@ -25,9 +25,9 @@ Df = exp(get_val(lnkf)-get_val(lnCf)); % mm^2/s
 Ds = exp(get_val(lnks)-get_val(lnCs)); % mm^2/s
 Lthf = sqrt(reshape(Df,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
 Lths = sqrt(reshape(Ds,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
-x_max = 200;
+x_max = max(200, max(Lthf, Lths));
 
-Nx = 160;
+Nx = 2^9;
 
 xprobe = linspace(0,30,101);
 Xprobe = [xprobe(:), xprobe(:)];
@@ -41,15 +41,39 @@ T0tilde = fm.solve( ...
 
 colors = colororder;
 COMSOL = load("isoisoex_COMSOL_output.mat");
-subplot(2,1,1)
-plot(COMSOL.r, unwrap(angle(squeeze(COMSOL.T0tilde(:,3,1,1:4:end)))), Color=colors(1,:))
-hold on;
-plot(sqrt(Xprobe(:,1).^2+Xprobe(:,2).^2), unwrap(squeeze(angle(T0tilde))), "--", Color=colors(2,:))
-xlim([0,30])
 
-subplot(2,1,2)
-plot(COMSOL.r, unwrap(abs(squeeze(COMSOL.T0tilde(:,3,1,1:4:end)))), Color=colors(1,:))
-hold on;
-plot(sqrt(Xprobe(:,1).^2+Xprobe(:,2).^2), unwrap(squeeze(2*abs(T0tilde))), "--", Color=colors(2,:))
+tiledlayout(2,1,"TileSpacing","tight","Padding","tight");
+nexttile; hold on;
+plot(COMSOL.r, unwrap(angle(squeeze(COMSOL.T0tilde(:,3,1,1:4:end)))), Color=colors(1,:), LineWidth=1.5)
+plot(sqrt(Xprobe(:,1).^2+Xprobe(:,2).^2), unwrap(squeeze(angle(T0tilde))), "--", Color=colors(2,:), LineWidth=1.5)
+xlim([0,30])
+xline([5,10,20])
+ylabel("Phase Lag [rad]", Interpreter="latex")
+text(21, 0.04, "$f=10$ Hz", Interpreter="latex", Rotation=-1, FontSize=8)
+text(21, -0.55, "$f=100$ Hz", Interpreter="latex", Rotation=-4, FontSize=8)
+text(21, -1.06, "$f=1$ kHz", Interpreter="latex", Rotation=-12, FontSize=8)
+text(21, -2.04, "$f=10$ kHz", Interpreter="latex", Rotation=-22, FontSize=8)
+text(21, -3.6, "$f=100$ kHz", Interpreter="latex", Rotation=-35, FontSize=8)
+ylim([-5,0.3])
+
+nexttile; hold on;
+plt1 = plot(COMSOL.r, unwrap(abs(squeeze(COMSOL.T0tilde(:,3,1,1:4:end)))), Color=colors(1,:));
+plt2 = plot(sqrt(Xprobe(:,1).^2+Xprobe(:,2).^2), unwrap(squeeze(2*abs(T0tilde))), "--", Color=colors(2,:));
 xlim([0,30])
 yscale log
+xline([5,10,20])
+
+lgd = legend([plt1(1), plt2(1)], ["COMSOL", "Forward Model"], Interpreter="latex", Orientation="horizontal");
+lgd.Layout.Tile = 'north';
+ylabel("Amplitude [K]", Interpreter="latex")
+xlabel("$\left\|  [x,y] \right\|$ [micron]", Interpreter="latex")
+text(21, 2.4, "$f=10$ Hz", Interpreter="latex", Rotation=-5, FontSize=8)
+text(21, 0.75, "$f=100$ Hz", Interpreter="latex", Rotation=-7, FontSize=8)
+text(21, .3, "$f=1$ kHz", Interpreter="latex", Rotation=-8.5, FontSize=8)
+text(21, 4.5e-2, "$f=10$ kHz", Interpreter="latex", Rotation=-19, FontSize=8)
+text(21, 1.25e-3, "$f=100$ kHz", Interpreter="latex", Rotation=-32.5, FontSize=8)
+ylim([10^-4,1e1])
+
+fig = gcf;
+fig.Units = 'inches';
+fig.Position = [1 1 4 6];
