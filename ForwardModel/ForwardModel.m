@@ -26,7 +26,7 @@ classdef ForwardModel
             end
         end
 
-        function [T0tilde, Jac] = solve(obj, ...
+        function T0tilde = solve(obj, ...
                 film_cond, film_orient, lnCf, lnaf, logitRf, lnhf, ...
                 sub_cond,  sub_orient,  lnCs, lnas, logitRs, lnhs, ...
                 lnRth, sx, sy, P, f, ifft_x_max, ifft_Nx, Xprobe ...
@@ -151,49 +151,19 @@ classdef ForwardModel
                 [T0hat, T0hat_jac] = obj.T0hat_handle(args{:});
                 T0hat_jac = T0hat_jac * Jac1;
             end
+
             [Nx,Ny,N,n,Nf] = size(T0hat);
             T0hat_jac = reshape(full(T0hat_jac), Nx,Ny,N,n,Nf,[]);
             N1 = size(T0hat_jac, 6);
-
             T0tilde = ifftshift(ifft2(fftshift(T0hat)))./dx./dx;
             T0tilde_jac = ifftshift(ifft2(fftshift(T0hat_jac)))./dx./dx;
-
-            if ~isempty(Xprobe)
-                Nprobe = size(Xprobe,1);
-                T0tilde_interp = zeros(Nprobe,N,n,Nf);
-                T0tilde_jac_interp = zeros(Nprobe,N,n,Nf,N1);
-                for i = 1:N
-                    xi = min(i, size(x,3));
-                    yi = min(i, size(y,3));
-                for j = 1:n
-                    xj = min(j, size(x,4));
-                    yj = min(j, size(y,4));
-                for k = 1:Nf
-                    xk = min(k, size(x,5));
-                    yk = min(k, size(y,5));
-                
-                    xvec = x(:,1,xi,xj,xk);
-                    yvec = y(1,:,yi,yj,yk);
-                    V    = T0tilde(:,:,i,j,k);
-                
-                    F = griddedInterpolant({xvec, yvec}, V, 'spline', 'none');
-                    T0tilde_interp(:,i,j,k) = F(Xprobe(:,1), Xprobe(:,2));
-
-                    if ~isempty(T0tilde_jac)
-                        F_jac = griddedInterpolant({xvec, yvec}, zeros(numel(xvec), numel(yvec)), 'spline', 'none');
-                        F_jac.Values = T0tilde_jac(:,:,i,j,k,:);
-                        T0tilde_jac_interp(:,i,j,k,:) = F_jac(Xprobe(:,1), Xprobe(:,2));
-                    end
-                end
-                end
-                end
-                
-                T0tilde = T0tilde_interp;
-                T0tilde_jac = T0tilde_jac_interp;
-            end
-            Jac = reshape(T0tilde_jac, [prod(size(T0tilde_jac, 1:ndims(T0tilde_jac)-1)), N1]);
+            Jac = reshape(T0tilde_jac, [], N1);
+            
             if ~isempty(Jac)
                 T0tilde = DesignVariable(T0tilde, [], size(Jac,2), Jac);
+            end
+            if ~isempty(Xprobe)
+                T0tilde = interpolate(x, y, T0tilde, Xprobe, "spline");
             end
         end
     end
