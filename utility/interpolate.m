@@ -56,7 +56,9 @@ for i = 1:prod(sheetSize)
     xi = x(:,1,subsx{:});
     yi = y(1,:,subsy{:});
 
-    if any(~isfinite(Fi)) || any(~isfinite(xi)) || any(~isfinite(yi))
+    if ~all(isfinite(Fi),"all") || ...
+       ~all(isfinite(xi),"all") || ...
+       ~all(isfinite(yi),"all")
         out(:,subs{:}) = NaN;
     else
         out(:,subs{:}) = interp2( ...
@@ -67,7 +69,7 @@ for i = 1:prod(sheetSize)
     if isa(Fin,"DesignVariable")
         for j = 1:Fin.rootLen
             Jacij = Jac(:,:,subs{:},j);
-            if any(~isfinite(Jacij))
+            if any(~isfinite(Jacij), "all")
                 outJac(:, subs{:}, j) = NaN;
             else
                 outJac(:,subs{:},j) = interp2( ...
