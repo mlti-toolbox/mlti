@@ -56,15 +56,24 @@ for i = 1:prod(sheetSize)
     xi = x(:,1,subsx{:});
     yi = y(1,:,subsy{:});
 
-    out(:,subs{:}) = interp2( ...
-        xi,yi,Fi, ...
-        Xprobe(:,1),Xprobe(:,2),method);
+    if any(isnan(Fi))
+        out(:,subs{:}) = NaN;
+    else
+        out(:,subs{:}) = interp2( ...
+            xi,yi,Fi, ...
+            Xprobe(:,1),Xprobe(:,2),method);
+    end
 
     if isa(Fin,"DesignVariable")
         for j = 1:Fin.rootLen
-            outJac(:,subs{:},j) = interp2( ...
-                xi,yi,Jac(:,:,subs{:},j), ...
-                Xprobe(:,1),Xprobe(:,2),method);
+            Jacij = Jac(:,:,subs{:},j);
+            if any(isnan(Jacij))
+                outJac(:, subs{:}, j) = NaN;
+            else
+                outJac(:,subs{:},j) = interp2( ...
+                    xi,yi,Jacij, ...
+                    Xprobe(:,1),Xprobe(:,2),method);
+            end
         end
     end
 end
