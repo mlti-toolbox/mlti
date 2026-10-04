@@ -69,7 +69,9 @@ for i = 1:prod(sheetSize)
     if isa(Fin,"DesignVariable")
         for j = 1:Fin.rootLen
             Jacij = Jac(:,:,subs{:},j);
-            if any(~isfinite(Jacij), "all")
+            if ~all(isfinite(Jacij), "all") || ...
+               ~all(isfinite(xi),"all") || ...
+               ~all(isfinite(yi),"all")
                 outJac(:, subs{:}, j) = NaN;
             else
                 outJac(:,subs{:},j) = interp2( ...
