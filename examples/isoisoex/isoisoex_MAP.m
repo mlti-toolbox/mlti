@@ -1,5 +1,5 @@
 function isoisoex_MAP(trialNum, x0, options)
-if nargin < 3
+if nargin < 3 || isempty(options)
     options = optimoptions("fminunc", Display="iter-detailed", ...
         SpecifyObjectiveGradient=true, ...
         FiniteDifferenceType="central", ...
@@ -20,7 +20,7 @@ if ~exist(resultsDir, 'dir')
     mkdir(resultsDir);
 end
 
-if nargin < 2
+if nargin < 2 || isempty(x0)
     %% LOAD DATA
     data_ws.f = data.f;
     data_ws.Xprobe = data.Xprobe;
@@ -141,11 +141,11 @@ save(fullfile(resultsDir, "isoisoex_MAP_results_" ...
 );
 
 if min(eig(hessian)) < 0 || max(abs(grad)) > 1 || exitflag < 1
-    options = optimoptions("fminunc", Display="iter-detailed", ...
-        SpecifyObjectiveGradient=true, ...
-        FiniteDifferenceType="central", ...
-        StepTolerance=1e-10, FunctionTolerance=1e-10, ...
-        MaxFunctionEvaluations=1e4, Algorithm="trust-region");
+    if options.Algorithm == "trust-region"
+        options.Algorithm = "quasi-newton";
+    else
+        options.Algorithm = "trust-region";
+    end
     isoisoex_MAP(trialNum, x, options)
 end
 end
