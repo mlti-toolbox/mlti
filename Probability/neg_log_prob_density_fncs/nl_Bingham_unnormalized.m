@@ -4,7 +4,7 @@ if isa(Q, "DesignVariable") || isa(k, "DesignVariable")
     error("This function does not currently DesignVariable inputs for Q nor k.")
 end
 
-A = Q * diag([0; k]) * Q.';
+A = Q * diag([0; k(:)]) * Q.';
 psi = x.' * A * x;
 
 if nargout > 1

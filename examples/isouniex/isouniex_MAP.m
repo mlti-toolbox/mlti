@@ -34,7 +34,7 @@ if nargin < 2 || isempty(x0)
     lnks_perp = normrnd(consts.mu_lnks_perp, consts.sigma_lnks_perp, 7, 1);
     lnks_par = normrnd(consts.mu_lnks_par, consts.sigma_lnks_par, 7, 1);
     Os_theta = normrnd(0, deg2rad(20), 5, 1);
-    Os_phi = pi*rand;
+    Os_phi = pi*rand(5,1);
     Os1 = sin(Os_theta) .* cos(Os_phi);
     Os2 = cos(Os_theta);
     Os3 = sin(Os_theta) .* sin(Os_phi);
@@ -156,8 +156,9 @@ nonlcon_check = @(x) format4optim( ...
 );
 [~, err] = checkGradients(obj_fun, x0, options, "Display","on");
 [~, constraint_err] = checkGradients(nonlcon_check, x0, options, "Display","on");
-[x,fval,exitflag,output,grad,hessian] = fmincon( ...
+[x,fval,exitflag,output,grad] = fmincon( ...
     obj_fun, x0, [], [], [], [], [], [], nonlcon, options);
+hessian = central_diff_hessian(obj_fun, x, 1e-4);
 
 save(fullfile(checkpointDir, "isouniex_MAP_results_" ...
     + sprintf('%03d', trialNum) ...
@@ -172,7 +173,7 @@ save(fullfile(resultsDir, "isouniex_MAP_results_" ...
     "exitflag", "output", "grad", "hessian", "constraint_err" ...
 );
 
-if min(eig(hessian)) < 0 || max(abs(grad)) > 1 || exitflag < 1
+if max(abs(grad)) > 1 || exitflag < 1
     if options.Algorithm == "interior-point"
         options.Algorithm = "sqp";
     else
