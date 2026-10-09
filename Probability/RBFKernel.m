@@ -26,18 +26,17 @@ l2 = exp(2*lnl);
 r2 = pdist2(X, Xp, 'squaredeuclidean');
 
 % Log kernel
-lnK = lnsigma + lnsigmap - r2/(2*l2);
+E = r2/(2*l2);
+E(r2 == 0) = 0;
+lnK = lnsigma + lnsigmap - E;
 
 % Kernel
 K = exp(lnK);
 
 % --- Numerical stabilization ---
 %
-% X == Xp indicates that K is a covariance matrix. Add jitter to
-% the diagonal for numerical positive-definiteness.
-if isequal(X, Xp)
-    K = 0.5*(K+K.') + 1e-8 * eye(size(K));
-end
+% Add jitter to zero-distance inputs for numerical positive-definiteness.
+K(r2==0) = K(r2==0) + 1e-8;
 
 % --- Jacobian ---
 Jac = zeros(numel(K), 0);
