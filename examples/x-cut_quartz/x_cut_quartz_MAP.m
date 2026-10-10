@@ -101,7 +101,7 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks_perp, lnks_par, lnCs, lnkappa
     Nx = 160;
 
     %% PRIOR PARAMS
-    consts = load("isouniex_constants.mat");
+    consts = load("x-cut_quartz_constants.mat");
     mu_lnkf         = consts.mu_lnkf         * ones(size(lnkf));
     sigma_lnkf      = consts.sigma_lnkf      * ones(size(lnkf));
     mu_lnCf         = consts.mu_lnCf         * ones(size(lnCf));
