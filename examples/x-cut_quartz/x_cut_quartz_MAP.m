@@ -41,10 +41,10 @@ if nargin < 2 || isempty(options)
         MaxFunctionEvaluations=1e4, Algorithm="sqp");
 end
 
-obj_fun = @(x) format4optim( ...
+obj_fun = @(x, x_max) format4optim( ...
     @(xi) nl_posterior( ...
         xi(1), xi(2), xi(3), xi(4), xi(5), xi(6), ...
-        xi(7), xi(8), xi(9), xi(10), data ...
+        xi(7), xi(8), xi(9), xi(10), data, x_max ...
     ), x ...
 );
 nonlcon = @(x) format4constraint([], ...
@@ -56,12 +56,14 @@ nonlcon_check = @(x) format4optim( ...
     x ...
 );
 
-[~, err] = checkGradients(obj_fun, x0, options, "Display","on");
+x_max = calculate_x_max(x0(4), x0(5), x0(6), data.f, data.Xprobe);
+[~, err] = checkGradients(@(x) obj_fun(x, x_max), x0, options, "Display","on");
 [~, constraint_err] = checkGradients(nonlcon_check, x0, options, "Display","on");
 [x,fval,exitflag,output,lambda,grad] = fmincon( ...
-    obj_fun, x0, [], [], [], [], [], [], nonlcon, options);
-hessian = central_diff_hessian(obj_fun, x, 1e-4);
+    @(x) obj_fun(x, []), x0, [], [], [], [], [], [], nonlcon, options);
 
+x_max = calculate_x_max(x(4), x(5), x(6), data.f, data.Xprobe);
+hessian = central_diff_hessian(@(x) obj_fun(x, x_max), x, 1e-4);
 
 save(fullfile(checkpointDir, "x-cut_quartz_MAP_results_" ...
     + string(datetime("now", Format="uuuuMMdd'T'HHmmss")) ...
@@ -83,7 +85,14 @@ if max(abs(grad)) > 1 || exitflag < 1
 end
 end
 
-function psi = nl_posterior(lnkf, lnCf, lnhf, lnks_perp, lnks_par, lnCs, lnkappaT, Os1, Os2, Os3, data)
+function x_max = calculate_x_max(lnks_perp, lnks_par, lnCs, f, Xprobe)
+    Ds_perp = exp(get_val(lnks_perp)-get_val(lnCs)); % mm^2/s
+    Ds_par = exp(get_val(lnks_par)-get_val(lnCs)); % mm^2/s
+    Lths = sqrt(reshape(max(Ds_perp, Ds_par),1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
+    x_max = max(5*max(sqrt(sum(Xprobe.^2, 2))), 2*Lths);
+end
+
+function psi = nl_posterior(lnkf, lnCf, lnhf, lnks_perp, lnks_par, lnCs, lnkappaT, Os1, Os2, Os3, data, x_max)
     %% DATA
     f = data.f;
     Xprobe = data.Xprobe;   
@@ -146,13 +155,9 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks_perp, lnks_par, lnCs, lnkappa
     Sxy = data.Sxy;
     P = consts.P;
 
-    %% CALCULATE X_MAX
-    % Df = exp(get_val(lnkf)-get_val(lnCf)); % mm^2/s
-    Ds_perp = exp(get_val(lnks_perp)-get_val(lnCs)); % mm^2/s
-    Ds_par = exp(get_val(lnks_par)-get_val(lnCs)); % mm^2/s
-    % Lthf = sqrt(reshape(Df,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
-    Lths = sqrt(reshape(max(Ds_perp, Ds_par),1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
-    x_max = max(5*max(sqrt(sum(Xprobe.^2, 2))), 2*Lths);
+    if isempty(x_max)
+        x_max = calculate_x_max(lnks_perp, lnks_par, lnCs, f, Xprobe);
+    end
 
     %% LIKELIHOOD
     % Ψ(ϕ|x)
