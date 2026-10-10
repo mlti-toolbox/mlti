@@ -41,7 +41,11 @@ subs = cell(1,numel(sheetSize));
 
 for i = 1:prod(sheetSize)
 
-    [subs{:}] = ind2sub(sheetSize,i);
+    if isscalar(sheetSize)
+        subs = {i};
+    else
+        [subs{:}] = ind2sub(sheetSize,i);
+    end
 
     % x and y may be singleton along sheet dimensions
     subsx = subs;
@@ -63,7 +67,7 @@ for i = 1:prod(sheetSize)
     else
         out(:,subs{:}) = interp2( ...
             xi,yi,Fi, ...
-            Xprobe(:,1),Xprobe(:,2),method);
+            Xprobe(:,1),Xprobe(:,2),method, NaN);
     end
 
     if isa(Fin,"DesignVariable")
@@ -76,7 +80,7 @@ for i = 1:prod(sheetSize)
             else
                 outJac(:,subs{:},j) = interp2( ...
                     xi,yi,Jacij, ...
-                    Xprobe(:,1),Xprobe(:,2),method);
+                    Xprobe(:,1),Xprobe(:,2),method, NaN);
             end
         end
     end

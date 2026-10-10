@@ -25,9 +25,9 @@ Df = exp(get_val(lnkf)-get_val(lnCf)); % mm^2/s
 Ds = exp(get_val(lnks)-get_val(lnCs)); % mm^2/s
 Lthf = sqrt(reshape(Df,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
 Lths = sqrt(reshape(Ds,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
-x_max = max(200, max(Lthf, Lths));
+x_max = max(100, 2*Lths);
 
-Nx = 2^9;
+Nx = 160;
 
 xprobe = linspace(0,30,101);
 Xprobe = [xprobe(:), xprobe(:)];
