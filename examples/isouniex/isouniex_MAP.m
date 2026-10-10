@@ -179,7 +179,7 @@ if max(abs(grad)) > 1 || exitflag < 1
     else
         options.Algorithm = "interior-point";
     end
-    isoisoex_MAP(trialNum, x, options)
+    isouniex_MAP(trialNum, x, options)
 end
 end
 

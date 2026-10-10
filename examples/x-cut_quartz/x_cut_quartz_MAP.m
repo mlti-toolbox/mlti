@@ -79,7 +79,7 @@ if max(abs(grad)) > 1 || exitflag < 1
     else
         options.Algorithm = "interior-point";
     end
-    isoisoex_MAP(x, options)
+    x_cut_quartz_MAP(x, options)
 end
 end
 
