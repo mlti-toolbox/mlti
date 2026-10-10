@@ -177,7 +177,9 @@ save(fullfile(resultsDir, "isouniex_MAP_results_" ...
     "exitflag", "output", "lambda", "grad", "hessian", "constraint_err" ...
 );
 
-if max(abs(grad)) > 1 || exitflag < 1
+%% TODO add in HessM and gradM
+
+if exitflag < 1
     if options.Algorithm == "interior-point"
         options.Algorithm = "sqp";
     else

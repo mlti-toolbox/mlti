@@ -75,7 +75,9 @@ save(fullfile(resultsDir, "x-cut_quartz_MAP_results.mat"), ...
     "exitflag", "output", "lambda", "grad", "hessian", "constraint_err" ...
 );
 
-if max(abs(grad)) > 1 || exitflag < 1
+%% TODO add in HessM and gradM
+
+if exitflag < 1
     if options.Algorithm == "interior-point"
         options.Algorithm = "sqp";
     else
