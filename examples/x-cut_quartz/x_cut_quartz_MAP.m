@@ -125,16 +125,16 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks_perp, lnks_par, lnCs, lnkappa
     psi_lnkf = nln(lnkf, mu_lnkf, sigma_lnkf);
     
     % Ψ(lnCf)
-    psi_lnCf = nl_mvn_cov(lnCf, mu_lnCf, sigma_lnCf);
+    psi_lnCf = nln(lnCf, mu_lnCf, sigma_lnCf);
     
     % Ψ(lnks_perp)
-    psi_lnks_perp = nl_mvn_cov(lnks_perp, mu_lnks_perp, sigma_lnks_perp);
+    psi_lnks_perp = nln(lnks_perp, mu_lnks_perp, sigma_lnks_perp);
 
     % Ψ(lnks_par)
-    psi_lnks_par = nl_mvn_cov(lnks_par, mu_lnks_par, sigma_lnks_par);
+    psi_lnks_par = nln(lnks_par, mu_lnks_par, sigma_lnks_par);
     
     % Ψ(lnCs)
-    psi_lnCs = nl_mvn_cov(lnCs, mu_lnCs, sigma_lnCs);
+    psi_lnCs = nln(lnCs, mu_lnCs, sigma_lnCs);
     
     % Ψ(lnhf)
     psi_lnhf = nln(lnhf, mu_lnhf, sigma_lnhf);

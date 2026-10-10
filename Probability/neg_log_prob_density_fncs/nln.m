@@ -1,4 +1,4 @@
-function [psi,Jac] = nln(xi,mui,sigmai, doSum)
+function psi = nln(xi,mui,sigmai, doSum)
 arguments
     xi 
     mui 

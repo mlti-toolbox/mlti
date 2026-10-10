@@ -1,4 +1,4 @@
-function [psi, Jac] = nll_log_amp(lnA_obsi, lnA_predi, sigmaTi, sigmaDi, doSum)
+function psi = nll_log_amp(lnA_obsi, lnA_predi, sigmaTi, sigmaDi, doSum)
 arguments
     lnA_obsi 
     lnA_predi 
@@ -31,21 +31,24 @@ if doSum
     psi = sum(psi, "all");
 end
 % --- gradients ---
-if nargout > 1
-    grad_x = diff .* inv_sigma2;
 
-    grad_sigma = inv_sigma - (diff.^2) .* (inv_sigma.^3);
+grad_x = diff .* inv_sigma2;
 
-    grad_sigma_inv_sigma = grad_sigma .* inv_sigma;
+grad_sigma = inv_sigma - (diff.^2) .* (inv_sigma.^3);
 
-    Jac = zeros(numel(psi), 0);
-    Jac = addGradient(Jac, lnA_obsi,      @()  grad_x);
-    Jac = addGradient(Jac, lnA_predi,     @() -grad_x);
-    Jac = addGradient(Jac, sigmaTi, @()  grad_sigma_inv_sigma .* sigmaT);
-    Jac = addGradient(Jac, sigmaDi, @()  grad_sigma_inv_sigma .* sigmaD);
+grad_sigma_inv_sigma = grad_sigma .* inv_sigma;
 
-    if doSum
-        Jac = sum(Jac, 1);
-    end
+Jac = zeros(numel(psi), 0);
+Jac = addGradient(Jac, lnA_obsi,      @()  grad_x);
+Jac = addGradient(Jac, lnA_predi,     @() -grad_x);
+Jac = addGradient(Jac, sigmaTi, @()  grad_sigma_inv_sigma .* sigmaT);
+Jac = addGradient(Jac, sigmaDi, @()  grad_sigma_inv_sigma .* sigmaD);
+
+if doSum
+    Jac = sum(Jac, 1);
+end
+
+if ~isempty(Jac)
+    psi = DesignVariable(psi, [], size(Jac,2), Jac);
 end
 end

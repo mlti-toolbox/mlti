@@ -1,4 +1,4 @@
-function [psi, Jac] = nl_mvn_prec(xi, mui, Preci)
+function psi = nl_mvn_prec(xi, mui, Preci)
 
 x    = get_val(xi);
 mu   = get_val(mui);
@@ -41,7 +41,7 @@ logdetPrec = 2 * sum(log(diag(L)));
 % --- Negative log density ---
 psi = 0.5 * (mahal - logdetPrec + n*log(2*pi));
 
-if nargout > 1
+
     Jac = zeros(numel(psi),0);
 
     % d psi / d x
@@ -54,6 +54,9 @@ if nargout > 1
 
     % d psi / d Prec
     Jac = combineJacobians(Jac, Preci, @get_jac_P);
+
+if ~isempty(Jac)
+    psi = DesignVariable(psi, [], size(Jac,2), Jac);
 end
 
 function JPrec = get_jac_P()
