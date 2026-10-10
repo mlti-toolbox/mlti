@@ -216,7 +216,7 @@ function psi = nl_posterior(lnkf, lnCf, lnhf, lnks, lnCs, lnkappaT, lnell, data)
     Ds = exp(get_val(lnks)-get_val(lnCs)); % mm^2/s
     Lthf = sqrt(reshape(Df,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
     Lths = sqrt(reshape(Ds,1,1,[]) ./ pi ./ reshape(f,1,1,1,1,[])); % um
-    x_max = max(10*max(sqrt(sum(Xprobe.^2, 2))), max(Lthf, Lths));
+    x_max = max(10*max(sqrt(sum(Xprobe.^2, 2))), Lths);
 
     %% LIKELIHOOD
     % Ψ(ϕ|x)
