@@ -4,7 +4,7 @@ if nargin < 3 || isempty(options)
         SpecifyObjectiveGradient=true, ...
         FiniteDifferenceType="central", ...
         StepTolerance=1e-10, FunctionTolerance=1e-10, ...
-        MaxFunctionEvaluations=500);
+        MaxFunctionEvaluations=100, Algorithm="trust-region", MaxIterations=10);
 end
 data = load("isoisoex_data_stats.mat");
 data.kappa_mu = data.kappa_mu{trialNum};
@@ -150,8 +150,10 @@ save(fullfile(resultsDir, "isoisoex_MAP_results_" ...
 if min(eig(hessian)) < 0 || max(abs(grad)) > 1 || exitflag < 1
     if options.Algorithm == "trust-region"
         options.Algorithm = "quasi-newton";
+        options.MaxIterations=100;
     else
         options.Algorithm = "trust-region";
+        options.MaxIterations=10;
     end
     isoisoex_MAP(trialNum, x, options)
 end

@@ -128,7 +128,7 @@ if nargin < 3 || isempty(options)
         SpecifyConstraintGradient=true, ...
         FiniteDifferenceType="central", ...
         StepTolerance=1e-10, FunctionTolerance=1e-10, ...
-        MaxFunctionEvaluations=500, Algorithm="interior-point");
+        MaxFunctionEvaluations=50, Algorithm="interior-point");
 end
 
 obj_fun = @(x, x_max) format4optim( ...
@@ -182,8 +182,10 @@ save(fullfile(resultsDir, "isouniex_MAP_results_" ...
 if exitflag < 1
     if options.Algorithm == "interior-point"
         options.Algorithm = "sqp";
+        options.MaxFunctionEvaluations=100;
     else
         options.Algorithm = "interior-point";
+        options.MaxFunctionEvaluations=50;
     end
     isouniex_MAP(trialNum, x, options)
 end
