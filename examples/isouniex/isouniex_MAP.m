@@ -132,7 +132,7 @@ if nargin < 3 || isempty(options)
         SpecifyConstraintGradient=true, ...
         FiniteDifferenceType="central", ...
         StepTolerance=1e-10, FunctionTolerance=1e-10, ...
-        MaxFunctionEvaluations=1000, Algorithm="sqp", InitTrustRegionRadius=1e-6);%,...
+        MaxFunctionEvaluations=500, Algorithm="sqp", InitTrustRegionRadius=1e-6);%,...
         % EnableFeasibilityMode=true, SubproblemAlgorithm="cg");
 end
 
@@ -176,7 +176,7 @@ lb_lnC = -0.387; ub_lnC = 2.01;
 lb_lnhf = -2.02; ub_lnhf = -1.84;
 lb_lnkappaT = -4.26; ub_lnkappaT = 10.7;
 lb_lnell = 0; ub_lnell = 10;
-lb_O = -2; ub_O = 2;
+lb_O = -5; ub_O = 5;
 N1s = ones(N,1);
 lb = [lb_lnk*N1s; lb_lnC*N1s; lb_lnhf; lb_lnk*[N1s;N1s]; lb_lnC*N1s; lb_lnkappaT; lb_lnell*ones(5,1); lb_O*ones(15,1)];
 ub = [ub_lnk*N1s; ub_lnC*N1s; ub_lnhf; ub_lnk*[N1s;N1s]; ub_lnC*N1s; ub_lnkappaT; ub_lnell*ones(5,1); ub_O*ones(15,1)];
@@ -238,8 +238,8 @@ save(fullfile(resultsDir, "isouniex_MAP_results_" ...
     "exitflag", "output", "lambda", "gradM", "hessM", "B", "constraint_err" ...
 );
 
-if ~isequal(x, x0) && (isnan(hessM) || min(eig(hessM)) < 0 || max(abs(gradM)) > 1 || exitflag < 1)
-    if exitflag < 1 || options.Algorithm == "interior-point"
+if ~isequal(x, x0) && (any(isnan(hessM)) || min(eig(hessM)) < 0 || max(abs(gradM)) > 1 || exitflag < 1)
+    if options.Algorithm == "interior-point"
         options.Algorithm = "sqp";
         options.MaxFunctionEvaluations=500;
     else
