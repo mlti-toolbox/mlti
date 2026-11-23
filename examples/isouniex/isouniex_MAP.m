@@ -217,7 +217,7 @@ else
     end
     gradM = B'*grad(:);
 
-    if max(abs(gradM)) > 1 && datetime('now') < datetime(2026, 11, 6, 8, 0, 0)
+    if max(abs(gradM)) > 1 && datetime('now') < datetime(2026, 11, 27, 8, 0, 0)
         hessM = NaN;
     else
         hessian = central_diff_hessian(@(x) obj_fun(x, x_max), x, 1e-4);
