@@ -90,8 +90,11 @@ else
     Hc(8:10,8:10) = 2*lam*eye(3);
 
     try
+        max(abs(Jc*B))
         assert(max(abs(Jc*B), [], "all") < 1e-8);
+        max(abs(B'*B-eye(52)))
         assert(max(abs(B'*B-eye(52)), [], "all") < 1e-8);
+        max(abs(lam+lambda.eqnonlin))
         assert(max(abs(lam+lambda.eqnonlin)) < 1e-8);
         disp("PASS")
     catch exception
@@ -99,7 +102,7 @@ else
     end
     gradM = B'*grad(:);
 
-    if max(abs(gradM)) > 1e-2 && datetime('now') < datetime(2026, 11, 27, 8, 0, 0)
+    if ~isequal(x, x0) && max(abs(gradM)) > 1e-2 && datetime('now') < datetime(2026, 11, 27, 8, 0, 0)
         hessM = NaN;
     else
         hessian = central_diff_hessian(@(x) obj_fun(x, x_max), x, 1e-4);
