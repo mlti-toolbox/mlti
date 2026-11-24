@@ -167,9 +167,9 @@ err = [];
 constraint_err = [];
 
 % normalize x0
-for i = 0:4
-    x0([43+i,48+i,53+i]) = x0([43+i,48+i,53+i])/norm(x0([43+i,48+i,53+i]));
-end
+% for i = 0:4
+%     x0([43+i,48+i,53+i]) = x0([43+i,48+i,53+i])/norm(x0([43+i,48+i,53+i]));
+% end
 
 lb_lnk = -1.51; ub_lnk = 6.93;
 lb_lnC = -0.387; ub_lnC = 2.01;

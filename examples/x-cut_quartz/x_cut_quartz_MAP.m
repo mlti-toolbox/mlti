@@ -30,7 +30,7 @@ if nargin < 1 || isempty(x0)
     x0 = [lnkf; lnCf; lnhf; lnks_perp; lnks_par; lnCs; lnkappaT; Os1; Os2; Os3];
 end
 
-x0(8:10) = x0(8:10) / norm(x0(8:10));
+% x0(8:10) = x0(8:10) / norm(x0(8:10));
 
 if nargin < 2 || isempty(options)
     options = optimoptions("fmincon", Display="iter-detailed", ...
