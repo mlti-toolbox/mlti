@@ -92,8 +92,8 @@ else
     try
         max(abs(Jc*B))
         assert(max(abs(Jc*B), [], "all") < 1e-8);
-        max(abs(B'*B-eye(52)))
-        assert(max(abs(B'*B-eye(52)), [], "all") < 1e-8);
+        max(abs(B'*B-eye(9)))
+        assert(max(abs(B'*B-eye(9)), [], "all") < 1e-8);
         max(abs(lam+lambda.eqnonlin))
         assert(max(abs(lam+lambda.eqnonlin)) < 1e-8);
         disp("PASS")
