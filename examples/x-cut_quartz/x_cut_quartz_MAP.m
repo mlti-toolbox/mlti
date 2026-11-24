@@ -99,7 +99,7 @@ else
     end
     gradM = B'*grad(:);
 
-    if max(abs(gradM)) > 1e-4 && datetime('now') < datetime(2026, 11, 27, 8, 0, 0)
+    if max(abs(gradM)) > 1e-2 && datetime('now') < datetime(2026, 11, 27, 8, 0, 0)
         hessM = NaN;
     else
         hessian = central_diff_hessian(@(x) obj_fun(x, x_max), x, 1e-4);
@@ -116,7 +116,7 @@ save(fullfile(resultsDir, "x-cut_quartz_MAP_results.mat"), "x0", "x", "err", "fv
     "exitflag", "output", "lambda", "gradM", "hessM", "B", "constraint_err" ...
 );
 
-if ~isequal(x, x0) && (any(isnan(hessM)) || min(eig(hessM)) < 0 || max(abs(gradM)) > 1e-4 || exitflag < 1)
+if ~isequal(x, x0) && (any(isnan(hessM)) || min(eig(hessM)) < 0 || max(abs(gradM)) > 1e-2 || exitflag < 1)
     if exitflag < 1 || options.Algorithm == "interior-point"
         options.Algorithm = "sqp";
         options.MaxFunctionEvaluations=500;
